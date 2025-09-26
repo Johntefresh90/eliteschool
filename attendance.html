@@ -1,0 +1,2542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracking - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --warning-orange: #f59e0b;
+            --late-purple: #8b5cf6;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Dashboard Stats */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .stat-card {
+            background: var(--dark-card);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-icon.present {
+            color: var(--success-green);
+        }
+
+        .stat-icon.absent {
+            color: var(--warning-red);
+        }
+
+        .stat-icon.late {
+            color: var(--late-purple);
+        }
+
+        .stat-icon.overall {
+            color: var(--secondary-gold);
+        }
+
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .stat-number {
+            color: var(--secondary-gold);
+        }
+
+        .stat-label {
+            color: var(--dark-grey);
+            font-weight: 500;
+        }
+
+        .dark-mode .stat-label {
+            color: var(--dark-text);
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            align-items: end;
+        }
+
+        .dark-mode .filter-controls {
+            background: var(--dark-card);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .filter-label {
+            color: var(--secondary-gold);
+        }
+
+        .filter-input {
+            padding: 0.8rem;
+            border: 2px solid var(--soft-grey);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--accent-white);
+            color: var(--text-dark);
+        }
+
+        .dark-mode .filter-input {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .filter-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        /* Attendance Calendar */
+        .attendance-calendar {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .attendance-calendar {
+            background: var(--dark-card);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .calendar-title {
+            color: var(--secondary-gold);
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .calendar-nav-btn {
+            background: var(--soft-grey);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .calendar-nav-btn {
+            background: var(--dark-bg);
+            color: var(--secondary-gold);
+        }
+
+        .calendar-nav-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: scale(1.1);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: var(--soft-grey);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .dark-mode .calendar-grid {
+            background: var(--dark-border);
+        }
+
+        .calendar-day-header {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day {
+            background: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .dark-mode .calendar-day {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .calendar-day:hover {
+            background: var(--soft-grey);
+        }
+
+        .dark-mode .calendar-day:hover {
+            background: var(--dark-bg);
+        }
+
+        .calendar-day.other-month {
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .attendance-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 4px;
+        }
+
+        .attendance-indicator.present {
+            background: var(--success-green);
+        }
+
+        .attendance-indicator.absent {
+            background: var(--warning-red);
+        }
+
+        .attendance-indicator.late {
+            background: var(--late-purple);
+        }
+
+        .attendance-indicator.partial {
+            background: var(--warning-orange);
+        }
+
+        /* Student Roster */
+        .student-roster {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .roster-main {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .roster-main {
+            background: var(--dark-card);
+        }
+
+        .roster-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .roster-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .roster-title {
+            color: var(--secondary-gold);
+        }
+
+        .roster-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            color: var(--primary-navy);
+            border: 2px solid var(--primary-navy);
+        }
+
+        .dark-mode .action-btn.secondary {
+            color: var(--secondary-gold);
+            border-color: var(--secondary-gold);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+        }
+
+        .student-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .student-item {
+            display: grid;
+            grid-template-columns: 60px 1fr auto auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--soft-grey);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dark-mode .student-item {
+            background: var(--dark-bg);
+        }
+
+        .student-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .student-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .student-info h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .dark-mode .student-info h4 {
+            color: var(--secondary-gold);
+        }
+
+        .student-details {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .student-details {
+            color: var(--dark-text);
+        }
+
+        .attendance-status {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .attendance-status.present {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success-green);
+        }
+
+        .attendance-status.absent {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--warning-red);
+        }
+
+        .attendance-status.late {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--late-purple);
+        }
+
+        .attendance-status.not-marked {
+            background: rgba(107, 114, 128, 0.2);
+            color: var(--dark-grey);
+        }
+
+        .mark-attendance {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .mark-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .mark-btn.present {
+            background: var(--success-green);
+            color: var(--accent-white);
+        }
+
+        .mark-btn.absent {
+            background: var(--warning-red);
+            color: var(--accent-white);
+        }
+
+        .mark-btn.late {
+            background: var(--late-purple);
+            color: var(--accent-white);
+        }
+
+        .mark-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Attendance Sidebar */
+        .attendance-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .attendance-summary {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .attendance-summary {
+            background: var(--dark-card);
+        }
+
+        .summary-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .dark-mode .summary-title {
+            color: var(--secondary-gold);
+        }
+
+        .summary-chart {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        .summary-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .attendance-tips {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .attendance-tips::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 50px 50px;
+            animation: float-pattern 15s linear infinite;
+        }
+
+        .tips-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tips-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .tips-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .tips-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .students-attendance-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .student-roster {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 2px;
+            }
+
+            .calendar-day {
+                min-height: 50px;
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .student-item {
+                grid-template-columns: 50px 1fr auto;
+                gap: 0.5rem;
+            }
+
+            .mark-attendance {
+                grid-column: 1 / -1;
+                justify-content: center;
+                margin-top: 0.5rem;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .dashboard-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .calendar-day {
+                min-height: 40px;
+                padding: 0.25rem;
+                font-size: 0.8rem;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>📊 Real-Time Attendance Tracking | ✅ Mark Attendance Instantly | 📅 Monthly Attendance Reports | 🔔 Automatic Absence Notifications | 📱 Mobile-Friendly Interface</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="schedules.html" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="assignments.html" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="online-classes.html" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="teacher-profiles.html" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link active">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item active">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#students">Students</a>
+            <span>></span>
+            <span>Attendance Tracking</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Attendance Tracking</h1>
+            <p class="page-subtitle">Real-Time Monitoring and Analytics for Academic Success</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Dashboard Stats -->
+            <section class="dashboard-stats scroll-reveal">
+                <div class="stat-card">
+                    <div class="stat-icon present">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <span class="stat-number" id="presentCount">142</span>
+                    <span class="stat-label">Present Today</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon absent">
+                        <i class="fas fa-user-times"></i>
+                    </div>
+                    <span class="stat-number" id="absentCount">8</span>
+                    <span class="stat-label">Absent Today</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon late">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                    <span class="stat-number" id="lateCount">5</span>
+                    <span class="stat-label">Late Arrivals</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon overall">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span class="stat-number" id="attendanceRate">94.2%</span>
+                    <span class="stat-label">Overall Rate</span>
+                </div>
+            </section>
+
+            <!-- Filter Controls -->
+            <section class="filter-controls scroll-reveal">
+                <div class="filter-group">
+                    <label class="filter-label">Select Date</label>
+                    <input type="date" class="filter-input" id="dateFilter" value="">
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Class/Grade</label>
+                    <select class="filter-input" id="classFilter">
+                        <option value="all">All Classes</option>
+                        <option value="grade-9">Grade 9</option>
+                        <option value="grade-10">Grade 10</option>
+                        <option value="grade-11">Grade 11</option>
+                        <option value="grade-12">Grade 12</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Subject</label>
+                    <select class="filter-input" id="subjectFilter">
+                        <option value="all">All Subjects</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="science">Science</option>
+                        <option value="english">English</option>
+                        <option value="history">History</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label">Search Student</label>
+                    <input type="text" class="filter-input" id="studentSearch" placeholder="Enter student name...">
+                </div>
+                
+                <div class="filter-group">
+                    <label class="filter-label" style="opacity: 0;">Apply</label>
+                    <button class="filter-btn" onclick="applyFilters()">
+                        <i class="fas fa-filter"></i> Apply Filters
+                    </button>
+                </div>
+            </section>
+
+            <!-- Attendance Calendar -->
+            <section class="attendance-calendar scroll-reveal">
+                <div class="calendar-header">
+                    <h3 class="calendar-title" id="calendarTitle">December 2024</h3>
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="calendar-nav-btn" onclick="goToToday()">
+                            <i class="fas fa-calendar-day"></i>
+                        </button>
+                        <button class="calendar-nav-btn" onclick="nextMonth()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Student Roster -->
+            <section class="student-roster scroll-reveal">
+                <div class="roster-main">
+                    <div class="roster-header">
+                        <h3 class="roster-title">Today's Attendance - Grade 10A</h3>
+                        <div class="roster-actions">
+                            <button class="action-btn" onclick="markAllPresent()">
+                                <i class="fas fa-check-double"></i> Mark All Present
+                            </button>
+                            <button class="action-btn secondary" onclick="exportAttendance()">
+                                <i class="fas fa-download"></i> Export Report
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="student-list" id="studentList">
+                        <!-- Students will be generated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="attendance-sidebar">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Students in classroom" class="students-attendance-image">
+                    
+                    <div class="attendance-summary">
+                        <h4 class="summary-title">Class Attendance Summary</h4>
+                        <div class="summary-chart">
+                            <canvas id="attendanceChart" class="chart-canvas"></canvas>
+                        </div>
+                        <div class="summary-legend">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: var(--success-green);"></div>
+                                <span>Present (89.5%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: var(--warning-red);"></div>
+                                <span>Absent (5.3%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: var(--late-purple);"></div>
+                                <span>Late (3.2%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: var(--warning-orange);"></div>
+                                <span>Partial (2.0%)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Students studying in library" class="students-attendance-image">
+                    
+                    <div class="attendance-tips">
+                        <div class="tips-content">
+                            <div class="tips-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4 class="tips-title">Attendance Tips</h4>
+                            <p class="tips-description">Regular attendance is crucial for academic success. Students with 95%+ attendance show 23% better performance in exams.</p>
+                        </div>
+                    </div>
+                    
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Students collaborating" class="students-attendance-image">
+                    
+                    <div class="attendance-tips">
+                        <div class="tips-content">
+                            <div class="tips-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h4 class="tips-title">Smart Notifications</h4>
+                            <p class="tips-description">Parents receive instant notifications for absences. Early intervention helps maintain consistent attendance patterns.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Attendance Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you with attendance tracking, generate reports, and answer questions about student attendance patterns. How can I assist you?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about attendance..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Sample student data
+        const studentsData = [
+            {
+                id: 1,
+                name: "Emma Watson",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1494790108755-2616c95a25e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "present",
+                rollNumber: "10A-001"
+            },
+            {
+                id: 2,
+                name: "James Rodriguez",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "late",
+                rollNumber: "10A-002"
+            },
+            {
+                id: 3,
+                name: "Sophia Chen",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "present",
+                rollNumber: "10A-003"
+            },
+            {
+                id: 4,
+                name: "Michael Johnson",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "absent",
+                rollNumber: "10A-004"
+            },
+            {
+                id: 5,
+                name: "Olivia Brown",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "present",
+                rollNumber: "10A-005"
+            },
+            {
+                id: 6,
+                name: "David Wilson",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "present",
+                rollNumber: "10A-006"
+            },
+            {
+                id: 7,
+                name: "Ava Martinez",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "not-marked",
+                rollNumber: "10A-007"
+            },
+            {
+                id: 8,
+                name: "Ethan Garcia",
+                grade: "Grade 10A",
+                photo: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+                status: "present",
+                rollNumber: "10A-008"
+            }
+        ];
+
+        // Calendar data
+        let currentDate = new Date();
+        let calendarDate = new Date();
+
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Calendar functions
+        function generateCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const title = document.getElementById('calendarTitle');
+            
+            const year = calendarDate.getFullYear();
+            const month = calendarDate.getMonth();
+            
+            title.textContent = calendarDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            
+            grid.innerHTML = '';
+            
+            // Add day headers
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            
+            // Add empty cells for previous month
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day other-month';
+                cell.innerHTML = `
+                    <span>${daysInPrevMonth - i}</span>
+                `;
+                grid.appendChild(cell);
+            }
+            
+            // Add days of current month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day';
+                
+                const cellDate = new Date(year, month, day);
+                const isToday = cellDate.toDateString() === currentDate.toDateString();
+                
+                if (isToday) {
+                    cell.classList.add('today');
+                }
+                
+                // Add random attendance indicators for demo
+                const attendanceType = getRandomAttendanceType();
+                
+                cell.innerHTML = `
+                    <span>${day}</span>
+                    <div class="attendance-indicator ${attendanceType}"></div>
+                `;
+                
+                cell.onclick = () => selectDate(cellDate);
+                grid.appendChild(cell);
+            }
+            
+            // Add remaining cells for next month
+            const totalCells = grid.children.length - 7; // Minus day headers
+            const remainingCells = 42 - totalCells; // 6 weeks * 7 days
+            
+            for (let day = 1; day <= remainingCells; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day other-month';
+                cell.innerHTML = `
+                    <span>${day}</span>
+                `;
+                grid.appendChild(cell);
+            }
+        }
+
+        function getRandomAttendanceType() {
+            const types = ['present', 'absent', 'late', 'partial'];
+            const weights = [0.85, 0.08, 0.05, 0.02]; // 85% present, 8% absent, 5% late, 2% partial
+            
+            const random = Math.random();
+            let cumulativeWeight = 0;
+            
+            for (let i = 0; i < types.length; i++) {
+                cumulativeWeight += weights[i];
+                if (random <= cumulativeWeight) {
+                    return types[i];
+                }
+            }
+            
+            return 'present';
+        }
+
+        function previousMonth() {
+            calendarDate.setMonth(calendarDate.getMonth() - 1);
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            calendarDate.setMonth(calendarDate.getMonth() + 1);
+            generateCalendar();
+        }
+
+        function goToToday() {
+            calendarDate = new Date();
+            generateCalendar();
+        }
+
+        function selectDate(date) {
+            showNotification(`Selected date: ${date.toLocaleDateString()}`);
+            updateDateFilter(date);
+        }
+
+        function updateDateFilter(date) {
+            const dateFilter = document.getElementById('dateFilter');
+            dateFilter.value = date.toISOString().split('T')[0];
+        }
+
+        // Student roster functions
+        function generateStudentList() {
+            const container = document.getElementById('studentList');
+            container.innerHTML = '';
+            
+            studentsData.forEach(student => {
+                const studentItem = document.createElement('div');
+                studentItem.className = 'student-item';
+                studentItem.dataset.studentId = student.id;
+                
+                studentItem.innerHTML = `
+                    <img src="${student.photo}" alt="${student.name}" class="student-photo">
+                    <div class="student-info">
+                        <h4>${student.name}</h4>
+                        <div class="student-details">${student.rollNumber} • ${student.grade}</div>
+                    </div>
+                    <div class="attendance-status ${student.status}">
+                        ${getStatusText(student.status)}
+                    </div>
+                    <div class="mark-attendance">
+                        <button class="mark-btn present" onclick="markAttendance(${student.id}, 'present')" title="Present">
+                            <i class="fas fa-check"></i>
+                        </button>
+                        <button class="mark-btn late" onclick="markAttendance(${student.id}, 'late')" title="Late">
+                            <i class="fas fa-clock"></i>
+                        </button>
+                        <button class="mark-btn absent" onclick="markAttendance(${student.id}, 'absent')" title="Absent">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(studentItem);
+            });
+        }
+
+        function getStatusText(status) {
+            switch (status) {
+                case 'present': return 'Present';
+                case 'absent': return 'Absent';
+                case 'late': return 'Late';
+                case 'not-marked': return 'Not Marked';
+                default: return 'Unknown';
+            }
+        }
+
+        function markAttendance(studentId, status) {
+            const student = studentsData.find(s => s.id === studentId);
+            if (student) {
+                student.status = status;
+                
+                // Update the student item in the UI
+                const studentItem = document.querySelector(`[data-student-id="${studentId}"]`);
+                const statusElement = studentItem.querySelector('.attendance-status');
+                statusElement.className = `attendance-status ${status}`;
+                statusElement.textContent = getStatusText(status);
+                
+                // Update statistics
+                updateAttendanceStats();
+                
+                showNotification(`${student.name} marked as ${getStatusText(status)}`);
+            }
+        }
+
+        function markAllPresent() {
+            studentsData.forEach(student => {
+                if (student.status === 'not-marked') {
+                    student.status = 'present';
+                }
+            });
+            
+            generateStudentList();
+            updateAttendanceStats();
+            showNotification('All unmarked students marked as present');
+        }
+
+        function updateAttendanceStats() {
+            const presentCount = studentsData.filter(s => s.status === 'present').length;
+            const absentCount = studentsData.filter(s => s.status === 'absent').length;
+            const lateCount = studentsData.filter(s => s.status === 'late').length;
+            const totalStudents = studentsData.length;
+            const attendanceRate = ((presentCount + lateCount) / totalStudents * 100).toFixed(1);
+            
+            document.getElementById('presentCount').textContent = presentCount;
+            document.getElementById('absentCount').textContent = absentCount;
+            document.getElementById('lateCount').textContent = lateCount;
+            document.getElementById('attendanceRate').textContent = `${attendanceRate}%`;
+        }
+
+        // Filter functions
+        function applyFilters() {
+            const dateFilter = document.getElementById('dateFilter').value;
+            const classFilter = document.getElementById('classFilter').value;
+            const subjectFilter = document.getElementById('subjectFilter').value;
+            const studentSearch = document.getElementById('studentSearch').value.toLowerCase();
+            
+            showNotification('Filters applied successfully');
+            
+            // Here you would typically filter the data and update the display
+            // For demo purposes, we'll just show the notification
+        }
+
+        function exportAttendance() {
+            // Simulate export functionality
+            showNotification('Attendance report exported successfully');
+            
+            // In a real application, this would generate and download a CSV/PDF file
+            const csvContent = generateCSVContent();
+            downloadCSV(csvContent, 'attendance_report.csv');
+        }
+
+        function generateCSVContent() {
+            let csv = 'Name,Roll Number,Grade,Status,Date\n';
+            const today = new Date().toLocaleDateString();
+            
+            studentsData.forEach(student => {
+                csv += `${student.name},${student.rollNumber},${student.grade},${getStatusText(student.status)},${today}\n`;
+            });
+            
+            return csv;
+        }
+
+        function downloadCSV(content, filename) {
+            const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', filename);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+
+        // Chart function
+        function drawAttendanceChart() {
+            const canvas = document.getElementById('attendanceChart');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = 100;
+            canvas.height = 100;
+            
+            // Data for the pie chart
+            const data = [
+                { label: 'Present', value: 89.5, color: '#10b981' },
+                { label: 'Absent', value: 5.3, color: '#ef4444' },
+                { label: 'Late', value: 3.2, color: '#8b5cf6' },
+                { label: 'Partial', value: 2.0, color: '#f59e0b' }
+            ];
+            
+            // Calculate angles
+            let currentAngle = -Math.PI / 2; // Start from top
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 40;
+            
+            // Draw pie slices
+            data.forEach(segment => {
+                const sliceAngle = (segment.value / 100) * 2 * Math.PI;
+                
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, currentAngle, currentAngle + sliceAngle);
+                ctx.closePath();
+                ctx.fillStyle = segment.color;
+                ctx.fill();
+                
+                currentAngle += sliceAngle;
+            });
+            
+            // Draw center circle for donut effect
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.6, 0, 2 * Math.PI);
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent-white');
+            ctx.fill();
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Attendance Tracking system. Please respond helpfully to this query: "${message}". We track student attendance with real-time monitoring, statistics showing 94.2% overall attendance rate, automatic notifications for absences, and comprehensive reporting. Help with attendance analysis, pattern recognition, generating reports, and providing insights about student attendance trends.`,
+                        {
+                            openChat: false,
+                            handler: 'attendance-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "I can help you track attendance, generate reports, and analyze attendance patterns. What specific information do you need?",
+                            "Our current attendance rate is 94.2% with 142 students present today. Would you like detailed analytics for any specific class or period?",
+                            "Attendance tracking shows consistent patterns. Students with 95%+ attendance perform 23% better in exams. Would you like to see individual student reports?",
+                            "I can generate attendance reports by date, class, or subject. The system automatically notifies parents of absences within 30 minutes.",
+                            "Today's statistics: 142 present, 8 absent, 5 late arrivals. Is there a specific student or time period you'd like to analyze?",
+                            "Regular attendance monitoring helps identify at-risk students early. Would you like me to flag students with concerning attendance patterns?",
+                            "The attendance calendar shows visual indicators for each day. You can click on any date to see detailed attendance records for that day."
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('track') || msg.includes('attendance') || msg.includes('monitor')) {
+                return responses[0];
+            } else if (msg.includes('rate') || msg.includes('statistics') || msg.includes('stats')) {
+                return responses[1];
+            } else if (msg.includes('pattern') || msg.includes('analysis') || msg.includes('performance')) {
+                return responses[2];
+            } else if (msg.includes('report') || msg.includes('export') || msg.includes('notification')) {
+                return responses[3];
+            } else if (msg.includes('today') || msg.includes('present') || msg.includes('absent')) {
+                return responses[4];
+            } else if (msg.includes('student') || msg.includes('risk') || msg.includes('flag')) {
+                return responses[5];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('attendance-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help with attendance tracking!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'info' ? 'var(--light-navy)' : 'var(--secondary-gold)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Set today's date in filter
+            const today = new Date();
+            document.getElementById('dateFilter').value = today.toISOString().split('T')[0];
+            
+            // Generate initial data
+            generateCalendar();
+            generateStudentList();
+            updateAttendanceStats();
+            drawAttendanceChart();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+
+            // Add real-time search functionality
+            const studentSearch = document.getElementById('studentSearch');
+            studentSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const studentItems = document.querySelectorAll('.student-item');
+                
+                studentItems.forEach(item => {
+                    const studentName = item.querySelector('h4').textContent.toLowerCase();
+                    const rollNumber = item.querySelector('.student-details').textContent.toLowerCase();
+                    
+                    if (studentName.includes(searchTerm) || rollNumber.includes(searchTerm)) {
+                        item.style.display = 'grid';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Auto-refresh attendance data every 30 seconds (in real app)
+        setInterval(() => {
+            // In a real application, this would fetch updated data from the server
+            console.log('Auto-refreshing attendance data...');
+        }, 30000);
+    </script>
+</body>
+</html>

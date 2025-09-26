@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson Plans & Schedules - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2022&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Quick Access Section */
+        .quick-access-section {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .dark-mode .quick-access-section {
+            background: var(--dark-card);
+        }
+
+        .quick-access-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .quick-access-content h3 {
+            color: var(--secondary-gold);
+        }
+
+        .quick-access-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-grey);
+            margin-bottom: 2rem;
+        }
+
+        .dark-mode .quick-access-content p {
+            color: var(--dark-text);
+        }
+
+        .quick-access-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .access-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .access-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        .access-btn.secondary {
+            background: transparent;
+            color: var(--primary-navy);
+            border: 2px solid var(--primary-navy);
+        }
+
+        .dark-mode .access-btn.secondary {
+            color: var(--secondary-gold);
+            border-color: var(--secondary-gold);
+        }
+
+        .access-btn.secondary:hover {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+        }
+
+        .quick-access-image {
+            position: relative;
+        }
+
+        .student-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .student-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(30, 58, 138, 0.9);
+            color: var(--accent-white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Schedule Navigation */
+        .schedule-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .schedule-tab {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .dark-mode .schedule-tab {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .schedule-tab.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .schedule-tab:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+
+        .schedule-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .schedule-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Daily Schedule */
+        .daily-schedule {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .dark-mode .daily-schedule {
+            background: var(--dark-card);
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .schedule-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .schedule-date {
+            color: var(--secondary-gold);
+        }
+
+        .date-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .date-control-btn {
+            background: var(--soft-grey);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .date-control-btn {
+            background: var(--dark-bg);
+            color: var(--secondary-gold);
+        }
+
+        .date-control-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: scale(1.1);
+        }
+
+        .time-slots {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .time-slot {
+            display: grid;
+            grid-template-columns: 150px 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 1rem;
+            background: var(--soft-grey);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .time-slot {
+            background: var(--dark-bg);
+        }
+
+        .time-slot:hover {
+            border-color: var(--secondary-gold);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .time-slot.current {
+            border-color: var(--success-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .slot-time {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            font-size: 1rem;
+        }
+
+        .dark-mode .slot-time {
+            color: var(--secondary-gold);
+        }
+
+        .slot-subject {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .dark-mode .slot-subject {
+            color: var(--dark-text);
+        }
+
+        .slot-teacher {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .slot-teacher {
+            color: var(--dark-text);
+        }
+
+        .slot-room {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Weekly Schedule */
+        .weekly-schedule {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .dark-mode .weekly-schedule {
+            background: var(--dark-card);
+        }
+
+        .week-grid {
+            display: grid;
+            grid-template-columns: 100px repeat(5, 1fr);
+            gap: 1px;
+            background: var(--soft-grey);
+            border-radius: 15px;
+            overflow: hidden;
+            min-width: 600px;
+        }
+
+        .dark-mode .week-grid {
+            background: var(--dark-border);
+        }
+
+        .week-header {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .week-time {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            padding: 0.8rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .week-slot {
+            background: var(--accent-white);
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 60px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dark-mode .week-slot {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .week-slot:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .week-slot.break {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .week-slot.break {
+            background: var(--dark-bg);
+        }
+
+        /* Lesson Plans Section */
+        .lesson-plans-section {
+            margin: 4rem 0;
+        }
+
+        .lesson-plans-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .lesson-plans-list {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .lesson-plans-list {
+            background: var(--dark-card);
+        }
+
+        .lesson-plans-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .lesson-plans-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .lesson-plans-title {
+            color: var(--secondary-gold);
+        }
+
+        .filter-dropdown {
+            background: var(--soft-grey);
+            border: 1px solid #ddd;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+
+        .dark-mode .filter-dropdown {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .lesson-plan-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--soft-grey);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .lesson-plan-item {
+            background: var(--dark-bg);
+        }
+
+        .lesson-plan-item:hover {
+            border-color: var(--secondary-gold);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .lesson-info h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .dark-mode .lesson-info h4 {
+            color: var(--secondary-gold);
+        }
+
+        .lesson-meta {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .lesson-meta {
+            color: var(--dark-text);
+        }
+
+        .lesson-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lesson-action-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .lesson-action-btn:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Study Tips Sidebar */
+        .study-tips-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .study-tip-card {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .study-tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 50px 50px;
+            animation: float-pattern 15s linear infinite;
+        }
+
+        .tip-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tip-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .tip-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .tip-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .students-studying-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            margin-bottom: 1rem;
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .quick-access-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .lesson-plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-header {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
+            }
+
+            .time-slot {
+                grid-template-columns: 120px 1fr auto;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .quick-access-section {
+                padding: 2rem;
+            }
+
+            .quick-access-buttons {
+                justify-content: center;
+            }
+
+            .schedule-nav {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+
+            .time-slot {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 0.5rem;
+            }
+
+            .slot-room {
+                align-self: center;
+            }
+
+            .lesson-plan-item {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+
+            .lesson-actions {
+                justify-content: center;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .quick-access-section,
+            .daily-schedule,
+            .weekly-schedule,
+            .lesson-plans-list {
+                padding: 1.5rem;
+            }
+
+            .week-grid {
+                grid-template-columns: 80px repeat(5, 1fr);
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>📅 Interactive Schedules Available 24/7 | 📋 Lesson Plans Updated Weekly | 📚 Download Study Materials Anytime | ⏰ Real-Time Schedule Changes | 🎯 Personalized Learning Paths</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link active">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="#schedules" class="dropdown-item active">Lesson Plans & Schedules</a>
+                        <a href="#assignments" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="#online-classes" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="#teacher-profiles" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#academics">Academics</a>
+            <span>></span>
+            <span>Lesson Plans & Schedules</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Lesson Plans & Schedules</h1>
+            <p class="page-subtitle">Organized Learning with Real-Time Updates and Interactive Planning</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Quick Access Section -->
+            <section class="quick-access-section scroll-reveal">
+                <div class="quick-access-content">
+                    <h3>Access Your Learning Journey</h3>
+                    <p>Stay organized with our comprehensive lesson planning and scheduling system. Access real-time updates, download materials, and manage your academic timeline from anywhere, anytime.</p>
+                    <div class="quick-access-buttons">
+                        <button class="access-btn" onclick="showScheduleContent('today')">Today's Schedule</button>
+                        <button class="access-btn secondary" onclick="downloadWeeklyPlan()">Download Weekly Plan</button>
+                        <button class="access-btn secondary" onclick="syncCalendar()">Sync Calendar</button>
+                    </div>
+                </div>
+                <div class="quick-access-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Students collaborating on study plans" class="student-image">
+                    <div class="image-overlay">Interactive Planning</div>
+                </div>
+            </section>
+
+            <!-- Schedule Navigation -->
+            <section class="schedule-section scroll-reveal">
+                <h2 class="section-title">Academic Schedules</h2>
+                
+                <div class="schedule-nav">
+                    <button class="schedule-tab active" onclick="showScheduleContent('daily')">Daily Schedule</button>
+                    <button class="schedule-tab" onclick="showScheduleContent('weekly')">Weekly Overview</button>
+                    <button class="schedule-tab" onclick="showScheduleContent('monthly')">Monthly Calendar</button>
+                    <button class="schedule-tab" onclick="showScheduleContent('exam')">Exam Schedule</button>
+                </div>
+
+                <!-- Daily Schedule Content -->
+                <div id="daily" class="schedule-content active">
+                    <div class="daily-schedule">
+                        <div class="schedule-header">
+                            <div class="schedule-date" id="currentDate">Monday, December 11, 2024</div>
+                            <div class="date-controls">
+                                <button class="date-control-btn" onclick="changeDate(-1)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="date-control-btn" onclick="goToToday()">
+                                    <i class="fas fa-calendar-day"></i>
+                                </button>
+                                <button class="date-control-btn" onclick="changeDate(1)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="time-slots">
+                            <div class="time-slot">
+                                <div class="slot-time">8:00 - 8:45 AM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">Mathematics</div>
+                                    <div class="slot-teacher">Mr. David Anderson</div>
+                                </div>
+                                <div class="slot-room">Room 101</div>
+                            </div>
+                            
+                            <div class="time-slot current">
+                                <div class="slot-time">8:50 - 9:35 AM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">Physics</div>
+                                    <div class="slot-teacher">Dr. Emily Johnson</div>
+                                </div>
+                                <div class="slot-room">Lab 3</div>
+                            </div>
+                            
+                            <div class="time-slot">
+                                <div class="slot-time">9:40 - 10:25 AM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">English Literature</div>
+                                    <div class="slot-teacher">Ms. Sarah Wilson</div>
+                                </div>
+                                <div class="slot-room">Room 205</div>
+                            </div>
+                            
+                            <div class="time-slot">
+                                <div class="slot-time">10:25 - 10:45 AM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">Break</div>
+                                    <div class="slot-teacher">-</div>
+                                </div>
+                                <div class="slot-room">Cafeteria</div>
+                            </div>
+                            
+                            <div class="time-slot">
+                                <div class="slot-time">10:45 - 11:30 AM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">Chemistry</div>
+                                    <div class="slot-teacher">Prof. Michael Brown</div>
+                                </div>
+                                <div class="slot-room">Lab 1</div>
+                            </div>
+                            
+                            <div class="time-slot">
+                                <div class="slot-time">11:35 AM - 12:20 PM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">History</div>
+                                    <div class="slot-teacher">Dr. Jennifer Adams</div>
+                                </div>
+                                <div class="slot-room">Room 301</div>
+                            </div>
+                            
+                            <div class="time-slot">
+                                <div class="slot-time">12:20 - 1:10 PM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">Lunch Break</div>
+                                    <div class="slot-teacher">-</div>
+                                </div>
+                                <div class="slot-room">Cafeteria</div>
+                            </div>
+                            
+                            <div class="time-slot">
+                                <div class="slot-time">1:10 - 1:55 PM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">Computer Science</div>
+                                    <div class="slot-teacher">Mr. Alex Turner</div>
+                                </div>
+                                <div class="slot-room">IT Lab</div>
+                            </div>
+                            
+                            <div class="time-slot">
+                                <div class="slot-time">2:00 - 2:45 PM</div>
+                                <div class="slot-details">
+                                    <div class="slot-subject">Physical Education</div>
+                                    <div class="slot-teacher">Coach Thompson</div>
+                                </div>
+                                <div class="slot-room">Gymnasium</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Schedule Content -->
+                <div id="weekly" class="schedule-content">
+                    <div class="weekly-schedule">
+                        <div class="week-grid">
+                            <div class="week-header">Time</div>
+                            <div class="week-header">Monday</div>
+                            <div class="week-header">Tuesday</div>
+                            <div class="week-header">Wednesday</div>
+                            <div class="week-header">Thursday</div>
+                            <div class="week-header">Friday</div>
+                            
+                            <div class="week-time">8:00-8:45</div>
+                            <div class="week-slot">Mathematics</div>
+                            <div class="week-slot">Physics</div>
+                            <div class="week-slot">Chemistry</div>
+                            <div class="week-slot">Mathematics</div>
+                            <div class="week-slot">Biology</div>
+                            
+                            <div class="week-time">8:50-9:35</div>
+                            <div class="week-slot">Physics</div>
+                            <div class="week-slot">English</div>
+                            <div class="week-slot">Mathematics</div>
+                            <div class="week-slot">Physics</div>
+                            <div class="week-slot">Computer Science</div>
+                            
+                            <div class="week-time">9:40-10:25</div>
+                            <div class="week-slot">English</div>
+                            <div class="week-slot">History</div>
+                            <div class="week-slot">English</div>
+                            <div class="week-slot">Chemistry</div>
+                            <div class="week-slot">Mathematics</div>
+                            
+                            <div class="week-time">10:25-10:45</div>
+                            <div class="week-slot break">Break</div>
+                            <div class="week-slot break">Break</div>
+                            <div class="week-slot break">Break</div>
+                            <div class="week-slot break">Break</div>
+                            <div class="week-slot break">Break</div>
+                            
+                            <div class="week-time">10:45-11:30</div>
+                            <div class="week-slot">Chemistry</div>
+                            <div class="week-slot">Mathematics</div>
+                            <div class="week-slot">Physics</div>
+                            <div class="week-slot">English</div>
+                            <div class="week-slot">History</div>
+                            
+                            <div class="week-time">11:35-12:20</div>
+                            <div class="week-slot">History</div>
+                            <div class="week-slot">Computer Science</div>
+                            <div class="week-slot">Biology</div>
+                            <div class="week-slot">Art</div>
+                            <div class="week-slot">Physics</div>
+                            
+                            <div class="week-time">12:20-1:10</div>
+                            <div class="week-slot break">Lunch</div>
+                            <div class="week-slot break">Lunch</div>
+                            <div class="week-slot break">Lunch</div>
+                            <div class="week-slot break">Lunch</div>
+                            <div class="week-slot break">Lunch</div>
+                            
+                            <div class="week-time">1:10-1:55</div>
+                            <div class="week-slot">Computer Science</div>
+                            <div class="week-slot">Art</div>
+                            <div class="week-slot">Music</div>
+                            <div class="week-slot">Biology</div>
+                            <div class="week-slot">PE</div>
+                            
+                            <div class="week-time">2:00-2:45</div>
+                            <div class="week-slot">PE</div>
+                            <div class="week-slot">Music</div>
+                            <div class="week-slot">PE</div>
+                            <div class="week-slot">Music</div>
+                            <div class="week-slot">Art</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Monthly Calendar Content -->
+                <div id="monthly" class="schedule-content">
+                    <div style="text-align: center; padding: 3rem; background: var(--accent-white); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <i class="fas fa-calendar-alt" style="font-size: 3rem; color: var(--secondary-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="font-family: 'Montserrat', sans-serif; color: var(--primary-navy); margin-bottom: 1rem;">Monthly Calendar</h3>
+                        <p style="color: var(--dark-grey); margin-bottom: 2rem;">Interactive monthly calendar with assignments, exams, and events.</p>
+                        <button class="access-btn" onclick="openCalendarApp()">Open Full Calendar</button>
+                    </div>
+                </div>
+
+                <!-- Exam Schedule Content -->
+                <div id="exam" class="schedule-content">
+                    <div style="text-align: center; padding: 3rem; background: var(--accent-white); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <i class="fas fa-graduation-cap" style="font-size: 3rem; color: var(--secondary-gold); margin-bottom: 1rem;"></i>
+                        <h3 style="font-family: 'Montserrat', sans-serif; color: var(--primary-navy); margin-bottom: 1rem;">Examination Schedule</h3>
+                        <p style="color: var(--dark-grey); margin-bottom: 2rem;">Detailed exam timetable with preparation guidelines and important dates.</p>
+                        <button class="access-btn" onclick="viewExamSchedule()">View Exam Dates</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lesson Plans Section -->
+            <section class="lesson-plans-section scroll-reveal">
+                <h2 class="section-title">Lesson Plans & Resources</h2>
+                
+                <div class="lesson-plans-grid">
+                    <div class="lesson-plans-list">
+                        <div class="lesson-plans-header">
+                            <h3 class="lesson-plans-title">Available Lesson Plans</h3>
+                            <select class="filter-dropdown" onchange="filterLessonPlans(this.value)">
+                                <option value="all">All Subjects</option>
+                                <option value="mathematics">Mathematics</option>
+                                <option value="science">Science</option>
+                                <option value="english">English</option>
+                                <option value="history">History</option>
+                                <option value="computer">Computer Science</option>
+                            </select>
+                        </div>
+                        
+                        <div class="lesson-plan-item" data-subject="mathematics">
+                            <div class="lesson-info">
+                                <h4>Quadratic Equations</h4>
+                                <div class="lesson-meta">Mathematics • Mr. Anderson • Week 12</div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="lesson-action-btn" onclick="viewLessonPlan('quad-equations')" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="lesson-action-btn" onclick="downloadLessonPlan('quad-equations')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-plan-item" data-subject="science">
+                            <div class="lesson-info">
+                                <h4>Chemical Bonding</h4>
+                                <div class="lesson-meta">Chemistry • Prof. Brown • Week 11</div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="lesson-action-btn" onclick="viewLessonPlan('chemical-bonding')" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="lesson-action-btn" onclick="downloadLessonPlan('chemical-bonding')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-plan-item" data-subject="english">
+                            <div class="lesson-info">
+                                <h4>Shakespeare's Hamlet</h4>
+                                <div class="lesson-meta">English Literature • Ms. Wilson • Week 10</div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="lesson-action-btn" onclick="viewLessonPlan('hamlet')" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="lesson-action-btn" onclick="downloadLessonPlan('hamlet')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-plan-item" data-subject="science">
+                            <div class="lesson-info">
+                                <h4>Laws of Motion</h4>
+                                <div class="lesson-meta">Physics • Dr. Johnson • Week 12</div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="lesson-action-btn" onclick="viewLessonPlan('motion-laws')" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="lesson-action-btn" onclick="downloadLessonPlan('motion-laws')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-plan-item" data-subject="history">
+                            <div class="lesson-info">
+                                <h4>World War II Impact</h4>
+                                <div class="lesson-meta">History • Dr. Adams • Week 9</div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="lesson-action-btn" onclick="viewLessonPlan('wwii-impact')" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="lesson-action-btn" onclick="downloadLessonPlan('wwii-impact')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="lesson-plan-item" data-subject="computer">
+                            <div class="lesson-info">
+                                <h4>Object-Oriented Programming</h4>
+                                <div class="lesson-meta">Computer Science • Mr. Turner • Week 11</div>
+                            </div>
+                            <div class="lesson-actions">
+                                <button class="lesson-action-btn" onclick="viewLessonPlan('oop-concepts')" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="lesson-action-btn" onclick="downloadLessonPlan('oop-concepts')" title="Download">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="study-tips-sidebar">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Students studying together in library" class="students-studying-image">
+                        
+                        <div class="study-tip-card">
+                            <div class="tip-content">
+                                <div class="tip-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <h4 class="tip-title">Time Management</h4>
+                                <p class="tip-description">Use our schedule planner to organize your study time effectively. Set reminders for assignments and deadlines.</p>
+                            </div>
+                        </div>
+                        
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Students collaborating on projects" class="students-studying-image">
+                        
+                        <div class="study-tip-card">
+                            <div class="tip-content">
+                                <div class="tip-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4 class="tip-title">Study Groups</h4>
+                                <p class="tip-description">Form study groups with classmates. Collaborative learning enhances understanding and retention.</p>
+                            </div>
+                        </div>
+                        
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Student taking notes and studying" class="students-studying-image">
+                        
+                        <div class="study-tip-card">
+                            <div class="tip-content">
+                                <div class="tip-icon">
+                                    <i class="fas fa-bookmark"></i>
+                                </div>
+                                <h4 class="tip-title">Active Learning</h4>
+                                <p class="tip-description">Take detailed notes, ask questions, and review lesson plans before each class for better comprehension.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Schedule Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you with lesson plans, schedules, and academic planning. What would you like to know?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about schedules..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Schedule functionality
+        let currentDateIndex = 0;
+        const dates = [
+            'Sunday, December 10, 2024',
+            'Monday, December 11, 2024',
+            'Tuesday, December 12, 2024',
+            'Wednesday, December 13, 2024',
+            'Thursday, December 14, 2024',
+            'Friday, December 15, 2024',
+            'Saturday, December 16, 2024'
+        ];
+
+        function showScheduleContent(type) {
+            // Remove active class from all tabs and content
+            const tabs = document.querySelectorAll('.schedule-tab');
+            const contents = document.querySelectorAll('.schedule-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            event.target.classList.add('active');
+            document.getElementById(type).classList.add('active');
+        }
+
+        function changeDate(direction) {
+            currentDateIndex += direction;
+            if (currentDateIndex < 0) currentDateIndex = dates.length - 1;
+            if (currentDateIndex >= dates.length) currentDateIndex = 0;
+            
+            document.getElementById('currentDate').textContent = dates[currentDateIndex];
+        }
+
+        function goToToday() {
+            currentDateIndex = 1; // Monday is the default "today"
+            document.getElementById('currentDate').textContent = dates[currentDateIndex];
+        }
+
+        function downloadWeeklyPlan() {
+            // Simulate file download
+            const link = document.createElement('a');
+            link.href = 'data:text/plain;charset=utf-8,Weekly Plan - Elite Academy\n\nThis is a sample weekly plan download.';
+            link.download = 'weekly-plan.txt';
+            link.click();
+            showNotification('Weekly plan downloaded successfully!');
+        }
+
+        function syncCalendar() {
+            showNotification('Calendar sync initiated. Check your email for confirmation.');
+        }
+
+        function openCalendarApp() {
+            showNotification('Opening full calendar application...');
+        }
+
+        function viewExamSchedule() {
+            showNotification('Loading examination schedule...');
+        }
+
+        // Lesson plan functions
+        function filterLessonPlans(subject) {
+            const items = document.querySelectorAll('.lesson-plan-item');
+            items.forEach(item => {
+                if (subject === 'all' || item.dataset.subject === subject) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function viewLessonPlan(planId) {
+            showNotification(`Opening lesson plan: ${planId}`);
+        }
+
+        function downloadLessonPlan(planId) {
+            showNotification(`Downloading lesson plan: ${planId}`);
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Thinking...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Lesson Plans & Schedules page. Please respond helpfully to this query: "${message}". We offer interactive daily/weekly schedules, downloadable lesson plans, real-time updates, calendar sync, and study planning tools. Our classes run from 8:00 AM to 2:45 PM with subjects like Mathematics, Physics, Chemistry, English, History, Computer Science, and more. Keep responses concise and helpful about scheduling and lesson planning.`,
+                        {
+                            openChat: false,
+                            handler: 'schedule-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "Our daily schedule runs from 8:00 AM to 2:45 PM with interactive timetables available 24/7.",
+                            "You can download lesson plans, sync calendars, and access real-time schedule updates through our portal.",
+                            "We offer daily, weekly, monthly, and exam schedule views with detailed teacher and room information.",
+                            "Study tips include time management, forming study groups, and active learning with detailed note-taking.",
+                            "Lesson plans are updated weekly and include materials for Mathematics, Science, English, History, and Computer Science.",
+                            "You can filter lesson plans by subject and download them for offline access.",
+                            "Would you like help with a specific schedule or lesson plan?"
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('schedule') || msg.includes('time') || msg.includes('daily')) {
+                return responses[0];
+            } else if (msg.includes('download') || msg.includes('sync') || msg.includes('calendar')) {
+                return responses[1];
+            } else if (msg.includes('weekly') || msg.includes('monthly') || msg.includes('exam')) {
+                return responses[2];
+            } else if (msg.includes('study') || msg.includes('tip') || msg.includes('help')) {
+                return responses[3];
+            } else if (msg.includes('lesson') || msg.includes('plan') || msg.includes('material')) {
+                return responses[4];
+            } else if (msg.includes('subject') || msg.includes('filter')) {
+                return responses[5];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('schedule-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help you with schedules and lesson planning!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : 'var(--secondary-gold)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

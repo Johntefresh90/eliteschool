@@ -1,0 +1,2522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachers' Profiles - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Join Our Team Section */
+        .join-team-section {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .join-team-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        .join-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .join-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .join-description {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .apply-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .apply-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dark-mode .filter-section {
+            background: var(--dark-card);
+        }
+
+        .filter-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .filter-label {
+            color: var(--secondary-gold);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .dark-mode .filter-btn {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .filter-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+
+        /* Teachers Grid */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .teacher-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .teacher-card {
+            background: var(--dark-card);
+        }
+
+        .teacher-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .teacher-card:hover::before {
+            left: 100%;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .teacher-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            display: block;
+            border: 4px solid var(--secondary-gold);
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover .teacher-photo {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+        }
+
+        .teacher-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .teacher-name {
+            color: var(--secondary-gold);
+        }
+
+        .teacher-title {
+            color: var(--secondary-gold);
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .teacher-subjects {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .subject-tag {
+            background: var(--soft-grey);
+            color: var(--primary-navy);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .dark-mode .subject-tag {
+            background: var(--dark-bg);
+            color: var(--secondary-gold);
+        }
+
+        .teacher-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .info-item {
+            color: var(--dark-text);
+        }
+
+        .info-icon {
+            color: var(--secondary-gold);
+            width: 16px;
+        }
+
+        .teacher-bio {
+            color: var(--dark-grey);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .dark-mode .teacher-bio {
+            color: var(--dark-text);
+        }
+
+        .teacher-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .action-btn.primary {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+        }
+
+        .action-btn.primary:hover {
+            background: var(--light-navy);
+            transform: scale(1.05);
+        }
+
+        .action-btn.secondary {
+            background: var(--soft-grey);
+            color: var(--primary-navy);
+            border: 1px solid var(--primary-navy);
+        }
+
+        .dark-mode .action-btn.secondary {
+            background: var(--dark-bg);
+            color: var(--secondary-gold);
+            border-color: var(--secondary-gold);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        /* Department Showcase */
+        .department-showcase {
+            margin: 4rem 0;
+        }
+
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .department-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .department-card {
+            background: var(--dark-card);
+        }
+
+        .department-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.2);
+        }
+
+        .department-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-navy), var(--light-navy));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--secondary-gold);
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .department-card:hover .department-icon {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            color: var(--primary-navy);
+        }
+
+        .department-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .department-name {
+            color: var(--secondary-gold);
+        }
+
+        .department-teachers {
+            color: var(--dark-grey);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .department-teachers {
+            color: var(--dark-text);
+        }
+
+        .department-description {
+            color: var(--dark-grey);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .dark-mode .department-description {
+            color: var(--dark-text);
+        }
+
+        /* Teacher Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--accent-white);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s ease;
+        }
+
+        .dark-mode .modal-content {
+            background: var(--dark-card);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 2rem;
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--accent-white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--secondary-gold);
+            transform: scale(1.1);
+        }
+
+        .modal-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .modal-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dark-mode .modal-section h3 {
+            color: var(--secondary-gold);
+        }
+
+        .qualification-item {
+            background: var(--soft-grey);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .qualification-item {
+            background: var(--dark-bg);
+        }
+
+        .qualification-degree {
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .qualification-degree {
+            color: var(--secondary-gold);
+        }
+
+        .qualification-school {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .qualification-school {
+            color: var(--dark-text);
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .teachers-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .filter-section {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .join-title {
+                font-size: 2rem;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .department-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .join-team-section {
+                padding: 2rem 1rem;
+            }
+
+            .teacher-card {
+                padding: 1.5rem;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>👩‍🏫 Meet Our Expert Faculty | 🎓 Apply to Join Our Teaching Team | 📧 Schedule a Meeting with Teachers | 🌟 Professional Development Opportunities | 📝 Teacher Application Form Available</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="schedules.html" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="assignments.html" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="online-classes.html" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link active">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="#teacher-profiles" class="dropdown-item active">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#teachers">Teachers</a>
+            <span>></span>
+            <span>Teacher Profiles</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Our Expert Faculty</h1>
+            <p class="page-subtitle">Meet the Dedicated Educators Shaping Tomorrow's Leaders</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Join Our Team Section -->
+            <section class="join-team-section scroll-reveal">
+                <div class="join-content">
+                    <h2 class="join-title">Join Our Teaching Excellence Team</h2>
+                    <p class="join-description">
+                        We're looking for passionate educators who share our commitment to academic excellence and student success. 
+                        Join a community of dedicated professionals who are making a difference in education.
+                    </p>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScJ7k2xQ2X8ZOy4kH_UYxFWfGj3vN6rM5tL1wP9dS8bE2aQ7R/viewform" 
+                       target="_blank" class="apply-btn">
+                        <i class="fas fa-file-alt"></i> Apply Now - Teacher Application Form
+                    </a>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section scroll-reveal">
+                <div class="filter-label">Filter by Department:</div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterTeachers('all')">All Teachers</button>
+                    <button class="filter-btn" onclick="filterTeachers('mathematics')">Mathematics</button>
+                    <button class="filter-btn" onclick="filterTeachers('science')">Science</button>
+                    <button class="filter-btn" onclick="filterTeachers('english')">English</button>
+                    <button class="filter-btn" onclick="filterTeachers('history')">History</button>
+                    <button class="filter-btn" onclick="filterTeachers('arts')">Arts</button>
+                    <button class="filter-btn" onclick="filterTeachers('languages')">Languages</button>
+                </div>
+            </section>
+
+            <!-- Teachers Grid -->
+            <section class="teachers-section scroll-reveal">
+                <h2 class="section-title">Meet Our Faculty</h2>
+                
+                <div class="teachers-grid" id="teachersGrid">
+                    <!-- Mathematics Department -->
+                    <div class="teacher-card" data-department="mathematics" onclick="openTeacherModal('david-anderson')">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dr. David Anderson" class="teacher-photo">
+                        <h3 class="teacher-name">Dr. David Anderson</h3>
+                        <p class="teacher-title">Head of Mathematics Department</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">Calculus</span>
+                            <span class="subject-tag">Algebra</span>
+                            <span class="subject-tag">Statistics</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>Ph.D. Mathematics, MIT</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>15 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>Room 101</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Passionate about making complex mathematical concepts accessible to all students. Specializes in advanced calculus and mathematical modeling.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:d.anderson@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('david-anderson')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Science Department -->
+                    <div class="teacher-card" data-department="science" onclick="openTeacherModal('emily-johnson')">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dr. Emily Johnson" class="teacher-photo">
+                        <h3 class="teacher-name">Dr. Emily Johnson</h3>
+                        <p class="teacher-title">Physics & Chemistry Professor</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">Physics</span>
+                            <span class="subject-tag">Chemistry</span>
+                            <span class="subject-tag">Laboratory</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>Ph.D. Physics, Stanford</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>12 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>Lab 3</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Expert in quantum physics and chemical engineering. Believes in hands-on learning through innovative laboratory experiments.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:e.johnson@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('emily-johnson')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- English Department -->
+                    <div class="teacher-card" data-department="english" onclick="openTeacherModal('sarah-wilson')">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616c95a25e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Ms. Sarah Wilson" class="teacher-photo">
+                        <h3 class="teacher-name">Ms. Sarah Wilson</h3>
+                        <p class="teacher-title">English Literature & Writing</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">Literature</span>
+                            <span class="subject-tag">Creative Writing</span>
+                            <span class="subject-tag">Essay Writing</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>M.A. English Literature, Oxford</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>10 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>Room 205</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Award-winning author and educator who inspires students to discover their unique voice through literature and creative expression.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:s.wilson@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('sarah-wilson')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Science Department -->
+                    <div class="teacher-card" data-department="science" onclick="openTeacherModal('michael-brown')">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Prof. Michael Brown" class="teacher-photo">
+                        <h3 class="teacher-name">Prof. Michael Brown</h3>
+                        <p class="teacher-title">Chemistry & Biochemistry</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">Chemistry</span>
+                            <span class="subject-tag">Biochemistry</span>
+                            <span class="subject-tag">Research</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>Ph.D. Chemistry, Harvard</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>18 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>Lab 1</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Leading researcher in biochemistry with numerous published papers. Guides students in advanced research projects and scientific innovation.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:m.brown@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('michael-brown')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- History Department -->
+                    <div class="teacher-card" data-department="history" onclick="openTeacherModal('jennifer-adams')">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dr. Jennifer Adams" class="teacher-photo">
+                        <h3 class="teacher-name">Dr. Jennifer Adams</h3>
+                        <p class="teacher-title">History & Social Studies</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">World History</span>
+                            <span class="subject-tag">Government</span>
+                            <span class="subject-tag">Geography</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>Ph.D. History, Columbia</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>14 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>Room 301</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Expert in global historical perspectives with a focus on contemporary world events. Makes history come alive through interactive storytelling.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:j.adams@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('jennifer-adams')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mathematics Department -->
+                    <div class="teacher-card" data-department="mathematics" onclick="openTeacherModal('alex-turner')">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mr. Alex Turner" class="teacher-photo">
+                        <h3 class="teacher-name">Mr. Alex Turner</h3>
+                        <p class="teacher-title">Computer Science & Technology</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">Programming</span>
+                            <span class="subject-tag">Web Development</span>
+                            <span class="subject-tag">AI & Machine Learning</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>M.S. Computer Science, Carnegie Mellon</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>8 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>IT Lab</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Former software engineer at Google, bringing real-world tech experience to the classroom. Passionate about AI education and coding bootcamps.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:a.turner@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('alex-turner')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Arts Department -->
+                    <div class="teacher-card" data-department="arts" onclick="openTeacherModal('maria-gonzalez')">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Ms. Maria Gonzalez" class="teacher-photo">
+                        <h3 class="teacher-name">Ms. Maria Gonzalez</h3>
+                        <p class="teacher-title">Visual Arts & Design</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">Painting</span>
+                            <span class="subject-tag">Digital Art</span>
+                            <span class="subject-tag">Art History</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>M.F.A. Visual Arts, RISD</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>11 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>Art Studio</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Professional artist and curator who has exhibited internationally. Helps students discover their artistic voice through various mediums and techniques.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:m.gonzalez@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('maria-gonzalez')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Languages Department -->
+                    <div class="teacher-card" data-department="languages" onclick="openTeacherModal('pierre-dubois')">
+                        <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671d66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Dr. Pierre Dubois" class="teacher-photo">
+                        <h3 class="teacher-name">Dr. Pierre Dubois</h3>
+                        <p class="teacher-title">Modern Languages</p>
+                        <div class="teacher-subjects">
+                            <span class="subject-tag">French</span>
+                            <span class="subject-tag">Spanish</span>
+                            <span class="subject-tag">Cultural Studies</span>
+                        </div>
+                        <div class="teacher-info">
+                            <div class="info-item">
+                                <i class="fas fa-graduation-cap info-icon"></i>
+                                <span>Ph.D. Linguistics, Sorbonne</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-calendar info-icon"></i>
+                                <span>16 years experience</span>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-map-marker-alt info-icon"></i>
+                                <span>Room 402</span>
+                            </div>
+                        </div>
+                        <p class="teacher-bio">Native French speaker and polyglot who has taught in five countries. Creates immersive language experiences that build cultural understanding.</p>
+                        <div class="teacher-actions">
+                            <a href="mailto:p.dubois@eliteacademy.edu" class="action-btn primary">
+                                <i class="fas fa-envelope"></i> Contact
+                            </a>
+                            <button class="action-btn secondary" onclick="event.stopPropagation(); scheduleOfficeHours('pierre-dubois')">
+                                <i class="fas fa-calendar-plus"></i> Office Hours
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Department Showcase -->
+            <section class="department-showcase scroll-reveal">
+                <h2 class="section-title">Our Academic Departments</h2>
+                
+                <div class="department-grid">
+                    <div class="department-card" onclick="filterTeachers('mathematics')">
+                        <div class="department-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="department-name">Mathematics</h3>
+                        <p class="department-teachers">3 Expert Faculty Members</p>
+                        <p class="department-description">Advanced mathematical concepts from algebra to calculus, statistics, and mathematical modeling with real-world applications.</p>
+                    </div>
+                    
+                    <div class="department-card" onclick="filterTeachers('science')">
+                        <div class="department-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h3 class="department-name">Science</h3>
+                        <p class="department-teachers">4 Expert Faculty Members</p>
+                        <p class="department-description">Comprehensive science education covering physics, chemistry, biology, and research methodology with state-of-the-art laboratories.</p>
+                    </div>
+                    
+                    <div class="department-card" onclick="filterTeachers('english')">
+                        <div class="department-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="department-name">English</h3>
+                        <p class="department-teachers">2 Expert Faculty Members</p>
+                        <p class="department-description">Literature analysis, creative writing, essay composition, and communication skills development for academic and professional success.</p>
+                    </div>
+                    
+                    <div class="department-card" onclick="filterTeachers('history')">
+                        <div class="department-icon">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h3 class="department-name">History & Social Studies</h3>
+                        <p class="department-teachers">2 Expert Faculty Members</p>
+                        <p class="department-description">World history, government systems, geography, and cultural studies with emphasis on critical thinking and global perspectives.</p>
+                    </div>
+                    
+                    <div class="department-card" onclick="filterTeachers('arts')">
+                        <div class="department-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="department-name">Arts</h3>
+                        <p class="department-teachers">3 Expert Faculty Members</p>
+                        <p class="department-description">Visual arts, music, theater, and digital design fostering creativity and artistic expression across multiple mediums.</p>
+                    </div>
+                    
+                    <div class="department-card" onclick="filterTeachers('languages')">
+                        <div class="department-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <h3 class="department-name">World Languages</h3>
+                        <p class="department-teachers">2 Expert Faculty Members</p>
+                        <p class="department-description">Modern foreign languages including French, Spanish, and cultural immersion programs for global communication skills.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Teacher Detail Modal -->
+    <div id="teacherModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-close" onclick="closeTeacherModal()">&times;</span>
+                <img id="modalPhoto" src="" alt="" class="modal-photo">
+                <h2 id="modalName" class="modal-name"></h2>
+                <p id="modalTitle" class="modal-title"></p>
+            </div>
+            <div class="modal-body">
+                <div class="modal-section">
+                    <h3><i class="fas fa-user"></i> About</h3>
+                    <p id="modalBio"></p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                    <div id="modalEducation"></div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-book"></i> Subjects Taught</h3>
+                    <div id="modalSubjects"></div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-clock"></i> Office Hours</h3>
+                    <p id="modalOfficeHours"></p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3><i class="fas fa-envelope"></i> Contact Information</h3>
+                    <p id="modalContact"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#academics">Academics</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Education Street, Learning City</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@eliteacademy.edu</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 8AM-5PM</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates</p>
+                <div class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email">
+                    <button class="newsletter-btn">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Elite Academy. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Faculty Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you learn about our faculty, schedule meetings, or answer questions about our teachers and departments. How can I assist you?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about our teachers..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Teacher data for modal
+        const teacherData = {
+            'david-anderson': {
+                name: 'Dr. David Anderson',
+                title: 'Head of Mathematics Department',
+                photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Dr. Anderson is a passionate mathematician with over 15 years of teaching experience. He specializes in making complex mathematical concepts accessible to students of all levels. His research focuses on applied mathematics and educational methodology. He has published numerous papers in peer-reviewed journals and regularly presents at international mathematics conferences.',
+                education: [
+                    { degree: 'Ph.D. in Mathematics', school: 'Massachusetts Institute of Technology', year: '2008' },
+                    { degree: 'M.S. in Applied Mathematics', school: 'Stanford University', year: '2005' },
+                    { degree: 'B.S. in Mathematics', school: 'UC Berkeley', year: '2003' }
+                ],
+                subjects: ['Advanced Calculus', 'Linear Algebra', 'Statistics', 'Mathematical Modeling', 'AP Mathematics'],
+                officeHours: 'Monday-Wednesday: 2:00-4:00 PM, Friday: 10:00 AM-12:00 PM',
+                contact: 'd.anderson@eliteacademy.edu | Room 101 | Ext. 2001'
+            },
+            'emily-johnson': {
+                name: 'Dr. Emily Johnson',
+                title: 'Physics & Chemistry Professor',
+                photo: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Dr. Johnson brings cutting-edge research experience to the classroom. Her expertise in quantum physics and chemical engineering provides students with real-world applications of scientific principles. She believes in hands-on learning and has designed innovative laboratory experiments that engage students in the scientific process.',
+                education: [
+                    { degree: 'Ph.D. in Physics', school: 'Stanford University', year: '2010' },
+                    { degree: 'M.S. in Chemical Engineering', school: 'MIT', year: '2007' },
+                    { degree: 'B.S. in Physics', school: 'Caltech', year: '2005' }
+                ],
+                subjects: ['Quantum Physics', 'Advanced Chemistry', 'Laboratory Methods', 'Research Methodology', 'AP Physics'],
+                officeHours: 'Tuesday-Thursday: 1:00-3:00 PM, Friday: 9:00-11:00 AM',
+                contact: 'e.johnson@eliteacademy.edu | Lab 3 | Ext. 2003'
+            },
+            'sarah-wilson': {
+                name: 'Ms. Sarah Wilson',
+                title: 'English Literature & Writing',
+                photo: 'https://images.unsplash.com/photo-1494790108755-2616c95a25e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Ms. Wilson is an accomplished author and educator who has published three novels and numerous short stories. Her teaching philosophy centers on helping students find their unique voice through literature and creative expression. She has won several teaching awards and is known for her innovative approaches to literary analysis.',
+                education: [
+                    { degree: 'M.A. in English Literature', school: 'Oxford University', year: '2012' },
+                    { degree: 'B.A. in Creative Writing', school: 'Columbia University', year: '2010' }
+                ],
+                subjects: ['British Literature', 'American Literature', 'Creative Writing', 'Essay Composition', 'AP English'],
+                officeHours: 'Monday, Wednesday, Friday: 11:00 AM-1:00 PM',
+                contact: 's.wilson@eliteacademy.edu | Room 205 | Ext. 2205'
+            },
+            'michael-brown': {
+                name: 'Prof. Michael Brown',
+                title: 'Chemistry & Biochemistry',
+                photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Professor Brown is a leading researcher in biochemistry with over 50 published papers in prestigious journals. He guides advanced students in research projects and has mentored several science fair winners. His laboratory is equipped with state-of-the-art equipment for protein analysis and molecular modeling.',
+                education: [
+                    { degree: 'Ph.D. in Chemistry', school: 'Harvard University', year: '2004' },
+                    { degree: 'M.S. in Biochemistry', school: 'Yale University', year: '2001' },
+                    { degree: 'B.S. in Chemistry', school: 'Princeton University', year: '1999' }
+                ],
+                subjects: ['Organic Chemistry', 'Biochemistry', 'Advanced Laboratory', 'Research Methods', 'AP Chemistry'],
+                officeHours: 'Monday-Friday: 3:00-5:00 PM (by appointment)',
+                contact: 'm.brown@eliteacademy.edu | Lab 1 | Ext. 2101'
+            },
+            'jennifer-adams': {
+                name: 'Dr. Jennifer Adams',
+                title: 'History & Social Studies',
+                photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Dr. Adams specializes in global historical perspectives and contemporary world events. She has traveled extensively and brings firsthand cultural experiences to her teaching. Her interactive approach to history education helps students understand the relevance of historical events to modern society.',
+                education: [
+                    { degree: 'Ph.D. in History', school: 'Columbia University', year: '2009' },
+                    { degree: 'M.A. in International Relations', school: 'Georgetown University', year: '2006' },
+                    { degree: 'B.A. in History', school: 'Harvard University', year: '2004' }
+                ],
+                subjects: ['World History', 'American History', 'Government', 'Geography', 'AP History'],
+                officeHours: 'Tuesday, Thursday: 2:00-4:00 PM, Friday: 10:00 AM-12:00 PM',
+                contact: 'j.adams@eliteacademy.edu | Room 301 | Ext. 2301'
+            },
+            'alex-turner': {
+                name: 'Mr. Alex Turner',
+                title: 'Computer Science & Technology',
+                photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Mr. Turner brings real-world industry experience to the classroom. As a former software engineer at Google, he provides students with practical programming skills and insights into the tech industry. He is passionate about AI education and runs coding bootcamps for advanced students.',
+                education: [
+                    { degree: 'M.S. in Computer Science', school: 'Carnegie Mellon University', year: '2014' },
+                    { degree: 'B.S. in Software Engineering', school: 'MIT', year: '2012' }
+                ],
+                subjects: ['Programming (Python, Java)', 'Web Development', 'AI & Machine Learning', 'Database Systems', 'AP Computer Science'],
+                officeHours: 'Monday, Wednesday: 3:00-5:00 PM, Saturday: 9:00 AM-12:00 PM',
+                contact: 'a.turner@eliteacademy.edu | IT Lab | Ext. 2401'
+            },
+            'maria-gonzalez': {
+                name: 'Ms. Maria Gonzalez',
+                title: 'Visual Arts & Design',
+                photo: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Ms. Gonzalez is a professional artist who has exhibited her work in galleries across the United States and Europe. She brings contemporary art practices into the classroom and encourages students to explore various artistic mediums while developing their personal artistic voice.',
+                education: [
+                    { degree: 'M.F.A. in Visual Arts', school: 'Rhode Island School of Design', year: '2011' },
+                    { degree: 'B.A. in Art History', school: 'UCLA', year: '2009' }
+                ],
+                subjects: ['Painting & Drawing', 'Digital Art & Design', 'Art History', 'Portfolio Development', 'AP Art'],
+                officeHours: 'Tuesday, Thursday: 1:00-3:00 PM, Friday: 2:00-4:00 PM',
+                contact: 'm.gonzalez@eliteacademy.edu | Art Studio | Ext. 2501'
+            },
+            'pierre-dubois': {
+                name: 'Dr. Pierre Dubois',
+                title: 'Modern Languages',
+                photo: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                bio: 'Dr. Dubois is a native French speaker and accomplished polyglot who has taught in five countries. He creates immersive language experiences that build both linguistic skills and cultural understanding. His students regularly achieve high scores on international language proficiency exams.',
+                education: [
+                    { degree: 'Ph.D. in Linguistics', school: 'Sorbonne University, Paris', year: '2006' },
+                    { degree: 'M.A. in Romance Languages', school: 'Universidad de Barcelona', year: '2003' },
+                    { degree: 'B.A. in French Literature', school: 'Sorbonne University', year: '2001' }
+                ],
+                subjects: ['French Language & Culture', 'Spanish Language & Culture', 'Linguistics', 'Cultural Studies', 'AP French'],
+                officeHours: 'Monday, Wednesday, Friday: 10:00 AM-12:00 PM',
+                contact: 'p.dubois@eliteacademy.edu | Room 402 | Ext. 2402'
+            }
+        };
+
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Filter teachers by department
+        function filterTeachers(department) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const teacherCards = document.querySelectorAll('.teacher-card');
+            
+            // Update active filter button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter teacher cards
+            teacherCards.forEach(card => {
+                if (department === 'all' || card.dataset.department === department) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Teacher modal functions
+        function openTeacherModal(teacherId) {
+            const teacher = teacherData[teacherId];
+            if (!teacher) return;
+            
+            const modal = document.getElementById('teacherModal');
+            
+            // Populate modal content
+            document.getElementById('modalPhoto').src = teacher.photo;
+            document.getElementById('modalPhoto').alt = teacher.name;
+            document.getElementById('modalName').textContent = teacher.name;
+            document.getElementById('modalTitle').textContent = teacher.title;
+            document.getElementById('modalBio').textContent = teacher.bio;
+            document.getElementById('modalOfficeHours').textContent = teacher.officeHours;
+            document.getElementById('modalContact').textContent = teacher.contact;
+            
+            // Populate education
+            const educationDiv = document.getElementById('modalEducation');
+            educationDiv.innerHTML = '';
+            teacher.education.forEach(edu => {
+                const eduItem = document.createElement('div');
+                eduItem.className = 'qualification-item';
+                eduItem.innerHTML = `
+                    <div class="qualification-degree">${edu.degree}</div>
+                    <div class="qualification-school">${edu.school} (${edu.year})</div>
+                `;
+                educationDiv.appendChild(eduItem);
+            });
+            
+            // Populate subjects
+            const subjectsDiv = document.getElementById('modalSubjects');
+            subjectsDiv.innerHTML = '';
+            teacher.subjects.forEach(subject => {
+                const subjectTag = document.createElement('span');
+                subjectTag.className = 'subject-tag';
+                subjectTag.style.margin = '0.25rem';
+                subjectTag.textContent = subject;
+                subjectsDiv.appendChild(subjectTag);
+            });
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeTeacherModal() {
+            const modal = document.getElementById('teacherModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function scheduleOfficeHours(teacherId) {
+            showNotification(`Opening office hours scheduler for ${teacherData[teacherId]?.name || teacherId}...`);
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Teachers' Profiles page. Please respond helpfully to this query: "${message}". We have expert faculty in Mathematics (Dr. David Anderson, Mr. Alex Turner), Science (Dr. Emily Johnson, Prof. Michael Brown), English (Ms. Sarah Wilson), History (Dr. Jennifer Adams), Arts (Ms. Maria Gonzalez), and Languages (Dr. Pierre Dubois). Help with teacher information, scheduling meetings, office hours, contact details, and academic department questions.`,
+                        {
+                            openChat: false,
+                            handler: 'faculty-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "I can help you learn about our faculty members, their qualifications, and contact information. Which department interests you?",
+                            "Our teachers are available for office hours and consultations. Would you like to schedule a meeting with a specific teacher?",
+                            "We have expert faculty in Mathematics, Science, English, History, Arts, and World Languages. Each brings unique expertise to their field.",
+                            "All our teachers hold advanced degrees and have extensive teaching experience. You can view detailed profiles by clicking on any teacher card.",
+                            "For teacher applications, please use our Google Form link. We're always looking for passionate educators to join our team.",
+                            "Office hours vary by teacher. You can find specific times in each teacher's profile or contact them directly via email.",
+                            "Each department offers specialized courses and personalized attention. Which subject area would you like to know more about?"
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('teacher') || msg.includes('faculty') || msg.includes('profile')) {
+                return responses[0];
+            } else if (msg.includes('meeting') || msg.includes('schedule') || msg.includes('office hours')) {
+                return responses[1];
+            } else if (msg.includes('department') || msg.includes('subject') || msg.includes('math') || msg.includes('science')) {
+                return responses[2];
+            } else if (msg.includes('qualification') || msg.includes('degree') || msg.includes('experience')) {
+                return responses[3];
+            } else if (msg.includes('apply') || msg.includes('application') || msg.includes('job')) {
+                return responses[4];
+            } else if (msg.includes('hours') || msg.includes('time') || msg.includes('available')) {
+                return responses[5];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('faculty-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help with faculty information!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'info' ? 'var(--light-navy)' : 'var(--secondary-gold)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                const modal = document.getElementById('teacherModal');
+                if (e.target === modal) {
+                    closeTeacherModal();
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

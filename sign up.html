@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration - Elite Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'navy': '#1e3a8a',
+                        'navy-light': '#3b82f6',
+                        'golden': '#fbbf24',
+                        'golden-dark': '#f59e0b'
+                    },
+                    fontFamily: {
+                        'montserrat': ['Montserrat', 'sans-serif'],
+                        'lato': ['Lato', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-navy {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+        .gradient-golden {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .slide-in-up {
+            animation: slideInUp 0.6s ease-out;
+        }
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-navy font-lato">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    </div>
+
+    <div class="relative min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl w-full space-y-8">
+            <!-- Header -->
+            <div class="text-center slide-in-up">
+                <div class="mx-auto h-20 w-20 bg-golden rounded-full flex items-center justify-center mb-4">
+                    <span class="text-navy font-montserrat font-bold text-2xl">EA</span>
+                </div>
+                <h2 class="mt-6 text-3xl font-montserrat font-bold text-white">
+                    Join Elite Academy
+                </h2>
+                <p class="mt-2 text-sm text-gray-300">
+                    Create your student account to access premium education
+                </p>
+                
+                <!-- Progress Bar -->
+                <div class="mt-6 bg-white/20 rounded-full h-2">
+                    <div class="gradient-golden h-2 rounded-full progress-bar" id="progressBar" style="width: 33%"></div>
+                </div>
+                <p class="text-xs text-gray-300 mt-2">Step <span id="currentStep">1</span> of 3</p>
+            </div>
+
+            <!-- Registration Form -->
+            <form class="mt-8 space-y-6 slide-in-up" id="registrationForm">
+                <div class="rounded-lg shadow-xl bg-white/10 backdrop-blur-lg p-8">
+                    <!-- Step 1: Personal Information -->
+                    <div id="step1" class="step-content space-y-6">
+                        <h3 class="text-xl font-montserrat font-semibold text-white mb-4">Personal Information</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-white mb-2">
+                                    <i class="fas fa-user mr-2"></i>First Name
+                                </label>
+                                <input id="firstName" name="firstName" type="text" required 
+                                       class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base"
+                                       placeholder="Enter first name">
+                            </div>
+                            
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-white mb-2">
+                                    <i class="fas fa-user mr-2"></i>Last Name
+                                </label>
+                                <input id="lastName" name="lastName" type="text" required 
+                                       class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base"
+                                       placeholder="Enter last name">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-envelope mr-2"></i>Email Address
+                            </label>
+                            <input id="email" name="email" type="email" required 
+                                   class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base"
+                                   placeholder="Enter email address">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-phone mr-2"></i>Phone Number
+                            </label>
+                            <input id="phone" name="phone" type="tel" required 
+                                   class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base"
+                                   placeholder="Enter phone number">
+                        </div>
+
+                        <div>
+                            <label for="dateOfBirth" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-calendar mr-2"></i>Date of Birth
+                            </label>
+                            <input id="dateOfBirth" name="dateOfBirth" type="date" required 
+                                   class="w-full px-3 py-3 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base">
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Academic Information -->
+                    <div id="step2" class="step-content space-y-6 hidden">
+                        <h3 class="text-xl font-montserrat font-semibold text-white mb-4">Academic Information</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="studentId" class="block text-sm font-medium text-white mb-2">
+                                    <i class="fas fa-id-card mr-2"></i>Student ID (Optional)
+                                </label>
+                                <input id="studentId" name="studentId" type="text" 
+                                       class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base"
+                                       placeholder="Leave blank for auto-generation">
+                            </div>
+                            
+                            <div>
+                                <label for="grade" class="block text-sm font-medium text-white mb-2">
+                                    <i class="fas fa-graduation-cap mr-2"></i>Grade Level
+                                </label>
+                                <select id="grade" name="grade" required 
+                                        class="w-full px-3 py-3 border border-gray-300 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base">
+                                    <option value="">Select Grade</option>
+                                    <option value="9">Grade 9</option>
+                                    <option value="10">Grade 10</option>
+                                    <option value="11">Grade 11</option>
+                                    <option value="12">Grade 12</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="previousSchool" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-school mr-2"></i>Previous School
+                            </label>
+                            <input id="previousSchool" name="previousSchool" type="text" 
+                                   class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base"
+                                   placeholder="Enter previous school name">
+                        </div>
+
+                        <div>
+                            <label for="subjects" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-book mr-2"></i>Preferred Subjects
+                            </label>
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                <label class="flex items-center space-x-2 text-white">
+                                    <input type="checkbox" name="subjects" value="Mathematics" class="rounded text-golden focus:ring-golden">
+                                    <span>Mathematics</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white">
+                                    <input type="checkbox" name="subjects" value="Science" class="rounded text-golden focus:ring-golden">
+                                    <span>Science</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white">
+                                    <input type="checkbox" name="subjects" value="English" class="rounded text-golden focus:ring-golden">
+                                    <span>English</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white">
+                                    <input type="checkbox" name="subjects" value="History" class="rounded text-golden focus:ring-golden">
+                                    <span>History</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white">
+                                    <input type="checkbox" name="subjects" value="Art" class="rounded text-golden focus:ring-golden">
+                                    <span>Art</span>
+                                </label>
+                                <label class="flex items-center space-x-2 text-white">
+                                    <input type="checkbox" name="subjects" value="Music" class="rounded text-golden focus:ring-golden">
+                                    <span>Music</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Account Security -->
+                    <div id="step3" class="step-content space-y-6 hidden">
+                        <h3 class="text-xl font-montserrat font-semibold text-white mb-4">Account Security</h3>
+                        
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-lock mr-2"></i>Password
+                            </label>
+                            <div class="relative">
+                                <input id="password" name="password" type="password" required 
+                                       class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base pr-10"
+                                       placeholder="Create a strong password">
+                                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePassword('password')">
+                                    <i class="fas fa-eye text-gray-500" id="passwordToggle"></i>
+                                </button>
+                            </div>
+                            <div class="mt-2">
+                                <div class="flex space-x-1">
+                                    <div class="h-1 bg-gray-300 rounded flex-1" id="strength1"></div>
+                                    <div class="h-1 bg-gray-300 rounded flex-1" id="strength2"></div>
+                                    <div class="h-1 bg-gray-300 rounded flex-1" id="strength3"></div>
+                                    <div class="h-1 bg-gray-300 rounded flex-1" id="strength4"></div>
+                                </div>
+                                <p class="text-xs text-gray-300 mt-1" id="passwordStrength">Password strength</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="confirmPassword" class="block text-sm font-medium text-white mb-2">
+                                <i class="fas fa-lock mr-2"></i>Confirm Password
+                            </label>
+                            <div class="relative">
+                                <input id="confirmPassword" name="confirmPassword" type="password" required 
+                                       class="w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-golden text-base pr-10"
+                                       placeholder="Confirm your password">
+                                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" onclick="togglePassword('confirmPassword')">
+                                    <i class="fas fa-eye text-gray-500" id="confirmPasswordToggle"></i>
+                                </button>
+                            </div>
+                            <div id="passwordMatch" class="mt-2 text-xs hidden">
+                                <span class="text-green-400"><i class="fas fa-check mr-1"></i>Passwords match</span>
+                            </div>
+                            <div id="passwordMismatch" class="mt-2 text-xs hidden">
+                                <span class="text-red-400"><i class="fas fa-times mr-1"></i>Passwords don't match</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="flex items-center space-x-3 text-white">
+                                <input type="checkbox" required class="rounded text-golden focus:ring-golden">
+                                <span class="text-sm">I agree to the <a href="#" class="text-golden hover:text-golden-dark">Terms of Service</a> and <a href="#" class="text-golden hover:text-golden-dark">Privacy Policy</a></span>
+                            </label>
+                            
+                            <label class="flex items-center space-x-3 text-white">
+                                <input type="checkbox" class="rounded text-golden focus:ring-golden">
+                                <span class="text-sm">I would like to receive updates and newsletters</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="flex justify-between pt-6">
+                        <button type="button" id="prevBtn" onclick="changeStep(-1)" 
+                                class="px-6 py-3 border border-golden text-golden hover:bg-golden hover:text-navy rounded-lg transition-all duration-300 hidden">
+                            <i class="fas fa-arrow-left mr-2"></i>Previous
+                        </button>
+                        
+                        <div class="flex space-x-4 ml-auto">
+                            <button type="button" id="nextBtn" onclick="changeStep(1)" 
+                                    class="px-6 py-3 gradient-golden text-navy rounded-lg hover:opacity-90 transition-all duration-300">
+                                Next<i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                            
+                            <button type="submit" id="submitBtn" 
+                                    class="px-6 py-3 gradient-golden text-navy rounded-lg hover:opacity-90 transition-all duration-300 hidden">
+                                <i class="fas fa-user-plus mr-2"></i>Create Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden text-center">
+                    <div class="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-golden">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Creating account...
+                    </div>
+                </div>
+            </form>
+
+            <!-- Back to Login -->
+            <div class="text-center">
+                <p class="text-white">
+                    Already have an account? 
+                    <a href="login.html" class="font-medium text-golden hover:text-golden-dark transition-colors">
+                        Sign In
+                    </a>
+                </p>
+                <a href="index.html" class="inline-flex items-center text-golden hover:text-golden-dark transition-colors mt-2">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Back to Homepage
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const toggle = document.getElementById(fieldId + 'Toggle');
+            
+            if (field.type === 'password') {
+                field.type = 'text';
+                toggle.classList.remove('fa-eye');
+                toggle.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                toggle.classList.remove('fa-eye-slash');
+                toggle.classList.add('fa-eye');
+            }
+        }
+
+        function changeStep(direction) {
+            const newStep = currentStep + direction;
+            
+            if (newStep < 1 || newStep > totalSteps) return;
+            
+            // Hide current step
+            document.getElementById(`step${currentStep}`).classList.add('hidden');
+            
+            // Show new step
+            document.getElementById(`step${newStep}`).classList.remove('hidden');
+            
+            currentStep = newStep;
+            
+            // Update progress bar
+            const progressBar = document.getElementById('progressBar');
+            const progress = (currentStep / totalSteps) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            document.getElementById('currentStep').textContent = currentStep;
+            
+            // Update navigation buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            if (currentStep === 1) {
+                prevBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+            }
+            
+            if (currentStep === totalSteps) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            const indicators = ['strength1', 'strength2', 'strength3', 'strength4'];
+            
+            if (password.length >= 8) strength++;
+            if (/[a-z]/.test(password)) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+            
+            // Reset all indicators
+            indicators.forEach(id => {
+                document.getElementById(id).className = 'h-1 bg-gray-300 rounded flex-1';
+            });
+            
+            // Color indicators based on strength
+            for (let i = 0; i < Math.min(strength, 4); i++) {
+                const color = strength <= 2 ? 'bg-red-500' : strength === 3 ? 'bg-yellow-500' : 'bg-green-500';
+                document.getElementById(indicators[i]).className = `h-1 ${color} rounded flex-1`;
+            }
+            
+            const strengthText = document.getElementById('passwordStrength');
+            const strengthLabels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
+            strengthText.textContent = strengthLabels[Math.min(strength, 4)] || 'Password strength';
+        }
+
+        // Password confirmation checker
+        function checkPasswordMatch() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const matchDiv = document.getElementById('passwordMatch');
+            const mismatchDiv = document.getElementById('passwordMismatch');
+            
+            if (confirmPassword === '') {
+                matchDiv.classList.add('hidden');
+                mismatchDiv.classList.add('hidden');
+                return;
+            }
+            
+            if (password === confirmPassword) {
+                matchDiv.classList.remove('hidden');
+                mismatchDiv.classList.add('hidden');
+            } else {
+                matchDiv.classList.add('hidden');
+                mismatchDiv.classList.remove('hidden');
+            }
+        }
+
+        // Event listeners
+        document.getElementById('password').addEventListener('input', function() {
+            checkPasswordStrength(this.value);
+            checkPasswordMatch();
+        });
+
+        document.getElementById('confirmPassword').addEventListener('input', checkPasswordMatch);
+
+        // Form submission
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const userData = Object.fromEntries(formData.entries());
+            
+            // Get selected subjects
+            const selectedSubjects = Array.from(document.querySelectorAll('input[name="subjects"]:checked')).map(cb => cb.value);
+            userData.subjects = selectedSubjects;
+            
+            // Generate student ID if not provided
+            if (!userData.studentId) {
+                userData.studentId = 'EA' + Date.now().toString().slice(-6);
+            }
+            
+            userData.registrationDate = new Date().toISOString();
+            userData.isActive = true;
+            userData.grades = {};
+            userData.attendance = [];
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const loadingState = document.getElementById('loadingState');
+            
+            // Show loading state
+            submitBtn.style.display = 'none';
+            loadingState.classList.remove('hidden');
+            
+            try {
+                // Store student data
+                let students = JSON.parse(localStorage.getItem('eliteAcademyStudents') || '[]');
+                students.push(userData);
+                localStorage.setItem('eliteAcademyStudents', JSON.stringify(students));
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                alert('Account created successfully! You can now sign in.');
+                window.location.href = 'login.html';
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Registration failed. Please try again.');
+                
+                submitBtn.style.display = 'block';
+                loadingState.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Materials - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --info-blue: #0ea5e9;
+            --warning-orange: #f59e0b;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Quick Access Section */
+        .quick-access {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-access::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        .quick-access-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .quick-access-text h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .quick-access-text p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .action-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        .action-btn.secondary {
+            background: transparent;
+            color: var(--secondary-gold);
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .action-btn.secondary:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .quick-access-image {
+            position: relative;
+            z-index: 2;
+        }
+
+        .study-hero-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .study-hero-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+        }
+
+        /* Statistics Section */
+        .study-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stat-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .stat-card {
+            background: var(--dark-card);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-navy), var(--light-navy));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--secondary-gold);
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            color: var(--primary-navy);
+        }
+
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .stat-number {
+            color: var(--secondary-gold);
+        }
+
+        .stat-label {
+            color: var(--dark-grey);
+            font-weight: 500;
+        }
+
+        .dark-mode .stat-label {
+            color: var(--dark-text);
+        }
+
+        /* Filter and Search Section */
+        .filter-search-section {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .filter-search-section {
+            background: var(--dark-card);
+        }
+
+        .filter-search-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .search-input-container {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid var(--soft-grey);
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--accent-white);
+            color: var(--text-dark);
+        }
+
+        .dark-mode .search-input {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .dark-mode .filter-btn {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .filter-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+
+        /* Categories Grid */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .category-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .category-card {
+            background: var(--dark-card);
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 180px;
+            border-radius: 15px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.05);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-gold);
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .category-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .category-title {
+            color: var(--secondary-gold);
+        }
+
+        .category-description {
+            color: var(--dark-grey);
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .dark-mode .category-description {
+            color: var(--dark-text);
+        }
+
+        .category-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--soft-grey);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .category-stats {
+            background: var(--dark-bg);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary-navy);
+            font-size: 1.1rem;
+        }
+
+        .dark-mode .stat-value {
+            color: var(--secondary-gold);
+        }
+
+        .stat-text {
+            font-size: 0.8rem;
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .stat-text {
+            color: var(--dark-text);
+        }
+
+        .category-access-btn {
+            width: 100%;
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .category-access-btn:hover {
+            background: var(--light-navy);
+            transform: translateY(-2px);
+        }
+
+        /* Resource Library */
+        .resource-library {
+            margin: 4rem 0;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .resource-main {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .resource-main {
+            background: var(--dark-card);
+        }
+
+        .resource-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* Resource Items */
+        .resource-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .resource-item {
+            background: var(--soft-grey);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 5px solid var(--secondary-gold);
+        }
+
+        .dark-mode .resource-item {
+            background: var(--dark-bg);
+        }
+
+        .resource-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .resource-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .resource-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            font-size: 1.1rem;
+            flex: 1;
+        }
+
+        .dark-mode .resource-title {
+            color: var(--secondary-gold);
+        }
+
+        .resource-type {
+            background: var(--info-blue);
+            color: var(--accent-white);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .resource-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .resource-meta {
+            color: var(--dark-text);
+        }
+
+        .resource-description {
+            color: var(--dark-grey);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .dark-mode .resource-description {
+            color: var(--dark-text);
+        }
+
+        .resource-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .download-btn {
+            background: var(--success-green);
+            color: var(--accent-white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .preview-btn {
+            background: var(--warning-orange);
+            color: var(--accent-white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .preview-btn:hover {
+            background: #d97706;
+            transform: translateY(-2px);
+        }
+
+        /* Popular Resources Sidebar */
+        .popular-resources {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .popular-resources {
+            background: var(--dark-card);
+        }
+
+        .popular-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dark-mode .popular-title {
+            color: var(--secondary-gold);
+        }
+
+        .popular-item {
+            background: var(--soft-grey);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dark-mode .popular-item {
+            background: var(--dark-bg);
+        }
+
+        .popular-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 3px 10px rgba(251, 191, 36, 0.2);
+        }
+
+        .popular-item-title {
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .dark-mode .popular-item-title {
+            color: var(--secondary-gold);
+        }
+
+        .popular-item-meta {
+            font-size: 0.8rem;
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .popular-item-meta {
+            color: var(--dark-text);
+        }
+
+        /* Study Tips */
+        .study-tips {
+            background: linear-gradient(135deg, var(--success-green), #059669);
+            color: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .study-tips::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(255,255,255,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(255,255,255,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(255,255,255,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(255,255,255,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 50px 50px;
+            animation: float-pattern 15s linear infinite;
+        }
+
+        .tips-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .tips-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tip-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tip-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Study Images Grid */
+        .study-images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .study-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .study-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: var(--accent-white);
+            padding: 1.5rem 1rem 1rem;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .study-image:hover .image-overlay {
+            transform: translateY(0);
+        }
+
+        .overlay-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .overlay-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .quick-access-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-search-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .quick-access-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .study-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .quick-access,
+            .filter-search-section {
+                padding: 1.5rem;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>📚 New Study Materials Added Weekly | 📖 Digital Library Access 24/7 | 📝 Practice Tests Available | 🎯 Exam Preparation Resources | 💻 Interactive Learning Tools</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="schedules.html" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="assignments.html" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="online-classes.html" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="teacher-profiles.html" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link active">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item active">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#resources">Resources</a>
+            <span>></span>
+            <span>Study Materials</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Study Materials</h1>
+            <p class="page-subtitle">Comprehensive Educational Resources for Academic Excellence</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Quick Access Section -->
+            <section class="quick-access scroll-reveal">
+                <div class="quick-access-content">
+                    <div class="quick-access-text">
+                        <h2>Access Comprehensive Study Resources</h2>
+                        <p>Discover our extensive collection of study materials, textbooks, digital resources, practice tests, and interactive learning tools designed to support your academic journey at Elite Academy.</p>
+                        <div class="quick-actions">
+                            <button class="action-btn" onclick="accessLibrary()">
+                                <i class="fas fa-book-open"></i> Access E-Library
+                            </button>
+                            <button class="action-btn secondary" onclick="downloadResources()">
+                                <i class="fas fa-download"></i> Download Materials
+                            </button>
+                            <button class="action-btn secondary" onclick="viewTutorials()">
+                                <i class="fas fa-play-circle"></i> Video Tutorials
+                            </button>
+                        </div>
+                    </div>
+                    <div class="quick-access-image">
+                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Students studying in modern library" class="study-hero-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Study Statistics -->
+            <section class="study-stats scroll-reveal">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <span class="stat-number">2,500+</span>
+                    <span class="stat-label">Digital Resources</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <span class="stat-number">850+</span>
+                    <span class="stat-label">Study Guides</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <span class="stat-number">300+</span>
+                    <span class="stat-label">Video Tutorials</span>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <span class="stat-number">150+</span>
+                    <span class="stat-label">Practice Tests</span>
+                </div>
+            </section>
+
+            <!-- Filter and Search Section -->
+            <section class="filter-search-section scroll-reveal">
+                <div class="filter-search-grid">
+                    <div class="search-input-container">
+                        <input type="text" class="search-input" placeholder="Search study materials, textbooks, or topics..." id="materialSearch">
+                        <button class="search-btn" onclick="searchMaterials()">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterMaterials('all')">All</button>
+                        <button class="filter-btn" onclick="filterMaterials('elementary')">Elementary</button>
+                        <button class="filter-btn" onclick="filterMaterials('middle')">Middle School</button>
+                        <button class="filter-btn" onclick="filterMaterials('high')">High School</button>
+                        <button class="filter-btn" onclick="filterMaterials('ap')">AP Courses</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Study Categories -->
+            <section class="categories-section scroll-reveal">
+                <h2 class="section-title">Study Categories</h2>
+                
+                <div class="categories-grid">
+                    <!-- Mathematics -->
+                    <div class="category-card" data-category="mathematics">
+                        <img src="https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Mathematics study materials" class="category-image">
+                        <div class="category-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="category-title">Mathematics</h3>
+                        <p class="category-description">Comprehensive math resources from basic arithmetic to advanced calculus, including formula sheets, practice problems, and step-by-step solutions.</p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">425</div>
+                                <div class="stat-text">Resources</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">18</div>
+                                <div class="stat-text">Subjects</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">95%</div>
+                                <div class="stat-text">Updated</div>
+                            </div>
+                        </div>
+                        <button class="category-access-btn" onclick="accessCategory('mathematics')">Access Mathematics Resources</button>
+                    </div>
+
+                    <!-- Science -->
+                    <div class="category-card" data-category="science">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Science laboratory equipment" class="category-image">
+                        <div class="category-icon">
+                            <i class="fas fa-atom"></i>
+                        </div>
+                        <h3 class="category-title">Science</h3>
+                        <p class="category-description">Physics, Chemistry, Biology, and Earth Science materials including lab reports, experiment guides, and interactive simulations.</p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">380</div>
+                                <div class="stat-text">Resources</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">12</div>
+                                <div class="stat-text">Subjects</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">92%</div>
+                                <div class="stat-text">Updated</div>
+                            </div>
+                        </div>
+                        <button class="category-access-btn" onclick="accessCategory('science')">Access Science Resources</button>
+                    </div>
+
+                    <!-- Language Arts -->
+                    <div class="category-card" data-category="language">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Students reading and writing" class="category-image">
+                        <div class="category-icon">
+                            <i class="fas fa-feather-alt"></i>
+                        </div>
+                        <h3 class="category-title">Language Arts</h3>
+                        <p class="category-description">English literature, grammar guides, writing workshops, vocabulary builders, and reading comprehension materials.</p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">320</div>
+                                <div class="stat-text">Resources</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">8</div>
+                                <div class="stat-text">Subjects</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">98%</div>
+                                <div class="stat-text">Updated</div>
+                            </div>
+                        </div>
+                        <button class="category-access-btn" onclick="accessCategory('language')">Access Language Resources</button>
+                    </div>
+
+                    <!-- Social Studies -->
+                    <div class="category-card" data-category="social">
+                        <img src="https://images.unsplash.com/photo-1517404215738-15263e9f9178?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Historical documents and maps" class="category-image">
+                        <div class="category-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3 class="category-title">Social Studies</h3>
+                        <p class="category-description">History, Geography, Government, Economics, and Cultural Studies with interactive maps, timelines, and primary sources.</p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">275</div>
+                                <div class="stat-text">Resources</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">10</div>
+                                <div class="stat-text">Subjects</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">90%</div>
+                                <div class="stat-text">Updated</div>
+                            </div>
+                        </div>
+                        <button class="category-access-btn" onclick="accessCategory('social')">Access Social Studies Resources</button>
+                    </div>
+
+                    <!-- Foreign Languages -->
+                    <div class="category-card" data-category="languages">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Students learning languages" class="category-image">
+                        <div class="category-icon">
+                            <i class="fas fa-language"></i>
+                        </div>
+                        <h3 class="category-title">Foreign Languages</h3>
+                        <p class="category-description">Spanish, French, Mandarin, and German language resources including audio lessons, grammar guides, and cultural materials.</p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">180</div>
+                                <div class="stat-text">Resources</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">6</div>
+                                <div class="stat-text">Languages</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">85%</div>
+                                <div class="stat-text">Updated</div>
+                            </div>
+                        </div>
+                        <button class="category-access-btn" onclick="accessCategory('languages')">Access Language Resources</button>
+                    </div>
+
+                    <!-- Arts & Technology -->
+                    <div class="category-card" data-category="arts">
+                        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Art and technology resources" class="category-image">
+                        <div class="category-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3 class="category-title">Arts & Technology</h3>
+                        <p class="category-description">Visual arts, music theory, computer science, robotics, and digital design resources with project templates and tutorials.</p>
+                        <div class="category-stats">
+                            <div class="stat-item">
+                                <div class="stat-value">220</div>
+                                <div class="stat-text">Resources</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">9</div>
+                                <div class="stat-text">Subjects</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">88%</div>
+                                <div class="stat-text">Updated</div>
+                            </div>
+                        </div>
+                        <button class="category-access-btn" onclick="accessCategory('arts')">Access Arts & Tech Resources</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Study Images Grid -->
+            <section class="study-images-grid scroll-reveal">
+                <div class="study-image">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Students collaborating on study project" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="image-overlay">
+                        <h4 class="overlay-title">Collaborative Learning</h4>
+                        <p class="overlay-description">Students working together on research projects and study groups</p>
+                    </div>
+                </div>
+                
+                <div class="study-image">
+                    <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Digital learning resources" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="image-overlay">
+                        <h4 class="overlay-title">Digital Resources</h4>
+                        <p class="overlay-description">Access thousands of digital textbooks and interactive materials</p>
+                    </div>
+                </div>
+                
+                <div class="study-image">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Library study environment" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="image-overlay">
+                        <h4 class="overlay-title">Library Access</h4>
+                        <p class="overlay-description">24/7 access to our comprehensive digital library</p>
+                    </div>
+                </div>
+                
+                <div class="study-image">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Interactive learning session" style="width: 100%; height: 100%; object-fit: cover;">
+                    <div class="image-overlay">
+                        <h4 class="overlay-title">Interactive Learning</h4>
+                        <p class="overlay-description">Hands-on experiments and interactive simulations</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resource Library -->
+            <section class="resource-library scroll-reveal">
+                <h2 class="section-title">Latest Study Resources</h2>
+                
+                <div class="resource-grid">
+                    <div class="resource-main">
+                        <div class="resource-list" id="resourceList">
+                            <!-- Math Resources -->
+                            <div class="resource-item" data-category="mathematics">
+                                <div class="resource-header">
+                                    <h4 class="resource-title">Advanced Calculus Study Guide</h4>
+                                    <span class="resource-type">PDF</span>
+                                </div>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-user"></i> Dr. Sarah Johnson</span>
+                                    <span><i class="fas fa-calendar"></i> Updated Dec 2024</span>
+                                    <span><i class="fas fa-file-alt"></i> 156 pages</span>
+                                </div>
+                                <p class="resource-description">Comprehensive guide covering limits, derivatives, integrals, and applications with detailed examples and practice problems.</p>
+                                <div class="resource-actions">
+                                    <a href="#" class="download-btn" onclick="downloadResource('calculus-guide')">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <button class="preview-btn" onclick="previewResource('calculus-guide')">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Science Resources -->
+                            <div class="resource-item" data-category="science">
+                                <div class="resource-header">
+                                    <h4 class="resource-title">Chemistry Lab Manual</h4>
+                                    <span class="resource-type">PDF</span>
+                                </div>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-user"></i> Prof. Michael Chen</span>
+                                    <span><i class="fas fa-calendar"></i> Updated Nov 2024</span>
+                                    <span><i class="fas fa-file-alt"></i> 89 pages</span>
+                                </div>
+                                <p class="resource-description">Step-by-step laboratory procedures, safety protocols, and experimental analysis for all chemistry course levels.</p>
+                                <div class="resource-actions">
+                                    <a href="#" class="download-btn" onclick="downloadResource('chemistry-lab')">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <button class="preview-btn" onclick="previewResource('chemistry-lab')">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Language Arts Resources -->
+                            <div class="resource-item" data-category="language">
+                                <div class="resource-header">
+                                    <h4 class="resource-title">English Literature Analysis Toolkit</h4>
+                                    <span class="resource-type">PDF</span>
+                                </div>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-user"></i> Ms. Emily Davis</span>
+                                    <span><i class="fas fa-calendar"></i> Updated Dec 2024</span>
+                                    <span><i class="fas fa-file-alt"></i> 134 pages</span>
+                                </div>
+                                <p class="resource-description">Essential tools for analyzing poetry, prose, and drama with critical thinking frameworks and essay writing guides.</p>
+                                <div class="resource-actions">
+                                    <a href="#" class="download-btn" onclick="downloadResource('literature-toolkit')">
+                                        <i class="fas fa-download"></i> Download
+                                    </a>
+                                    <button class="preview-btn" onclick="previewResource('literature-toolkit')">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- History Resources -->
+                            <div class="resource-item" data-category="social">
+                                <div class="resource-header">
+                                    <h4 class="resource-title">World History Timeline & Maps</h4>
+                                    <span class="resource-type">Interactive</span>
+                                </div>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-user"></i> Dr. Robert Wilson</span>
+                                    <span><i class="fas fa-calendar"></i> Updated Oct 2024</span>
+                                    <span><i class="fas fa-globe"></i> Global Coverage</span>
+                                </div>
+                                <p class="resource-description">Interactive timelines and detailed maps covering major historical events, civilizations, and cultural developments.</p>
+                                <div class="resource-actions">
+                                    <a href="#" class="download-btn" onclick="downloadResource('history-timeline')">
+                                        <i class="fas fa-external-link-alt"></i> Access
+                                    </a>
+                                    <button class="preview-btn" onclick="previewResource('history-timeline')">
+                                        <i class="fas fa-eye"></i> Preview
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Language Resources -->
+                            <div class="resource-item" data-category="languages">
+                                <div class="resource-header">
+                                    <h4 class="resource-title">Spanish Conversation Practice</h4>
+                                    <span class="resource-type">Audio</span>
+                                </div>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-user"></i> Señora Martinez</span>
+                                    <span><i class="fas fa-calendar"></i> Updated Dec 2024</span>
+                                    <span><i class="fas fa-clock"></i> 3.5 hours</span>
+                                </div>
+                                <p class="resource-description">Audio lessons for practicing Spanish conversation skills with native speakers and cultural context explanations.</p>
+                                <div class="resource-actions">
+                                    <a href="#" class="download-btn" onclick="downloadResource('spanish-audio')">
+                                        <i class="fas fa-play"></i> Listen
+                                    </a>
+                                    <button class="preview-btn" onclick="previewResource('spanish-audio')">
+                                        <i class="fas fa-headphones"></i> Sample
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Arts Resources -->
+                            <div class="resource-item" data-category="arts">
+                                <div class="resource-header">
+                                    <h4 class="resource-title">Digital Art Design Fundamentals</h4>
+                                    <span class="resource-type">Video</span>
+                                </div>
+                                <div class="resource-meta">
+                                    <span><i class="fas fa-user"></i> Mr. Alex Turner</span>
+                                    <span><i class="fas fa-calendar"></i> Updated Nov 2024</span>
+                                    <span><i class="fas fa-video"></i> 12 modules</span>
+                                </div>
+                                <p class="resource-description">Video tutorials covering design principles, color theory, digital tools, and portfolio development for visual arts students.</p>
+                                <div class="resource-actions">
+                                    <a href="#" class="download-btn" onclick="downloadResource('digital-art')">
+                                        <i class="fas fa-play"></i> Watch
+                                    </a>
+                                    <button class="preview-btn" onclick="previewResource('digital-art')">
+                                        <i class="fas fa-film"></i> Trailer
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="resource-sidebar">
+                        <!-- Popular Resources -->
+                        <div class="popular-resources">
+                            <h3 class="popular-title">
+                                <i class="fas fa-fire"></i>
+                                Most Downloaded
+                            </h3>
+                            
+                            <div class="popular-item" onclick="downloadResource('sat-prep')">
+                                <div class="popular-item-title">SAT Preparation Guide</div>
+                                <div class="popular-item-meta">Downloaded 1,247 times this month</div>
+                            </div>
+                            
+                            <div class="popular-item" onclick="downloadResource('ap-physics')">
+                                <div class="popular-item-title">AP Physics Practice Tests</div>
+                                <div class="popular-item-meta">Downloaded 892 times this month</div>
+                            </div>
+                            
+                            <div class="popular-item" onclick="downloadResource('essay-writing')">
+                                <div class="popular-item-title">Essay Writing Workshop</div>
+                                <div class="popular-item-meta">Downloaded 756 times this month</div>
+                            </div>
+                            
+                            <div class="popular-item" onclick="downloadResource('algebra-basics')">
+                                <div class="popular-item-title">Algebra Fundamentals</div>
+                                <div class="popular-item-meta">Downloaded 634 times this month</div>
+                            </div>
+                            
+                            <div class="popular-item" onclick="downloadResource('biology-notes')">
+                                <div class="popular-item-title">Biology Study Notes</div>
+                                <div class="popular-item-meta">Downloaded 578 times this month</div>
+                            </div>
+                        </div>
+
+                        <!-- Study Tips -->
+                        <div class="study-tips">
+                            <div class="tips-content">
+                                <h3 class="tips-title">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Study Tips
+                                </h3>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-text">Create a dedicated study schedule and stick to it for consistent learning progress.</div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-text">Use active reading techniques: highlight, take notes, and summarize key concepts.</div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-text">Practice with past papers and mock tests to familiarize yourself with exam formats.</div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-text">Form study groups to discuss difficult concepts and share learning strategies.</div>
+                                </div>
+                                
+                                <div class="tip-item">
+                                    <div class="tip-text">Take regular breaks during study sessions to maintain focus and retention.</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Study Images -->
+                        <div class="study-images-grid">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Student taking notes" class="study-image">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Online learning setup" class="study-image">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Study Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you find study materials, suggest resources for your subjects, and provide study tips. What are you looking for today?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about study materials..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Sample study materials data
+        const studyMaterials = {
+            mathematics: [
+                { title: 'Advanced Calculus Study Guide', type: 'PDF', author: 'Dr. Sarah Johnson', downloads: 1247 },
+                { title: 'Algebra Fundamentals', type: 'Interactive', author: 'Prof. David Smith', downloads: 634 },
+                { title: 'Geometry Practice Tests', type: 'PDF', author: 'Ms. Lisa Chen', downloads: 456 }
+            ],
+            science: [
+                { title: 'Chemistry Lab Manual', type: 'PDF', author: 'Prof. Michael Chen', downloads: 892 },
+                { title: 'AP Physics Practice Tests', type: 'PDF', author: 'Dr. Emily Johnson', downloads: 892 },
+                { title: 'Biology Study Notes', type: 'PDF', author: 'Dr. Rachel Green', downloads: 578 }
+            ],
+            language: [
+                { title: 'English Literature Analysis Toolkit', type: 'PDF', author: 'Ms. Emily Davis', downloads: 756 },
+                { title: 'Essay Writing Workshop', type: 'Video', author: 'Mr. James Wilson', downloads: 756 },
+                { title: 'Grammar and Composition Guide', type: 'PDF', author: 'Ms. Sarah Adams', downloads: 423 }
+            ]
+        };
+
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Quick access functions
+        function accessLibrary() {
+            showNotification('Opening digital library...');
+        }
+
+        function downloadResources() {
+            showNotification('Preparing resource download packages...');
+        }
+
+        function viewTutorials() {
+            showNotification('Loading video tutorial library...');
+        }
+
+        // Filter materials by grade level
+        function filterMaterials(level) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const resourceItems = document.querySelectorAll('.resource-item');
+            const categoryCards = document.querySelectorAll('.category-card');
+            
+            // Update active filter button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter resources and categories
+            if (level === 'all') {
+                resourceItems.forEach(item => item.style.display = 'block');
+                categoryCards.forEach(card => card.style.display = 'block');
+            } else {
+                // Show/hide based on grade level
+                resourceItems.forEach(item => {
+                    // You can add data-level attributes to filter by grade
+                    item.style.display = 'block';
+                });
+                categoryCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+            
+            showNotification(`Filtered materials for ${level === 'all' ? 'all levels' : level}`);
+        }
+
+        // Search materials
+        function searchMaterials() {
+            const searchTerm = document.getElementById('materialSearch').value.toLowerCase();
+            const resourceItems = document.querySelectorAll('.resource-item');
+            let found = 0;
+            
+            resourceItems.forEach(item => {
+                const title = item.querySelector('.resource-title').textContent.toLowerCase();
+                const description = item.querySelector('.resource-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    found++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            showNotification(`Found ${found} resources matching "${searchTerm}"`);
+        }
+
+        // Access category
+        function accessCategory(category) {
+            showNotification(`Loading ${category} resources...`);
+        }
+
+        // Resource actions
+        function downloadResource(resourceId) {
+            showNotification(`Downloading ${resourceId}...`);
+            
+            // Simulate download
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = `data:text/plain;charset=utf-8,Study Material: ${resourceId}\n\nThis is a sample download for Elite Academy study materials.`;
+                link.download = `${resourceId}-study-material.txt`;
+                link.click();
+                showNotification(`${resourceId} downloaded successfully!`);
+            }, 1000);
+        }
+
+        function previewResource(resourceId) {
+            showNotification(`Opening preview for ${resourceId}...`);
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finding resources...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Study Materials page. Please respond helpfully to this query: "${message}". We have 2,500+ digital resources, 850+ study guides, 300+ video tutorials, and 150+ practice tests covering Mathematics, Science, Language Arts, Social Studies, Foreign Languages, and Arts & Technology. Our resources include textbooks, interactive materials, lab manuals, practice tests, video tutorials, and audio lessons. Help students find appropriate materials, suggest study strategies, and provide academic guidance.`,
+                        {
+                            openChat: false,
+                            handler: 'study-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "We have over 2,500 digital resources across all subjects! Which subject are you looking for help with?",
+                            "Our most popular downloads include SAT Prep Guide, AP Physics Practice Tests, and Essay Writing Workshop. Would you like me to help you find these?",
+                            "For Mathematics, we have resources covering everything from basic arithmetic to advanced calculus. What specific math topic do you need help with?",
+                            "Our Science section includes Physics, Chemistry, Biology, and Earth Science materials with lab manuals and interactive simulations.",
+                            "Language Arts resources include literature analysis tools, grammar guides, writing workshops, and vocabulary builders.",
+                            "You can filter materials by grade level (Elementary, Middle School, High School, AP) or search by topic. What would be most helpful?",
+                            "Study tip: Create a regular study schedule, use active reading techniques, and practice with our extensive collection of past papers and mock tests."
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('how many') || msg.includes('statistics') || msg.includes('total')) {
+                return responses[0];
+            } else if (msg.includes('popular') || msg.includes('most downloaded') || msg.includes('best')) {
+                return responses[1];
+            } else if (msg.includes('math') || msg.includes('calculus') || msg.includes('algebra')) {
+                return responses[2];
+            } else if (msg.includes('science') || msg.includes('physics') || msg.includes('chemistry') || msg.includes('biology')) {
+                return responses[3];
+            } else if (msg.includes('english') || msg.includes('writing') || msg.includes('literature')) {
+                return responses[4];
+            } else if (msg.includes('filter') || msg.includes('search') || msg.includes('find')) {
+                return responses[5];
+            } else if (msg.includes('study tip') || msg.includes('how to study') || msg.includes('advice')) {
+                return responses[6];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('study-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help you find study materials!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Animate statistics on scroll
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach(stat => {
+                const finalNumber = stat.textContent;
+                const isPlus = finalNumber.includes('+');
+                const numericValue = parseInt(finalNumber.replace(/[^\d]/g, ''));
+                
+                let current = 0;
+                const increment = numericValue / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= numericValue) {
+                        current = numericValue;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (isPlus ? '+' : '');
+                }, 50);
+            });
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                    
+                    // Animate stats when they come into view
+                    if (reveal.classList.contains('study-stats') && !reveal.dataset.animated) {
+                        animateStats();
+                        reveal.dataset.animated = 'true';
+                    }
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'info' ? 'var(--light-navy)' : 'var(--secondary-gold)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Add enter key support for search
+            document.getElementById('materialSearch').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchMaterials();
+                }
+            });
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

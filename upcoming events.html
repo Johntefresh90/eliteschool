@@ -1,0 +1,2708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --info-blue: #0ea5e9;
+            --warning-orange: #f59e0b;
+            --purple: #8b5cf6;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Featured Event */
+        .featured-event {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 0;
+            margin-bottom: 4rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(30, 58, 138, 0.3);
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .featured-text {
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .featured-text::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        .featured-event-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .featured-badge {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .featured-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .featured-details {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .featured-meta {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .meta-item i {
+            color: var(--secondary-gold);
+        }
+
+        .featured-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .featured-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .featured-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.5);
+        }
+
+        .featured-btn.secondary {
+            background: transparent;
+            color: var(--secondary-gold);
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .featured-btn.secondary:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .featured-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .featured-image-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(251, 191, 36, 0.9);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dark-mode .filter-section {
+            background: var(--dark-card);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .filter-label {
+            color: var(--secondary-gold);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .dark-mode .filter-btn {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .filter-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+
+        .search-events {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .event-search {
+            padding: 8px 15px;
+            border: 2px solid var(--soft-grey);
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .event-search {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .event-search:focus {
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .search-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #f59e0b;
+        }
+
+        /* Events Grid */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .event-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .event-card {
+            background: var(--dark-card);
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover .event-image {
+            transform: scale(1.05);
+        }
+
+        .event-date-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .event-category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            color: var(--accent-white);
+        }
+
+        .category-academic { background: var(--primary-navy); }
+        .category-sports { background: var(--success-green); }
+        .category-cultural { background: var(--purple); }
+        .category-social { background: var(--warning-orange); }
+        .category-special { background: var(--info-blue); }
+
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .dark-mode .event-title {
+            color: var(--secondary-gold);
+        }
+
+        .event-description {
+            color: var(--dark-grey);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .event-description {
+            color: var(--dark-text);
+        }
+
+        .event-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .meta-row {
+            color: var(--dark-text);
+        }
+
+        .meta-row i {
+            color: var(--secondary-gold);
+            width: 16px;
+        }
+
+        .event-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rsvp-btn {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .rsvp-btn:hover {
+            background: var(--light-navy);
+            transform: scale(1.05);
+        }
+
+        .rsvp-btn.registered {
+            background: var(--success-green);
+        }
+
+        .event-details-btn {
+            color: var(--secondary-gold);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .event-details-btn:hover {
+            color: var(--primary-navy);
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .calendar-section {
+            background: var(--dark-card);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .calendar-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .calendar-title {
+            color: var(--secondary-gold);
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .calendar-btn {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .calendar-btn {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .calendar-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .calendar-month {
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .calendar-month {
+            color: var(--secondary-gold);
+        }
+
+        .mini-calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day.header {
+            font-weight: 700;
+            color: var(--dark-grey);
+            cursor: default;
+        }
+
+        .dark-mode .calendar-day.header {
+            color: var(--dark-text);
+        }
+
+        .calendar-day.has-event {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            font-weight: 600;
+        }
+
+        .calendar-day.today {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            font-weight: 700;
+        }
+
+        .calendar-day:hover:not(.header) {
+            background: var(--soft-grey);
+        }
+
+        .dark-mode .calendar-day:hover:not(.header) {
+            background: var(--dark-border);
+        }
+
+        /* Event Registration Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .dark-mode .modal-content {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .modal-close {
+            color: var(--dark-text);
+        }
+
+        .modal-close:hover {
+            color: var(--warning-red);
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .dark-mode .modal-title {
+            color: var(--secondary-gold);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .form-label {
+            color: var(--secondary-gold);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid var(--soft-grey);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .form-input {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .form-submit {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .form-submit:hover {
+            background: var(--light-navy);
+            transform: translateY(-2px);
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            margin: 4rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-image {
+            filter: brightness(0.8);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: var(--accent-white);
+            padding: 2rem 1rem 1rem;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                order: -1;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-meta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .featured-actions {
+                flex-direction: column;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .featured-text {
+                padding: 2rem;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>🎭 Winter Gala - Dec 15 | 🏀 Basketball Championship - Dec 20 | 🎓 Academic Awards Ceremony - Dec 22 | 🎊 New Year Celebration - Dec 31 | 📚 Spring Semester Orientation - Jan 8</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="schedules.html" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="assignments.html" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="online-classes.html" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="teacher-profiles.html" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link active">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item active">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#news">News & Events</a>
+            <span>></span>
+            <span>Upcoming Events</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Upcoming Events</h1>
+            <p class="page-subtitle">Discover and Join Our Vibrant School Community Activities</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Featured Event -->
+            <section class="featured-event scroll-reveal">
+                <div class="featured-content">
+                    <div class="featured-text">
+                        <div class="featured-event-content">
+                            <div class="featured-badge">FEATURED EVENT</div>
+                            <h2 class="featured-title">Annual Winter Gala & Awards Ceremony</h2>
+                            <p class="featured-details">
+                                Join us for an enchanting evening celebrating our students' outstanding achievements throughout the year. This elegant event features performances, award presentations, and a spectacular dinner.
+                            </p>
+                            <div class="featured-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>December 15, 2024</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>6:00 PM - 10:00 PM</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Grand Auditorium</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-users"></i>
+                                    <span>Students, Parents, Faculty</span>
+                                </div>
+                            </div>
+                            <div class="featured-actions">
+                                <button class="featured-btn" onclick="registerForEvent('winter-gala')">
+                                    <i class="fas fa-ticket-alt"></i> Register Now
+                                </button>
+                                <button class="featured-btn secondary" onclick="viewEventDetails('winter-gala')">
+                                    <i class="fas fa-info-circle"></i> Learn More
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured-image" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80')">
+                        <div class="featured-image-overlay">Formal Attire Required</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section scroll-reveal">
+                <div class="filter-controls">
+                    <div class="filter-label">Filter Events:</div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterEvents('all')">All Events</button>
+                        <button class="filter-btn" onclick="filterEvents('academic')">Academic</button>
+                        <button class="filter-btn" onclick="filterEvents('sports')">Sports</button>
+                        <button class="filter-btn" onclick="filterEvents('cultural')">Cultural</button>
+                        <button class="filter-btn" onclick="filterEvents('social')">Social</button>
+                        <button class="filter-btn" onclick="filterEvents('special')">Special</button>
+                    </div>
+                </div>
+                <div class="search-events">
+                    <input type="text" class="event-search" placeholder="Search events..." id="eventSearch">
+                    <button class="search-btn" onclick="searchEvents()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Events Grid -->
+            <section class="events-section scroll-reveal">
+                <h2 class="section-title">Upcoming Events Calendar</h2>
+                
+                <div class="events-grid" id="eventsGrid">
+                    <!-- Academic Events -->
+                    <div class="event-card" data-category="academic">
+                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044297?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Science Symposium" class="event-image">
+                        <div class="event-date-badge">Dec 18</div>
+                        <div class="event-category-badge category-academic">Academic</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Annual Science Symposium</h3>
+                            <p class="event-description">Students present their research projects and participate in interactive science demonstrations and workshops.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>9:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Science Building</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>Students & Faculty</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('science-symposium')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('science-symposium')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sports Events -->
+                    <div class="event-card" data-category="sports">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Basketball Championship" class="event-image">
+                        <div class="event-date-badge">Dec 20</div>
+                        <div class="event-category-badge category-sports">Sports</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Basketball Championship Finals</h3>
+                            <p class="event-description">Cheer for our Elite Eagles as they compete in the inter-school basketball championship finals.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>7:00 PM - 9:00 PM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Sports Complex</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>Open to All</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('basketball-finals')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('basketball-finals')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Events -->
+                    <div class="event-card" data-category="cultural">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Winter Concert" class="event-image">
+                        <div class="event-date-badge">Dec 22</div>
+                        <div class="event-category-badge category-cultural">Cultural</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Winter Concert & Art Exhibition</h3>
+                            <p class="event-description">Enjoy performances by our talented musicians and view stunning artwork created by our art students.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>7:30 PM - 9:30 PM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Performing Arts Center</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>Students, Parents, Community</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('winter-concert')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('winter-concert')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Events -->
+                    <div class="event-card" data-category="social">
+                        <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Holiday Party" class="event-image">
+                        <div class="event-date-badge">Dec 23</div>
+                        <div class="event-category-badge category-social">Social</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Holiday Party & Gift Exchange</h3>
+                            <p class="event-description">Celebrate the holiday season with games, refreshments, and a fun gift exchange among students and faculty.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>2:00 PM - 5:00 PM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Student Commons</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>Students & Faculty</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('holiday-party')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('holiday-party')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Events -->
+                    <div class="event-card" data-category="special">
+                        <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="New Year Celebration" class="event-image">
+                        <div class="event-date-badge">Dec 31</div>
+                        <div class="event-category-badge category-special">Special</div>
+                        <div class="event-content">
+                            <h3 class="event-title">New Year Countdown Celebration</h3>
+                            <p class="event-description">Ring in the New Year with a spectacular celebration featuring fireworks, live music, and countdown festivities.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>9:00 PM - 12:30 AM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>School Courtyard</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>Open to All</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('new-year')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('new-year')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Events -->
+                    <div class="event-card" data-category="academic">
+                        <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Spring Orientation" class="event-image">
+                        <div class="event-date-badge">Jan 8</div>
+                        <div class="event-category-badge category-academic">Academic</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Spring Semester Orientation</h3>
+                            <p class="event-description">Welcome session for new students and important information about the upcoming spring semester curriculum and activities.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>10:00 AM - 2:00 PM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Main Auditorium</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>New Students & Parents</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('spring-orientation')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('spring-orientation')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cultural Events -->
+                    <div class="event-card" data-category="cultural">
+                        <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="International Day" class="event-image">
+                        <div class="event-date-badge">Jan 15</div>
+                        <div class="event-category-badge category-cultural">Cultural</div>
+                        <div class="event-content">
+                            <h3 class="event-title">International Cultural Day</h3>
+                            <p class="event-description">Celebrate our diverse community with cultural performances, traditional foods, and educational exhibits from around the world.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>11:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Campus-wide</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>Entire Community</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('cultural-day')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('cultural-day')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sports Events -->
+                    <div class="event-card" data-category="sports">
+                        <img src="https://images.unsplash.com/photo-1544725121-be3bf52e2dc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Swimming Championship" class="event-image">
+                        <div class="event-date-badge">Jan 20</div>
+                        <div class="event-category-badge category-sports">Sports</div>
+                        <div class="event-content">
+                            <h3 class="event-title">Annual Swimming Championship</h3>
+                            <p class="event-description">Regional swimming competition featuring our talented aquatic team competing against top schools in various swimming events.</p>
+                            <div class="event-meta">
+                                <div class="meta-row">
+                                    <i class="fas fa-clock"></i>
+                                    <span>8:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Aquatic Center</span>
+                                </div>
+                                <div class="meta-row">
+                                    <i class="fas fa-users"></i>
+                                    <span>Students, Parents, Spectators</span>
+                                </div>
+                            </div>
+                            <div class="event-actions">
+                                <button class="rsvp-btn" onclick="rsvpEvent('swimming-championship')">RSVP</button>
+                                <a href="#" class="event-details-btn" onclick="viewEventDetails('swimming-championship')">View Details →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calendar Section -->
+            <section class="calendar-section scroll-reveal">
+                <div class="calendar-header">
+                    <h2 class="calendar-title">Event Calendar</h2>
+                    <div class="calendar-nav">
+                        <button class="calendar-btn" onclick="previousMonth()">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="calendar-month" id="currentMonth">December 2024</span>
+                        <button class="calendar-btn" onclick="nextMonth()">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="mini-calendar" id="miniCalendar">
+                    <!-- Calendar will be generated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Event Gallery -->
+            <section class="gallery-section scroll-reveal">
+                <h2 class="section-title">Event Gallery</h2>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="Graduation ceremony" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">Graduation Ceremony 2024</h4>
+                            <p class="gallery-description">Celebrating our graduating class and their remarkable achievements</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Music concert" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">Spring Music Concert</h4>
+                            <p class="gallery-description">Outstanding performances by our talented music students</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1427504494785-3a9ca7044297?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Science fair" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">Science Fair Exhibition</h4>
+                            <p class="gallery-description">Innovative projects and discoveries by our science students</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Sports day" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">Annual Sports Day</h4>
+                            <p class="gallery-description">Athletic excellence and team spirit on display</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Cultural festival" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">Cultural Festival</h4>
+                            <p class="gallery-description">Celebrating diversity and cultural heritage together</p>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item">
+                        <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Award ceremony" class="gallery-image">
+                        <div class="gallery-overlay">
+                            <h4 class="gallery-title">Academic Awards</h4>
+                            <p class="gallery-description">Recognizing outstanding academic achievements and excellence</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Event Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 class="modal-title">Event Registration</h2>
+            <form id="registrationForm" onsubmit="submitRegistration(event)">
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-input" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email Address *</label>
+                    <input type="email" class="form-input" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Role *</label>
+                    <select class="form-input" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="student">Student</option>
+                        <option value="parent">Parent</option>
+                        <option value="faculty">Faculty</option>
+                        <option value="visitor">Visitor</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Number of Attendees</label>
+                    <input type="number" class="form-input" name="attendees" min="1" max="10" value="1">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Special Requirements</label>
+                    <textarea class="form-input" name="requirements" rows="3" placeholder="Dietary restrictions, accessibility needs, etc."></textarea>
+                </div>
+                
+                <button type="submit" class="form-submit">
+                    <i class="fas fa-check"></i> Complete Registration
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Events Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you with information about upcoming events at Elite Academy. I can help you find events, register for activities, or answer questions about our event calendar. What would you like to know?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about events..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Current event data
+        const eventData = {
+            currentMonth: 11, // December (0-indexed)
+            currentYear: 2024,
+            registeredEvents: new Set(),
+            eventDates: [15, 18, 20, 22, 23, 31] // December events
+        };
+
+        // Sample events data
+        const events = [
+            {
+                id: 'winter-gala',
+                title: 'Annual Winter Gala & Awards Ceremony',
+                date: 'December 15, 2024',
+                time: '6:00 PM - 10:00 PM',
+                location: 'Grand Auditorium',
+                category: 'special',
+                description: 'Elegant evening celebrating student achievements with performances and dinner.',
+                featured: true
+            },
+            {
+                id: 'science-symposium',
+                title: 'Annual Science Symposium',
+                date: 'December 18, 2024',
+                time: '9:00 AM - 4:00 PM',
+                location: 'Science Building',
+                category: 'academic',
+                description: 'Students present research projects and participate in science demonstrations.'
+            },
+            {
+                id: 'basketball-finals',
+                title: 'Basketball Championship Finals',
+                date: 'December 20, 2024',
+                time: '7:00 PM - 9:00 PM',
+                location: 'Sports Complex',
+                category: 'sports',
+                description: 'Cheer for our Elite Eagles in the championship finals.'
+            }
+        ];
+
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Event filtering functions
+        function filterEvents(category) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            // Update active filter button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter event cards
+            eventCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function searchEvents() {
+            const searchTerm = document.getElementById('eventSearch').value.toLowerCase();
+            const eventCards = document.querySelectorAll('.event-card');
+            
+            eventCards.forEach(card => {
+                const title = card.querySelector('.event-title').textContent.toLowerCase();
+                const description = card.querySelector('.event-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Event registration functions
+        function registerForEvent(eventId) {
+            const modal = document.getElementById('registrationModal');
+            modal.classList.add('active');
+            modal.dataset.eventId = eventId;
+        }
+
+        function rsvpEvent(eventId) {
+            const btn = event.target;
+            
+            if (eventData.registeredEvents.has(eventId)) {
+                eventData.registeredEvents.delete(eventId);
+                btn.textContent = 'RSVP';
+                btn.classList.remove('registered');
+                showNotification('RSVP cancelled successfully!', 'info');
+            } else {
+                eventData.registeredEvents.add(eventId);
+                btn.textContent = 'Registered';
+                btn.classList.add('registered');
+                showNotification('Successfully registered for event!');
+            }
+        }
+
+        function viewEventDetails(eventId) {
+            showNotification(`Loading details for ${eventId}...`);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('registrationModal');
+            modal.classList.remove('active');
+        }
+
+        function submitRegistration(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const registrationData = Object.fromEntries(formData.entries());
+            const eventId = document.getElementById('registrationModal').dataset.eventId;
+            
+            // Show success message
+            showNotification('Registration completed successfully!');
+            
+            // Add to registered events
+            eventData.registeredEvents.add(eventId);
+            
+            // Close modal and reset form
+            closeModal();
+            event.target.reset();
+        }
+
+        // Calendar functions
+        function generateCalendar() {
+            const calendar = document.getElementById('miniCalendar');
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                               'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            // Update month display
+            document.getElementById('currentMonth').textContent = 
+                `${monthNames[eventData.currentMonth]} ${eventData.currentYear}`;
+            
+            // Clear calendar
+            calendar.innerHTML = '';
+            
+            // Add day headers
+            const dayHeaders = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayHeaders.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day header';
+                dayElement.textContent = day;
+                calendar.appendChild(dayElement);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(eventData.currentYear, eventData.currentMonth, 1).getDay();
+            const daysInMonth = new Date(eventData.currentYear, eventData.currentMonth + 1, 0).getDate();
+            const today = new Date().getDate();
+            
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day';
+                calendar.appendChild(emptyDay);
+            }
+            
+            // Add days of month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                dayElement.textContent = day;
+                
+                // Mark today
+                if (day === today && eventData.currentMonth === new Date().getMonth()) {
+                    dayElement.classList.add('today');
+                }
+                
+                // Mark days with events
+                if (eventData.eventDates.includes(day)) {
+                    dayElement.classList.add('has-event');
+                }
+                
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        function previousMonth() {
+            eventData.currentMonth--;
+            if (eventData.currentMonth < 0) {
+                eventData.currentMonth = 11;
+                eventData.currentYear--;
+            }
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            eventData.currentMonth++;
+            if (eventData.currentMonth > 11) {
+                eventData.currentMonth = 0;
+                eventData.currentYear++;
+            }
+            generateCalendar();
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Upcoming Events page. Please respond helpfully to this query: "${message}". We have various upcoming events including: Winter Gala (Dec 15), Science Symposium (Dec 18), Basketball Finals (Dec 20), Winter Concert (Dec 22), Holiday Party (Dec 23), New Year Celebration (Dec 31), Spring Orientation (Jan 8), Cultural Day (Jan 15), Swimming Championship (Jan 20). Events span categories: Academic, Sports, Cultural, Social, and Special. Help with event details, registration, schedules, and calendar information.`,
+                        {
+                            openChat: false,
+                            handler: 'events-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "We have exciting events coming up! Our featured Winter Gala is on December 15th, featuring awards, performances, and dinner.",
+                            "You can filter events by category: Academic, Sports, Cultural, Social, or Special. Each category offers unique opportunities for participation.",
+                            "Upcoming highlights include the Science Symposium (Dec 18), Basketball Finals (Dec 20), and Winter Concert (Dec 22).",
+                            "To register for events, click the RSVP button on any event card or use the 'Register Now' button for featured events.",
+                            "Our event calendar shows all upcoming activities. Events with special dates are highlighted for easy identification.",
+                            "Event categories include academic symposiums, sports competitions, cultural celebrations, social gatherings, and special occasions.",
+                            "For event details, schedules, or special requirements, you can view full information by clicking 'View Details' on any event."
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('winter gala') || msg.includes('featured') || msg.includes('main')) {
+                return responses[0];
+            } else if (msg.includes('category') || msg.includes('type') || msg.includes('filter')) {
+                return responses[1];
+            } else if (msg.includes('upcoming') || msg.includes('schedule') || msg.includes('when')) {
+                return responses[2];
+            } else if (msg.includes('register') || msg.includes('rsvp') || msg.includes('sign up')) {
+                return responses[3];
+            } else if (msg.includes('calendar') || msg.includes('date') || msg.includes('time')) {
+                return responses[4];
+            } else if (msg.includes('academic') || msg.includes('sports') || msg.includes('cultural')) {
+                return responses[5];
+            } else if (msg.includes('details') || msg.includes('information') || msg.includes('about')) {
+                return responses[6];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('events-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help with event information!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'info' ? 'var(--light-navy)' : 'var(--secondary-gold)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            generateCalendar();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Add search functionality
+            const searchInput = document.getElementById('eventSearch');
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchEvents();
+                }
+            });
+            
+            // Close modal when clicking outside
+            document.getElementById('registrationModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

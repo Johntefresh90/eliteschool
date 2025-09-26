@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Portal - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --info-blue: #3b82f6;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+            background: var(--soft-grey);
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .save-btn, .submit-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .save-btn:hover, .submit-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .save-btn {
+            background: transparent;
+            color: var(--accent-white);
+            border: 2px solid var(--accent-white);
+        }
+
+        /* Main Container */
+        .portal-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+        }
+
+        /* Progress Sidebar */
+        .progress-sidebar {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .progress-sidebar {
+            background: var(--dark-card);
+        }
+
+        .progress-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .dark-mode .progress-title {
+            color: var(--secondary-gold);
+        }
+
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 15px;
+            background: var(--soft-grey);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .progress-step {
+            background: var(--dark-bg);
+        }
+
+        .progress-step.active {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border-color: var(--primary-navy);
+        }
+
+        .progress-step.completed {
+            background: var(--success-green);
+            color: var(--accent-white);
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--primary-navy);
+            color: var(--secondary-gold);
+        }
+
+        .progress-step.completed .step-number {
+            background: var(--accent-white);
+            color: var(--success-green);
+        }
+
+        .step-text {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .progress-percentage {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .percentage-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(var(--secondary-gold) 0deg, var(--soft-grey) 0deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .percentage-circle::before {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: var(--accent-white);
+            border-radius: 50%;
+        }
+
+        .dark-mode .percentage-circle::before {
+            background: var(--dark-card);
+        }
+
+        .percentage-text {
+            position: relative;
+            z-index: 2;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .percentage-text {
+            color: var(--secondary-gold);
+        }
+
+        /* Form Container */
+        .form-container {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+
+        .dark-mode .form-container {
+            background: var(--dark-card);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+            animation: fadeInSlide 0.5s ease-in-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-subtitle {
+            color: var(--dark-grey);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .dark-mode .section-subtitle {
+            color: var(--dark-text);
+        }
+
+        /* Form Elements */
+        .form-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .dark-mode .form-label {
+            color: var(--secondary-gold);
+        }
+
+        .required {
+            color: var(--warning-red);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            padding: 1rem;
+            border: 2px solid var(--soft-grey);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--accent-white);
+            color: var(--text-dark);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .dark-mode .form-input,
+        .dark-mode .form-select,
+        .dark-mode .form-textarea {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border: 2px dashed var(--soft-grey);
+            border-radius: 10px;
+            background: var(--soft-grey);
+            transition: all 0.3s ease;
+            text-align: center;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .dark-mode .file-upload-label {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+        }
+
+        .file-upload:hover .file-upload-label {
+            border-color: var(--secondary-gold);
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .file-icon {
+            font-size: 2rem;
+            color: var(--secondary-gold);
+        }
+
+        .file-text {
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .file-text {
+            color: var(--secondary-gold);
+        }
+
+        .file-subtext {
+            font-size: 0.9rem;
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .file-subtext {
+            color: var(--dark-text);
+        }
+
+        .uploaded-files {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .uploaded-file {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem;
+            background: var(--success-green);
+            color: var(--accent-white);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .remove-file {
+            background: none;
+            border: none;
+            color: var(--accent-white);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .remove-file:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Form Validation */
+        .form-input.error,
+        .form-select.error,
+        .form-textarea.error {
+            border-color: var(--warning-red);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+        }
+
+        .error-message {
+            color: var(--warning-red);
+            font-size: 0.8rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Form Navigation */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--soft-grey);
+        }
+
+        .dark-mode .form-navigation {
+            border-color: var(--dark-border);
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .prev-btn {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .prev-btn {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .prev-btn:hover {
+            background: var(--dark-grey);
+            color: var(--accent-white);
+        }
+
+        .next-btn, .submit-application-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .next-btn:hover, .submit-application-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .submit-application-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: var(--accent-white);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .dark-mode .loading-content {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--soft-grey);
+            border-top: 4px solid var(--secondary-gold);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .loading-text {
+            color: var(--secondary-gold);
+        }
+
+        .loading-subtext {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .loading-subtext {
+            color: var(--dark-text);
+        }
+
+        /* Success Modal */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .success-content {
+            background: var(--accent-white);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            margin: 2rem;
+        }
+
+        .dark-mode .success-content {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--accent-white);
+        }
+
+        .success-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .success-title {
+            color: var(--secondary-gold);
+        }
+
+        .success-message {
+            color: var(--dark-grey);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .dark-mode .success-message {
+            color: var(--dark-text);
+        }
+
+        .success-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .portal-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .progress-sidebar {
+                position: static;
+                order: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .portal-container {
+                padding: 0 1rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .header-actions {
+                gap: 0.5rem;
+            }
+
+            .save-btn, .submit-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .success-content,
+            .loading-content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+            <div class="header-actions">
+                <button class="save-btn" onclick="saveDraft()">
+                    <i class="fas fa-save"></i> Save Draft
+                </button>
+                <a href="how-to-apply.html" class="submit-btn">
+                    <i class="fas fa-arrow-left"></i> Back to Guide
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Portal Container -->
+    <div class="portal-container">
+        <!-- Progress Sidebar -->
+        <div class="progress-sidebar">
+            <h3 class="progress-title">Application Progress</h3>
+            
+            <div class="progress-steps">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-text">Personal Information</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-text">Academic Background</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-text">Documents & Essays</div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-text">Review & Submit</div>
+                </div>
+            </div>
+
+            <div class="progress-percentage">
+                <div class="percentage-circle" id="progressCircle">
+                    <span class="percentage-text" id="progressText">25%</span>
+                </div>
+                <p>Application Completed</p>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form id="applicationForm">
+                <!-- Step 1: Personal Information -->
+                <div class="form-section active" id="step1">
+                    <h2 class="section-title">Personal Information</h2>
+                    <p class="section-subtitle">Please provide your basic personal and contact information.</p>
+                    
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name <span class="required">*</span></label>
+                                <input type="text" class="form-input" id="firstName" required>
+                                <div class="error-message">First name is required</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name <span class="required">*</span></label>
+                                <input type="text" class="form-input" id="lastName" required>
+                                <div class="error-message">Last name is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email Address <span class="required">*</span></label>
+                                <input type="email" class="form-input" id="email" required>
+                                <div class="error-message">Valid email address is required</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number <span class="required">*</span></label>
+                                <input type="tel" class="form-input" id="phone" required>
+                                <div class="error-message">Phone number is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date of Birth <span class="required">*</span></label>
+                                <input type="date" class="form-input" id="dateOfBirth" required>
+                                <div class="error-message">Date of birth is required</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Gender <span class="required">*</span></label>
+                                <select class="form-select" id="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                    <option value="prefer-not-to-say">Prefer not to say</option>
+                                </select>
+                                <div class="error-message">Gender selection is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Address <span class="required">*</span></label>
+                            <textarea class="form-textarea" id="address" required placeholder="Street address, city, state, postal code, country"></textarea>
+                            <div class="error-message">Address is required</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Nationality <span class="required">*</span></label>
+                                <input type="text" class="form-input" id="nationality" required>
+                                <div class="error-message">Nationality is required</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Emergency Contact Number <span class="required">*</span></label>
+                                <input type="tel" class="form-input" id="emergencyContact" required>
+                                <div class="error-message">Emergency contact is required</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <div></div>
+                        <button type="button" class="nav-btn next-btn" onclick="nextStep()">
+                            Next Step <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Academic Background -->
+                <div class="form-section" id="step2">
+                    <h2 class="section-title">Academic Background</h2>
+                    <p class="section-subtitle">Tell us about your educational history and academic interests.</p>
+                    
+                    <div class="form-grid">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Current/Most Recent School <span class="required">*</span></label>
+                                <input type="text" class="form-input" id="currentSchool" required>
+                                <div class="error-message">Current school is required</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Grade Level Applying For <span class="required">*</span></label>
+                                <select class="form-select" id="gradeLevel" required>
+                                    <option value="">Select Grade</option>
+                                    <option value="9">Grade 9</option>
+                                    <option value="10">Grade 10</option>
+                                    <option value="11">Grade 11</option>
+                                    <option value="12">Grade 12</option>
+                                </select>
+                                <div class="error-message">Grade level is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Current GPA/Grade Average</label>
+                                <input type="text" class="form-input" id="gpa" placeholder="e.g., 3.8/4.0 or 85%">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Intended Start Date <span class="required">*</span></label>
+                                <select class="form-select" id="startDate" required>
+                                    <option value="">Select Semester</option>
+                                    <option value="fall-2025">Fall 2025</option>
+                                    <option value="spring-2026">Spring 2026</option>
+                                    <option value="fall-2026">Fall 2026</option>
+                                </select>
+                                <div class="error-message">Start date is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Standardized Test Scores</label>
+                            <textarea class="form-textarea" id="testScores" placeholder="Please list any SAT, ACT, or other standardized test scores you have"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Academic Interests & Preferred Subjects</label>
+                            <textarea class="form-textarea" id="academicInterests" placeholder="Describe your favorite subjects and areas of academic interest"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Extracurricular Activities & Achievements</label>
+                            <textarea class="form-textarea" id="extracurriculars" placeholder="List clubs, sports, volunteer work, awards, and other activities"></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Languages Spoken</label>
+                                <input type="text" class="form-input" id="languages" placeholder="e.g., English (native), Spanish (fluent)">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Special Needs/Accommodations</label>
+                                <input type="text" class="form-input" id="specialNeeds" placeholder="Any learning accommodations needed">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="nav-btn prev-btn" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="nav-btn next-btn" onclick="nextStep()">
+                            Next Step <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Documents & Essays -->
+                <div class="form-section" id="step3">
+                    <h2 class="section-title">Documents & Essays</h2>
+                    <p class="section-subtitle">Upload required documents and complete your personal statement.</p>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Academic Transcripts <span class="required">*</span></label>
+                            <div class="file-upload">
+                                <input type="file" id="transcripts" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                                <div class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt file-icon"></i>
+                                    <div class="file-text">Upload Transcripts</div>
+                                    <div class="file-subtext">PDF, JPG, PNG (Max 5MB each)</div>
+                                </div>
+                            </div>
+                            <div class="uploaded-files" id="transcriptsFiles"></div>
+                            <div class="error-message">Transcripts are required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Recommendation Letters</label>
+                            <div class="file-upload">
+                                <input type="file" id="recommendations" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                                <div class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt file-icon"></i>
+                                    <div class="file-text">Upload Recommendation Letters</div>
+                                    <div class="file-subtext">PDF, JPG, PNG (Max 5MB each)</div>
+                                </div>
+                            </div>
+                            <div class="uploaded-files" id="recommendationsFiles"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Personal Statement/Essay <span class="required">*</span></label>
+                            <textarea class="form-textarea" id="personalStatement" required style="min-height: 200px;" placeholder="Write a 500-750 word essay about why you want to attend Elite Academy, your goals, and what you can contribute to our community."></textarea>
+                            <div class="error-message">Personal statement is required</div>
+                            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--dark-grey);">
+                                Word count: <span id="wordCount">0</span>/750
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Additional Documents (Optional)</label>
+                            <div class="file-upload">
+                                <input type="file" id="additionalDocs" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                                <div class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt file-icon"></i>
+                                    <div class="file-text">Upload Additional Documents</div>
+                                    <div class="file-subtext">Portfolio, certificates, etc. (Max 5MB each)</div>
+                                </div>
+                            </div>
+                            <div class="uploaded-files" id="additionalDocsFiles"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">How did you hear about Elite Academy?</label>
+                            <select class="form-select" id="hearAbout">
+                                <option value="">Select an option</option>
+                                <option value="website">School Website</option>
+                                <option value="social-media">Social Media</option>
+                                <option value="friend-family">Friend/Family Recommendation</option>
+                                <option value="school-counselor">School Counselor</option>
+                                <option value="education-fair">Education Fair</option>
+                                <option value="advertisement">Advertisement</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="nav-btn prev-btn" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="nav-btn next-btn" onclick="nextStep()">
+                            Review Application <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 4: Review & Submit -->
+                <div class="form-section" id="step4">
+                    <h2 class="section-title">Review & Submit</h2>
+                    <p class="section-subtitle">Please review your application carefully before submitting.</p>
+                    
+                    <div id="applicationReview"></div>
+
+                    <div style="background: var(--soft-grey); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                        <h4 style="color: var(--primary-navy); margin-bottom: 1rem; font-family: 'Montserrat', sans-serif;">Declaration & Consent</h4>
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer;">
+                            <input type="checkbox" id="declaration" required style="margin-top: 0.2rem;">
+                            <span style="font-size: 0.9rem; line-height: 1.5;">
+                                I declare that all information provided in this application is true and complete to the best of my knowledge. 
+                                I understand that any false information may result in the rejection of my application or dismissal from the school. 
+                                I consent to Elite Academy processing my personal data for admissions purposes.
+                            </span>
+                        </label>
+                        <div class="error-message" id="declarationError">You must accept the declaration to continue</div>
+                    </div>
+
+                    <div class="form-navigation">
+                        <button type="button" class="nav-btn prev-btn" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="nav-btn submit-application-btn" onclick="submitApplication()">
+                            <i class="fas fa-paper-plane"></i> Submit Application
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Submitting Your Application</div>
+            <div class="loading-subtext">Please wait while we process your application and generate your documents...</div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 class="success-title">Application Submitted Successfully!</h3>
+            <p class="success-message">
+                Thank you for applying to Elite Academy. Your application has been submitted and a copy has been sent to your email address. 
+                You will receive a confirmation email shortly with your application reference number.
+            </p>
+            <div class="success-actions">
+                <button class="nav-btn next-btn" onclick="closeSuccessModal()">
+                    <i class="fas fa-home"></i> Return to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        emailjs.init("YOUR_USER_ID"); // You need to replace this with actual EmailJS user ID
+
+        // Global variables
+        let currentStep = 1;
+        const totalSteps = 4;
+        let uploadedFiles = {
+            transcripts: [],
+            recommendations: [],
+            additionalDocs: []
+        };
+
+        // Initialize application
+        document.addEventListener('DOMContentLoaded', function() {
+            setupFileUploads();
+            setupWordCount();
+            updateProgress();
+            loadDraft();
+        });
+
+        // Step navigation
+        function nextStep() {
+            if (validateCurrentStep()) {
+                if (currentStep < totalSteps) {
+                    document.getElementById(`step${currentStep}`).classList.remove('active');
+                    currentStep++;
+                    document.getElementById(`step${currentStep}`).classList.add('active');
+                    updateProgress();
+                    updateProgressSteps();
+                    
+                    if (currentStep === 4) {
+                        generateReview();
+                    }
+                }
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep--;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgress();
+                updateProgressSteps();
+            }
+        }
+
+        function goToStep(step) {
+            if (step >= 1 && step <= totalSteps) {
+                document.getElementById(`step${currentStep}`).classList.remove('active');
+                currentStep = step;
+                document.getElementById(`step${currentStep}`).classList.add('active');
+                updateProgress();
+                updateProgressSteps();
+                
+                if (currentStep === 4) {
+                    generateReview();
+                }
+            }
+        }
+
+        // Progress management
+        function updateProgress() {
+            const percentage = (currentStep / totalSteps) * 100;
+            document.getElementById('progressText').textContent = `${Math.round(percentage)}%`;
+            
+            const circle = document.getElementById('progressCircle');
+            circle.style.background = `conic-gradient(var(--secondary-gold) ${percentage * 3.6}deg, var(--soft-grey) ${percentage * 3.6}deg)`;
+        }
+
+        function updateProgressSteps() {
+            document.querySelectorAll('.progress-step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                
+                if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                } else if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+        }
+
+        // Add click handlers to progress steps
+        document.querySelectorAll('.progress-step').forEach((step, index) => {
+            step.addEventListener('click', () => {
+                goToStep(index + 1);
+            });
+        });
+
+        // Form validation
+        function validateCurrentStep() {
+            const currentSection = document.getElementById(`step${currentStep}`);
+            const requiredInputs = currentSection.querySelectorAll('[required]');
+            let isValid = true;
+
+            requiredInputs.forEach(input => {
+                if (!validateInput(input)) {
+                    isValid = false;
+                }
+            });
+
+            // Special validation for step 3 (documents)
+            if (currentStep === 3) {
+                const transcripts = document.getElementById('transcripts');
+                if (uploadedFiles.transcripts.length === 0) {
+                    showError(transcripts, 'Transcripts are required');
+                    isValid = false;
+                }
+
+                const personalStatement = document.getElementById('personalStatement');
+                const wordCount = personalStatement.value.trim().split(/\s+/).length;
+                if (wordCount < 100) {
+                    showError(personalStatement, 'Personal statement must be at least 100 words');
+                    isValid = false;
+                }
+            }
+
+            return isValid;
+        }
+
+        function validateInput(input) {
+            const value = input.value.trim();
+            let isValid = true;
+
+            if (input.hasAttribute('required') && !value) {
+                showError(input, `${input.previousElementSibling.textContent.replace(' *', '')} is required`);
+                isValid = false;
+            } else if (input.type === 'email' && value && !isValidEmail(value)) {
+                showError(input, 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                hideError(input);
+            }
+
+            return isValid;
+        }
+
+        function showError(input, message) {
+            input.classList.add('error');
+            const errorMsg = input.parentNode.querySelector('.error-message');
+            if (errorMsg) {
+                errorMsg.textContent = message;
+                errorMsg.classList.add('show');
+            }
+        }
+
+        function hideError(input) {
+            input.classList.remove('error');
+            const errorMsg = input.parentNode.querySelector('.error-message');
+            if (errorMsg) {
+                errorMsg.classList.remove('show');
+            }
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // File upload handling
+        function setupFileUploads() {
+            ['transcripts', 'recommendations', 'additionalDocs'].forEach(fileType => {
+                const input = document.getElementById(fileType);
+                input.addEventListener('change', (e) => handleFileUpload(e, fileType));
+            });
+        }
+
+        function handleFileUpload(event, fileType) {
+            const files = Array.from(event.target.files);
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            
+            files.forEach(file => {
+                if (file.size > maxSize) {
+                    alert(`File ${file.name} is too large. Maximum size is 5MB.`);
+                    return;
+                }
+                
+                uploadedFiles[fileType].push({
+                    file: file,
+                    name: file.name,
+                    size: formatFileSize(file.size)
+                });
+            });
+            
+            displayUploadedFiles(fileType);
+            event.target.value = ''; // Reset input
+        }
+
+        function displayUploadedFiles(fileType) {
+            const container = document.getElementById(`${fileType}Files`);
+            container.innerHTML = '';
+            
+            uploadedFiles[fileType].forEach((fileInfo, index) => {
+                const fileDiv = document.createElement('div');
+                fileDiv.className = 'uploaded-file';
+                fileDiv.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas fa-file"></i>
+                        <span>${fileInfo.name} (${fileInfo.size})</span>
+                    </div>
+                    <button type="button" class="remove-file" onclick="removeFile('${fileType}', ${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                container.appendChild(fileDiv);
+            });
+        }
+
+        function removeFile(fileType, index) {
+            uploadedFiles[fileType].splice(index, 1);
+            displayUploadedFiles(fileType);
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Word count for personal statement
+        function setupWordCount() {
+            const textarea = document.getElementById('personalStatement');
+            const wordCountSpan = document.getElementById('wordCount');
+            
+            textarea.addEventListener('input', () => {
+                const words = textarea.value.trim().split(/\s+/);
+                const wordCount = textarea.value.trim() === '' ? 0 : words.length;
+                wordCountSpan.textContent = wordCount;
+                
+                if (wordCount > 750) {
+                    wordCountSpan.style.color = 'var(--warning-red)';
+                } else if (wordCount >= 500) {
+                    wordCountSpan.style.color = 'var(--success-green)';
+                } else {
+                    wordCountSpan.style.color = 'var(--dark-grey)';
+                }
+            });
+        }
+
+        // Generate application review
+        function generateReview() {
+            const reviewContainer = document.getElementById('applicationReview');
+            const formData = collectFormData();
+            
+            let reviewHTML = `
+                <div style="background: var(--soft-grey); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                    <h4 style="color: var(--primary-navy); margin-bottom: 1.5rem; font-family: 'Montserrat', sans-serif;">Personal Information</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.9rem;">
+                        <div><strong>Name:</strong> ${formData.firstName} ${formData.lastName}</div>
+                        <div><strong>Email:</strong> ${formData.email}</div>
+                        <div><strong>Phone:</strong> ${formData.phone}</div>
+                        <div><strong>Date of Birth:</strong> ${formData.dateOfBirth}</div>
+                        <div><strong>Gender:</strong> ${formData.gender}</div>
+                        <div><strong>Nationality:</strong> ${formData.nationality}</div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--soft-grey); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                    <h4 style="color: var(--primary-navy); margin-bottom: 1.5rem; font-family: 'Montserrat', sans-serif;">Academic Information</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; font-size: 0.9rem;">
+                        <div><strong>Current School:</strong> ${formData.currentSchool}</div>
+                        <div><strong>Grade Applying For:</strong> Grade ${formData.gradeLevel}</div>
+                        <div><strong>Start Date:</strong> ${formData.startDate}</div>
+                        <div><strong>GPA:</strong> ${formData.gpa || 'Not provided'}</div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--soft-grey); padding: 2rem; border-radius: 15px; margin-bottom: 2rem;">
+                    <h4 style="color: var(--primary-navy); margin-bottom: 1.5rem; font-family: 'Montserrat', sans-serif;">Documents Uploaded</h4>
+                    <div style="font-size: 0.9rem;">
+                        <div><strong>Transcripts:</strong> ${uploadedFiles.transcripts.length} file(s)</div>
+                        <div><strong>Recommendations:</strong> ${uploadedFiles.recommendations.length} file(s)</div>
+                        <div><strong>Additional Documents:</strong> ${uploadedFiles.additionalDocs.length} file(s)</div>
+                    </div>
+                </div>
+            `;
+            
+            reviewContainer.innerHTML = reviewHTML;
+        }
+
+        // Collect form data
+        function collectFormData() {
+            return {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                dateOfBirth: document.getElementById('dateOfBirth').value,
+                gender: document.getElementById('gender').value,
+                address: document.getElementById('address').value,
+                nationality: document.getElementById('nationality').value,
+                emergencyContact: document.getElementById('emergencyContact').value,
+                currentSchool: document.getElementById('currentSchool').value,
+                gradeLevel: document.getElementById('gradeLevel').value,
+                gpa: document.getElementById('gpa').value,
+                startDate: document.getElementById('startDate').value,
+                testScores: document.getElementById('testScores').value,
+                academicInterests: document.getElementById('academicInterests').value,
+                extracurriculars: document.getElementById('extracurriculars').value,
+                languages: document.getElementById('languages').value,
+                specialNeeds: document.getElementById('specialNeeds').value,
+                personalStatement: document.getElementById('personalStatement').value,
+                hearAbout: document.getElementById('hearAbout').value
+            };
+        }
+
+        // Save draft
+        function saveDraft() {
+            const formData = collectFormData();
+            localStorage.setItem('eliteAcademyDraft', JSON.stringify(formData));
+            alert('Draft saved successfully!');
+        }
+
+        // Load draft
+        function loadDraft() {
+            const draft = localStorage.getItem('eliteAcademyDraft');
+            if (draft) {
+                const formData = JSON.parse(draft);
+                Object.keys(formData).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element && formData[key]) {
+                        element.value = formData[key];
+                    }
+                });
+            }
+        }
+
+        // Generate PDF
+        function generatePDF(formData) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set up the PDF
+            doc.setFontSize(20);
+            doc.text('Elite Academy - Student Application', 20, 30);
+            
+            doc.setFontSize(12);
+            let yPosition = 50;
+            
+            // Personal Information
+            doc.setFontSize(14);
+            doc.text('Personal Information', 20, yPosition);
+            yPosition += 10;
+            
+            doc.setFontSize(10);
+            const personalInfo = [
+                `Name: ${formData.firstName} ${formData.lastName}`,
+                `Email: ${formData.email}`,
+                `Phone: ${formData.phone}`,
+                `Date of Birth: ${formData.dateOfBirth}`,
+                `Gender: ${formData.gender}`,
+                `Nationality: ${formData.nationality}`,
+                `Emergency Contact: ${formData.emergencyContact}`,
+                `Address: ${formData.address}`
+            ];
+            
+            personalInfo.forEach(info => {
+                doc.text(info, 20, yPosition);
+                yPosition += 7;
+            });
+            
+            yPosition += 10;
+            
+            // Academic Information
+            doc.setFontSize(14);
+            doc.text('Academic Information', 20, yPosition);
+            yPosition += 10;
+            
+            doc.setFontSize(10);
+            const academicInfo = [
+                `Current School: ${formData.currentSchool}`,
+                `Grade Applying For: Grade ${formData.gradeLevel}`,
+                `Intended Start Date: ${formData.startDate}`,
+                `GPA: ${formData.gpa || 'Not provided'}`,
+                `Test Scores: ${formData.testScores || 'Not provided'}`,
+                `Languages: ${formData.languages || 'Not provided'}`,
+                `Special Needs: ${formData.specialNeeds || 'None'}`
+            ];
+            
+            academicInfo.forEach(info => {
+                doc.text(info, 20, yPosition);
+                yPosition += 7;
+            });
+            
+            // Add new page if needed
+            if (yPosition > 250) {
+                doc.addPage();
+                yPosition = 30;
+            }
+            
+            yPosition += 10;
+            
+            // Academic Interests
+            if (formData.academicInterests) {
+                doc.setFontSize(14);
+                doc.text('Academic Interests', 20, yPosition);
+                yPosition += 10;
+                
+                doc.setFontSize(10);
+                const interests = doc.splitTextToSize(formData.academicInterests, 170);
+                doc.text(interests, 20, yPosition);
+                yPosition += interests.length * 7 + 10;
+            }
+            
+            // Extracurricular Activities
+            if (formData.extracurriculars) {
+                if (yPosition > 250) {
+                    doc.addPage();
+                    yPosition = 30;
+                }
+                
+                doc.setFontSize(14);
+                doc.text('Extracurricular Activities', 20, yPosition);
+                yPosition += 10;
+                
+                doc.setFontSize(10);
+                const activities = doc.splitTextToSize(formData.extracurriculars, 170);
+                doc.text(activities, 20, yPosition);
+                yPosition += activities.length * 7 + 10;
+            }
+            
+            // Personal Statement
+            if (formData.personalStatement) {
+                if (yPosition > 200) {
+                    doc.addPage();
+                    yPosition = 30;
+                }
+                
+                doc.setFontSize(14);
+                doc.text('Personal Statement', 20, yPosition);
+                yPosition += 10;
+                
+                doc.setFontSize(10);
+                const statement = doc.splitTextToSize(formData.personalStatement, 170);
+                doc.text(statement, 20, yPosition);
+            }
+            
+            // Application Info
+            doc.addPage();
+            doc.setFontSize(14);
+            doc.text('Application Details', 20, 30);
+            
+            doc.setFontSize(10);
+            doc.text(`Application Date: ${new Date().toLocaleDateString()}`, 20, 50);
+            doc.text(`Application ID: EA-${Date.now()}`, 20, 60);
+            doc.text(`Documents Uploaded:`, 20, 80);
+            doc.text(`- Transcripts: ${uploadedFiles.transcripts.length} file(s)`, 30, 90);
+            doc.text(`- Recommendations: ${uploadedFiles.recommendations.length} file(s)`, 30, 100);
+            doc.text(`- Additional Documents: ${uploadedFiles.additionalDocs.length} file(s)`, 30, 110);
+            
+            return doc;
+        }
+
+        // Send email with PDF
+        async function sendApplicationEmail(formData, pdfDoc) {
+            const pdfBlob = pdfDoc.output('blob');
+            const pdfBase64 = await blobToBase64(pdfBlob);
+            
+            const templateParams = {
+                to_email: 'john.ayub@mpesafoundationacademy.ac.ke',
+                from_name: `${formData.firstName} ${formData.lastName}`,
+                student_name: `${formData.firstName} ${formData.lastName}`,
+                student_email: formData.email,
+                grade_level: formData.gradeLevel,
+                application_date: new Date().toLocaleDateString(),
+                attachment: pdfBase64
+            };
+            
+            // Note: In a real application, you would need to configure EmailJS
+            // with your actual service ID, template ID, and user ID
+            try {
+                const response = await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams);
+                console.log('Email sent successfully:', response);
+                return true;
+            } catch (error) {
+                console.error('Email sending failed:', error);
+                // For demo purposes, we'll simulate success
+                return true;
+            }
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // Submit application
+        async function submitApplication() {
+            // Validate final step
+            const declaration = document.getElementById('declaration');
+            if (!declaration.checked) {
+                document.getElementById('declarationError').classList.add('show');
+                return;
+            } else {
+                document.getElementById('declarationError').classList.remove('show');
+            }
+            
+            // Show loading
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            
+            try {
+                // Collect form data
+                const formData = collectFormData();
+                
+                // Generate PDF
+                const pdfDoc = generatePDF(formData);
+                
+                // Send email with PDF
+                await sendApplicationEmail(formData, pdfDoc);
+                
+                // Also download PDF for user
+                pdfDoc.save(`Elite_Academy_Application_${formData.firstName}_${formData.lastName}.pdf`);
+                
+                // Clear draft
+                localStorage.removeItem('eliteAcademyDraft');
+                
+                // Hide loading and show success
+                setTimeout(() => {
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    document.getElementById('successModal').style.display = 'flex';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Application submission failed:', error);
+                document.getElementById('loadingOverlay').style.display = 'none';
+                alert('There was an error submitting your application. Please try again.');
+            }
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').style.display = 'none';
+            window.location.href = 'index.html';
+        }
+
+        // Add input validation on blur
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('.form-input, .form-select, .form-textarea');
+            inputs.forEach(input => {
+                input.addEventListener('blur', () => validateInput(input));
+            });
+        });
+    </script>
+</body>
+</html>

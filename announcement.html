@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Announcements - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --info-blue: #0ea5e9;
+            --urgent-orange: #f59e0b;
+            --event-purple: #8b5cf6;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--warning-red);
+            color: var(--accent-white);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 35s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dark-mode .filter-section {
+            background: var(--dark-card);
+        }
+
+        .filter-search {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .filter-search input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid var(--soft-grey);
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--accent-white);
+            color: var(--text-dark);
+        }
+
+        .dark-mode .filter-search input {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .filter-search input:focus {
+            outline: none;
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+        }
+
+        .filter-search i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .dark-mode .filter-btn {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .filter-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+
+        /* Featured Announcement */
+        .featured-announcement {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 0;
+            margin-bottom: 4rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(30, 58, 138, 0.3);
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 0;
+        }
+
+        .featured-text {
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .featured-badge {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .featured-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .featured-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .featured-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .featured-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .featured-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .featured-btn.secondary {
+            background: transparent;
+            color: var(--secondary-gold);
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .featured-btn.secondary:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .featured-image {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .featured-announcement:hover .featured-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-overlay {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(251, 191, 36, 0.9);
+            color: var(--primary-navy);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        /* Announcements Grid */
+        .announcements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .announcement-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .announcement-card {
+            background: var(--dark-card);
+        }
+
+        .announcement-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .announcement-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .announcement-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .announcement-card:hover .announcement-image img {
+            transform: scale(1.1);
+        }
+
+        .announcement-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent-white);
+        }
+
+        .category-urgent { background: var(--warning-red); }
+        .category-academic { background: var(--primary-navy); }
+        .category-event { background: var(--event-purple); }
+        .category-achievement { background: var(--success-green); }
+        .category-general { background: var(--info-blue); }
+        .category-admin { background: var(--urgent-orange); }
+
+        .announcement-date {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--accent-white);
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .announcement-content {
+            padding: 1.5rem;
+        }
+
+        .announcement-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .dark-mode .announcement-title {
+            color: var(--secondary-gold);
+        }
+
+        .announcement-excerpt {
+            color: var(--dark-grey);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .dark-mode .announcement-excerpt {
+            color: var(--dark-text);
+        }
+
+        .announcement-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .announcement-meta {
+            color: var(--dark-text);
+        }
+
+        .announcement-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .announcement-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            background: var(--soft-grey);
+            color: var(--primary-navy);
+            border: none;
+            padding: 6px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8rem;
+        }
+
+        .dark-mode .action-btn {
+            background: var(--dark-bg);
+            color: var(--secondary-gold);
+        }
+
+        .action-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: scale(1.05);
+        }
+
+        /* Urgent Announcements */
+        .urgent-announcements {
+            margin-bottom: 4rem;
+        }
+
+        .urgent-card {
+            background: linear-gradient(135deg, var(--warning-red), #dc2626);
+            color: var(--accent-white);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            animation: urgentPulse 2s infinite;
+            box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+        }
+
+        @keyframes urgentPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .urgent-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            animation: urgentShake 1s infinite;
+        }
+
+        @keyframes urgentShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .urgent-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .urgent-content p {
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .pagination-btn {
+            background: var(--accent-white);
+            color: var(--primary-navy);
+            border: 2px solid var(--soft-grey);
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .dark-mode .pagination-btn {
+            background: var(--dark-card);
+            color: var(--dark-text);
+            border-color: var(--dark-border);
+        }
+
+        .pagination-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border-color: var(--secondary-gold);
+        }
+
+        .pagination-btn.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            border-color: var(--primary-navy);
+        }
+
+        /* Newsletter Signup */
+        .newsletter-section {
+            background: linear-gradient(135deg, var(--success-green), #059669);
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(255,255,255,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(255,255,255,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(255,255,255,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(255,255,255,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 50px 50px;
+            animation: float-pattern 15s linear infinite;
+        }
+
+        .newsletter-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .newsletter-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .newsletter-btn {
+            background: var(--accent-white);
+            color: var(--success-green);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: scale(1.05);
+        }
+
+        /* Social Media Section */
+        .social-media-section {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .dark-mode .social-media-section {
+            background: var(--dark-card);
+        }
+
+        .social-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+        }
+
+        .dark-mode .social-title {
+            color: var(--secondary-gold);
+        }
+
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--accent-white);
+        }
+
+        .social-btn.facebook { background: #1877f2; }
+        .social-btn.twitter { background: #1da1f2; }
+        .social-btn.instagram { background: #e4405f; }
+        .social-btn.linkedin { background: #0077b5; }
+        .social-btn.youtube { background: #ff0000; }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .featured-title {
+                font-size: 1.8rem;
+            }
+
+            .announcements-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .featured-text {
+                padding: 2rem;
+            }
+
+            .newsletter-section {
+                padding: 2rem;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>🚨 URGENT: Final exam schedule changes effective immediately | 🎓 Graduation ceremony rehearsal today at 3:00 PM | ❄️ Weather alert: School closing early today at 1:00 PM | 📚 Library extended hours during finals week</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="schedules.html" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="assignments.html" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="online-classes.html" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="teacher-profiles.html" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link active">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item active">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#news">News & Events</a>
+            <span>></span>
+            <span>Latest Announcements</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Latest Announcements</h1>
+            <p class="page-subtitle">Stay Updated with Elite Academy's Latest News and Important Information</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Urgent Announcements -->
+            <section class="urgent-announcements scroll-reveal">
+                <h2 class="section-title">Urgent Announcements</h2>
+                
+                <div class="urgent-card">
+                    <div class="urgent-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="urgent-content">
+                        <h3>Weather Alert: Early Dismissal Today</h3>
+                        <p>Due to severe weather conditions, Elite Academy will dismiss all students at 1:00 PM today. All after-school activities and events are cancelled. Please arrange pickup accordingly.</p>
+                    </div>
+                </div>
+
+                <div class="urgent-card">
+                    <div class="urgent-icon">
+                        <i class="fas fa-calendar-times"></i>
+                    </div>
+                    <div class="urgent-content">
+                        <h3>Final Exam Schedule Changes</h3>
+                        <p>Important changes to the final exam schedule have been made. Please check your student portal for updated exam times and locations. Contact your teachers with any questions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section scroll-reveal">
+                <div class="filter-search">
+                    <input type="text" placeholder="Search announcements..." id="searchInput" onkeyup="searchAnnouncements()">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterAnnouncements('all')">All</button>
+                    <button class="filter-btn" onclick="filterAnnouncements('urgent')">Urgent</button>
+                    <button class="filter-btn" onclick="filterAnnouncements('academic')">Academic</button>
+                    <button class="filter-btn" onclick="filterAnnouncements('event')">Events</button>
+                    <button class="filter-btn" onclick="filterAnnouncements('achievement')">Achievements</button>
+                    <button class="filter-btn" onclick="filterAnnouncements('admin')">Administrative</button>
+                </div>
+            </section>
+
+            <!-- Featured Announcement -->
+            <section class="featured-announcement scroll-reveal">
+                <div class="featured-content">
+                    <div class="featured-text">
+                        <div class="featured-badge">Featured Announcement</div>
+                        <h2 class="featured-title">Elite Academy Achieves International Recognition</h2>
+                        <p class="featured-description">
+                            We are thrilled to announce that Elite Academy has been awarded the International Excellence in Education Award for our innovative STEM programs and outstanding student achievements in global competitions.
+                        </p>
+                        <div class="featured-meta">
+                            <span><i class="fas fa-calendar"></i> December 15, 2024</span>
+                            <span><i class="fas fa-user"></i> Dr. Sarah Mitchell, Principal</span>
+                            <span><i class="fas fa-eye"></i> 2,847 views</span>
+                        </div>
+                        <div class="featured-actions">
+                            <a href="#" class="featured-btn" onclick="readFullAnnouncement('featured')">Read Full Story</a>
+                            <button class="featured-btn secondary" onclick="shareAnnouncement('featured')">
+                                <i class="fas fa-share"></i> Share
+                            </button>
+                        </div>
+                    </div>
+                    <div class="featured-image">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Award ceremony with students and faculty">
+                        <div class="featured-overlay">International Award</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Announcements Grid -->
+            <section class="announcements-section scroll-reveal">
+                <h2 class="section-title">Recent Announcements</h2>
+                
+                <div class="announcements-grid" id="announcementsGrid">
+                    <!-- Academic Announcement -->
+                    <div class="announcement-card" data-category="academic">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Students studying in library">
+                            <div class="announcement-category category-academic">Academic</div>
+                            <div class="announcement-date">Dec 14, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">New Advanced Placement Courses Available</h3>
+                            <p class="announcement-excerpt">Elite Academy is proud to introduce three new Advanced Placement courses for the upcoming semester: AP Environmental Science, AP Psychology, and AP Art History...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-user-tie"></i>
+                                    <span>Academic Affairs</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('ap-courses')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('ap-courses')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Announcement -->
+                    <div class="announcement-card" data-category="event">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Science fair exhibition">
+                            <div class="announcement-category category-event">Event</div>
+                            <div class="announcement-date">Dec 13, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">Annual Science Fair 2025 Registration Open</h3>
+                            <p class="announcement-excerpt">Registration is now open for our Annual Science Fair scheduled for March 15-17, 2025. Students from all grade levels are encouraged to participate in this exciting showcase...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-flask"></i>
+                                    <span>Science Department</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('science-fair')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('science-fair')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievement Announcement -->
+                    <div class="announcement-card" data-category="achievement">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Students celebrating with trophy">
+                            <div class="announcement-category category-achievement">Achievement</div>
+                            <div class="announcement-date">Dec 12, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">Debate Team Wins National Championship</h3>
+                            <p class="announcement-excerpt">Congratulations to our Elite Academy Debate Team for winning the National High School Debate Championship! This marks the third consecutive year our team has achieved this honor...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Activities Department</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('debate-championship')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('debate-championship')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Administrative Announcement -->
+                    <div class="announcement-card" data-category="admin">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1497486751825-1233686d5d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" alt="School administration office">
+                            <div class="announcement-category category-admin">Administrative</div>
+                            <div class="announcement-date">Dec 11, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">Updated Visitor Policy Guidelines</h3>
+                            <p class="announcement-excerpt">Effective immediately, Elite Academy has updated its visitor policy to enhance campus security. All visitors must now check in at the main office and present valid identification...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-building"></i>
+                                    <span>Administration</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('visitor-policy')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('visitor-policy')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Announcement -->
+                    <div class="announcement-card" data-category="event">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Students in workshop session">
+                            <div class="announcement-category category-event">Event</div>
+                            <div class="announcement-date">Dec 10, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">College Preparation Workshop Series</h3>
+                            <p class="announcement-excerpt">Join us for our comprehensive College Preparation Workshop Series starting January 8th. Sessions will cover application strategies, essay writing, financial aid, and interview preparation...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>College Counseling</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('college-workshop')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('college-workshop')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Announcement -->
+                    <div class="announcement-card" data-category="academic">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2071&q=80" alt="Digital classroom technology">
+                            <div class="announcement-category category-academic">Academic</div>
+                            <div class="announcement-date">Dec 9, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">New Learning Management System Launch</h3>
+                            <p class="announcement-excerpt">Elite Academy will be transitioning to a new Learning Management System starting January 2025. The new platform will offer enhanced features for assignments, grading, and communication...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-laptop"></i>
+                                    <span>IT Department</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('lms-launch')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('lms-launch')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Achievement Announcement -->
+                    <div class="announcement-card" data-category="achievement">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Student with science project">
+                            <div class="announcement-category category-achievement">Achievement</div>
+                            <div class="announcement-date">Dec 8, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">Student Wins International Science Competition</h3>
+                            <p class="announcement-excerpt">Congratulations to Sarah Chen, Grade 11, for winning first place at the International Young Scientists Competition with her innovative research on sustainable water purification methods...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-atom"></i>
+                                    <span>STEM Department</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('science-competition')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('science-competition')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Announcement -->
+                    <div class="announcement-card" data-category="event">
+                        <div class="announcement-image">
+                            <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Art exhibition gallery">
+                            <div class="announcement-category category-event">Event</div>
+                            <div class="announcement-date">Dec 7, 2024</div>
+                        </div>
+                        <div class="announcement-content">
+                            <h3 class="announcement-title">Winter Art Exhibition Opening Night</h3>
+                            <p class="announcement-excerpt">Join us for the opening night of our Winter Art Exhibition featuring works by Elite Academy students, faculty, and guest artists. The event will include refreshments and live music...</p>
+                            <div class="announcement-meta">
+                                <div class="announcement-author">
+                                    <i class="fas fa-palette"></i>
+                                    <span>Arts Department</span>
+                                </div>
+                                <div class="announcement-actions">
+                                    <button class="action-btn" onclick="readMore('art-exhibition')">
+                                        <i class="fas fa-book-open"></i> Read More
+                                    </button>
+                                    <button class="action-btn" onclick="shareAnnouncement('art-exhibition')">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pagination -->
+            <section class="pagination">
+                <button class="pagination-btn" onclick="changePage('prev')">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <button class="pagination-btn active" onclick="changePage(1)">1</button>
+                <button class="pagination-btn" onclick="changePage(2)">2</button>
+                <button class="pagination-btn" onclick="changePage(3)">3</button>
+                <button class="pagination-btn" onclick="changePage(4)">4</button>
+                <button class="pagination-btn" onclick="changePage('next')">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </section>
+
+            <!-- Newsletter Signup -->
+            <section class="newsletter-section scroll-reveal">
+                <div class="newsletter-content">
+                    <h2 class="newsletter-title">Stay Updated with Elite Academy</h2>
+                    <p class="newsletter-description">Subscribe to our newsletter to receive the latest announcements, event updates, and important school information directly in your inbox.</p>
+                    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                        <button type="submit" class="newsletter-btn">
+                            <i class="fas fa-paper-plane"></i> Subscribe
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Social Media Section -->
+            <section class="social-media-section scroll-reveal">
+                <h2 class="social-title">Follow Us on Social Media</h2>
+                <div class="social-buttons">
+                    <a href="#" class="social-btn facebook" onclick="openSocialMedia('facebook')">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="#" class="social-btn twitter" onclick="openSocialMedia('twitter')">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                    <a href="#" class="social-btn instagram" onclick="openSocialMedia('instagram')">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="#" class="social-btn linkedin" onclick="openSocialMedia('linkedin')">
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
+                    </a>
+                    <a href="#" class="social-btn youtube" onclick="openSocialMedia('youtube')">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> News Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you find specific announcements, understand school policies, get event information, or answer questions about Elite Academy news. What can I help you with?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about announcements..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Sample announcements data for demonstration
+        const announcementData = {
+            announcements: [
+                {
+                    id: 'featured',
+                    title: 'Elite Academy Achieves International Recognition',
+                    category: 'achievement',
+                    date: 'December 15, 2024',
+                    author: 'Dr. Sarah Mitchell, Principal',
+                    excerpt: 'Elite Academy has been awarded the International Excellence in Education Award...',
+                    featured: true
+                },
+                // Additional announcement data would be here
+            ],
+            categories: ['urgent', 'academic', 'event', 'achievement', 'admin'],
+            currentPage: 1,
+            totalPages: 4
+        };
+
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Announcement filtering and search
+        function filterAnnouncements(category) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const announcementCards = document.querySelectorAll('.announcement-card');
+            
+            // Update active filter button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter announcement cards
+            announcementCards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeIn 0.5s ease-in';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            showNotification(`Showing ${category === 'all' ? 'all' : category} announcements`);
+        }
+
+        function searchAnnouncements() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const announcementCards = document.querySelectorAll('.announcement-card');
+            let visibleCount = 0;
+            
+            announcementCards.forEach(card => {
+                const title = card.querySelector('.announcement-title').textContent.toLowerCase();
+                const excerpt = card.querySelector('.announcement-excerpt').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (searchTerm) {
+                showNotification(`Found ${visibleCount} announcements matching "${searchTerm}"`);
+            }
+        }
+
+        // Announcement interaction functions
+        function readMore(announcementId) {
+            showNotification(`Opening full announcement: ${announcementId}`);
+        }
+
+        function readFullAnnouncement(announcementId) {
+            showNotification(`Opening detailed view for: ${announcementId}`);
+        }
+
+        function shareAnnouncement(announcementId) {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Elite Academy Announcement',
+                    text: 'Check out this announcement from Elite Academy',
+                    url: window.location.href + '#' + announcementId
+                }).then(() => {
+                    showNotification('Announcement shared successfully!');
+                }).catch(() => {
+                    fallbackShare(announcementId);
+                });
+            } else {
+                fallbackShare(announcementId);
+            }
+        }
+
+        function fallbackShare(announcementId) {
+            const url = window.location.href + '#' + announcementId;
+            navigator.clipboard.writeText(url).then(() => {
+                showNotification('Link copied to clipboard!');
+            }).catch(() => {
+                showNotification('Unable to share. Please copy the URL manually.');
+            });
+        }
+
+        // Pagination
+        function changePage(page) {
+            const currentActive = document.querySelector('.pagination-btn.active');
+            
+            if (page === 'prev') {
+                const currentPage = parseInt(currentActive.textContent);
+                if (currentPage > 1) {
+                    currentActive.classList.remove('active');
+                    document.querySelector(`[onclick="changePage(${currentPage - 1})"]`).classList.add('active');
+                }
+            } else if (page === 'next') {
+                const currentPage = parseInt(currentActive.textContent);
+                if (currentPage < 4) {
+                    currentActive.classList.remove('active');
+                    document.querySelector(`[onclick="changePage(${currentPage + 1})"]`).classList.add('active');
+                }
+            } else {
+                currentActive.classList.remove('active');
+                event.target.classList.add('active');
+            }
+            
+            showNotification(`Loading page ${typeof page === 'number' ? page : currentActive.textContent}...`);
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('.newsletter-input').value;
+            
+            // Simulate subscription process
+            showNotification('Subscribing to newsletter...');
+            
+            setTimeout(() => {
+                showNotification(`Thank you! ${email} has been subscribed to our newsletter.`, 'success');
+                event.target.reset();
+            }, 1500);
+        }
+
+        // Social media functions
+        function openSocialMedia(platform) {
+            const urls = {
+                facebook: 'https://facebook.com/eliteacademy',
+                twitter: 'https://twitter.com/eliteacademy',
+                instagram: 'https://instagram.com/eliteacademy',
+                linkedin: 'https://linkedin.com/company/eliteacademy',
+                youtube: 'https://youtube.com/eliteacademy'
+            };
+            
+            showNotification(`Opening ${platform.charAt(0).toUpperCase() + platform.slice(1)} page...`);
+            // window.open(urls[platform], '_blank');
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching announcements...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Latest Announcements page. Please respond helpfully to this query: "${message}". We have various announcements including: urgent weather alerts and exam changes, academic updates (new AP courses, LMS launch), events (science fair, college workshops, art exhibitions), achievements (debate team championship, international science competition), and administrative notices (visitor policy updates). Help users find specific announcements, understand policies, get event details, or provide general information about Elite Academy news and updates.`,
+                        {
+                            openChat: false,
+                            handler: 'announcements-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "I can help you find specific announcements! We have urgent weather alerts, exam schedule changes, and new AP course offerings.",
+                            "Our latest featured announcement is about Elite Academy receiving the International Excellence in Education Award for our STEM programs.",
+                            "Recent achievements include our debate team winning the National Championship and Sarah Chen's first place in the International Young Scientists Competition.",
+                            "Upcoming events include the Annual Science Fair registration (March 15-17), College Preparation Workshops (starting Jan 8), and Winter Art Exhibition opening night.",
+                            "You can filter announcements by category: Urgent, Academic, Events, Achievements, or Administrative. Use the search bar to find specific topics.",
+                            "For urgent announcements, check the red alert section at the top. Current alerts include early dismissal due to weather and final exam schedule changes.",
+                            "Subscribe to our newsletter to receive announcements directly in your inbox, or follow us on social media for real-time updates."
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('find') || msg.includes('search') || msg.includes('looking for')) {
+                return responses[0];
+            } else if (msg.includes('featured') || msg.includes('latest') || msg.includes('recent')) {
+                return responses[1];
+            } else if (msg.includes('achievement') || msg.includes('award') || msg.includes('win')) {
+                return responses[2];
+            } else if (msg.includes('event') || msg.includes('upcoming') || msg.includes('schedule')) {
+                return responses[3];
+            } else if (msg.includes('filter') || msg.includes('category') || msg.includes('type')) {
+                return responses[4];
+            } else if (msg.includes('urgent') || msg.includes('alert') || msg.includes('emergency')) {
+                return responses[5];
+            } else if (msg.includes('newsletter') || msg.includes('subscribe') || msg.includes('follow')) {
+                return responses[6];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('announcements-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help with announcement information!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'error' ? 'var(--warning-red)' : 'var(--info-blue)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

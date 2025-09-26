@@ -1,0 +1,2724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact a Teacher - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --online-indicator: #10b981;
+            --offline-indicator: #6b7280;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1524178232363-1fb2b075b655?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Quick Access Section */
+        .quick-access-section {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .dark-mode .quick-access-section {
+            background: var(--dark-card);
+        }
+
+        .quick-access-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .quick-access-content h3 {
+            color: var(--secondary-gold);
+        }
+
+        .quick-access-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-grey);
+            margin-bottom: 2rem;
+        }
+
+        .dark-mode .quick-access-content p {
+            color: var(--dark-text);
+        }
+
+        .quick-access-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .access-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .access-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        .access-btn.secondary {
+            background: transparent;
+            color: var(--primary-navy);
+            border: 2px solid var(--primary-navy);
+        }
+
+        .dark-mode .access-btn.secondary {
+            color: var(--secondary-gold);
+            border-color: var(--secondary-gold);
+        }
+
+        .access-btn.secondary:hover {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+        }
+
+        .quick-access-image {
+            position: relative;
+        }
+
+        .student-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .student-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(30, 58, 138, 0.9);
+            color: var(--accent-white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Search and Filter Section */
+        .search-filter-section {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dark-mode .search-filter-section {
+            background: var(--dark-card);
+        }
+
+        .search-teacher {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px 20px;
+            border: 2px solid var(--soft-grey);
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-teacher:focus {
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        .dark-mode .search-teacher {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-dropdown {
+            padding: 10px 16px;
+            border: 2px solid var(--soft-grey);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            cursor: pointer;
+            background: var(--accent-white);
+            outline: none;
+        }
+
+        .dark-mode .filter-dropdown {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        /* Teachers Grid */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .teacher-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .teacher-card {
+            background: var(--dark-card);
+        }
+
+        .teacher-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .teacher-card:hover::before {
+            left: 100%;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .teacher-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .teacher-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary-gold);
+            transition: all 0.3s ease;
+        }
+
+        .teacher-card:hover .teacher-avatar {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3);
+        }
+
+        .teacher-basic-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .teacher-basic-info h3 {
+            color: var(--secondary-gold);
+        }
+
+        .teacher-subject {
+            color: var(--secondary-gold);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .teacher-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .status-indicator.online {
+            background: var(--online-indicator);
+        }
+
+        .status-indicator.offline {
+            background: var(--offline-indicator);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        .teacher-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .teacher-bio {
+            color: var(--dark-grey);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .dark-mode .teacher-bio {
+            color: var(--dark-text);
+        }
+
+        .teacher-qualifications {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .qualification-tag {
+            background: rgba(251, 191, 36, 0.1);
+            color: var(--primary-navy);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .dark-mode .qualification-tag {
+            background: rgba(251, 191, 36, 0.2);
+            color: var(--secondary-gold);
+        }
+
+        .office-hours {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .office-hours {
+            color: var(--dark-text);
+        }
+
+        .contact-info {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 1.5rem;
+        }
+
+        .dark-mode .contact-info {
+            border-color: var(--dark-border);
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--dark-grey);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .contact-item {
+            color: var(--dark-text);
+        }
+
+        .contact-item:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .contact-item i {
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .social-media {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--accent-white);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-link:hover::before {
+            transform: scale(1);
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .social-link.facebook {
+            background: #1877f2;
+        }
+
+        .social-link.facebook::before {
+            background: #145dbf;
+        }
+
+        .social-link.twitter {
+            background: #1da1f2;
+        }
+
+        .social-link.twitter::before {
+            background: #0d8bd9;
+        }
+
+        .social-link.linkedin {
+            background: #0a66c2;
+        }
+
+        .social-link.linkedin::before {
+            background: #084e93;
+        }
+
+        .social-link.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .social-link.whatsapp {
+            background: #25d366;
+        }
+
+        .social-link.whatsapp::before {
+            background: #1aac4b;
+        }
+
+        .social-link.email {
+            background: #ea4335;
+        }
+
+        .social-link.email::before {
+            background: #d33b2c;
+        }
+
+        .teacher-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .teacher-btn {
+            flex: 1;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .teacher-btn.primary {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+        }
+
+        .teacher-btn.primary:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .teacher-btn.secondary {
+            background: transparent;
+            color: var(--primary-navy);
+            border: 2px solid var(--primary-navy);
+        }
+
+        .dark-mode .teacher-btn.secondary {
+            color: var(--secondary-gold);
+            border-color: var(--secondary-gold);
+        }
+
+        .teacher-btn.secondary:hover {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+        }
+
+        /* Contact Modal */
+        .contact-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .contact-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .dark-mode .modal-content {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-grey);
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--warning-red);
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .dark-mode .modal-title {
+            color: var(--secondary-gold);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .dark-mode .form-label {
+            color: var(--dark-text);
+        }
+
+        .form-input,
+        .form-textarea {
+            padding: 12px 16px;
+            border: 2px solid var(--soft-grey);
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: var(--secondary-gold);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+        }
+
+        .dark-mode .form-input,
+        .dark-mode .form-textarea {
+            background: var(--dark-bg);
+            border-color: var(--dark-border);
+            color: var(--dark-text);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-submit {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .form-submit:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        /* Emergency Contact Section */
+        .emergency-contact {
+            background: linear-gradient(135deg, var(--warning-red), #dc2626);
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .emergency-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .emergency-contacts {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .emergency-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--accent-white);
+            transition: all 0.3s ease;
+        }
+
+        .emergency-item:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Teacher Spotlight Sidebar */
+        .teacher-spotlight {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .teacher-spotlight {
+            background: var(--dark-card);
+        }
+
+        .spotlight-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .dark-mode .spotlight-title {
+            color: var(--secondary-gold);
+        }
+
+        .spotlight-teacher {
+            text-align: center;
+        }
+
+        .spotlight-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary-gold);
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .spotlight-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .spotlight-name {
+            color: var(--secondary-gold);
+        }
+
+        .spotlight-achievement {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .dark-mode .spotlight-achievement {
+            color: var(--dark-text);
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .quick-access-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .teachers-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .search-filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .quick-access-section {
+                padding: 2rem;
+            }
+
+            .quick-access-buttons {
+                justify-content: center;
+            }
+
+            .teachers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .teacher-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .emergency-contacts {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .quick-access-section,
+            .teacher-card,
+            .emergency-contact {
+                padding: 1.5rem;
+            }
+
+            .modal-content {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>👨‍🏫 Connect with Expert Teachers 24/7 | 📞 Emergency Contact Available | 💬 Live Chat Support | 📱 Social Media Integration | 🕐 Flexible Office Hours</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="schedules.html" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="assignments.html" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="online-classes.html" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link active">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="#teacher-profiles" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item active">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#teachers">Teachers</a>
+            <span>></span>
+            <span>Contact a Teacher</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Contact a Teacher</h1>
+            <p class="page-subtitle">Connect with Our Expert Educators Anytime, Anywhere</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Quick Access Section -->
+            <section class="quick-access-section scroll-reveal">
+                <div class="quick-access-content">
+                    <h3>Teacher Communication Hub</h3>
+                    <p>Connect with our expert faculty members through multiple channels. Whether you need academic guidance, assignment help, or just have questions, our teachers are here to support your learning journey.</p>
+                    <div class="quick-access-buttons">
+                        <button class="access-btn" onclick="openContactModal('general')">Quick Contact</button>
+                        <button class="access-btn secondary" onclick="viewOfficeHours()">Office Hours</button>
+                        <button class="access-btn secondary" onclick="emergencyContact()">Emergency Help</button>
+                    </div>
+                </div>
+                <div class="quick-access-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Teacher helping student" class="student-image">
+                    <div class="image-overlay">Teacher Support</div>
+                </div>
+            </section>
+
+            <!-- Search and Filter Section -->
+            <section class="search-filter-section scroll-reveal">
+                <input type="text" class="search-teacher" id="searchTeacher" placeholder="Search teachers by name, subject, or expertise..." onkeyup="searchTeachers()">
+                <div class="filter-controls">
+                    <select class="filter-dropdown" id="subjectFilter" onchange="filterTeachers()">
+                        <option value="all">All Subjects</option>
+                        <option value="mathematics">Mathematics</option>
+                        <option value="science">Science</option>
+                        <option value="english">English</option>
+                        <option value="history">History</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="arts">Arts</option>
+                        <option value="physical-education">Physical Education</option>
+                    </select>
+                    <select class="filter-dropdown" id="availabilityFilter" onchange="filterTeachers()">
+                        <option value="all">All Teachers</option>
+                        <option value="online">Online Now</option>
+                        <option value="offline">Offline</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Teachers Grid -->
+            <section class="teachers-section scroll-reveal">
+                <h2 class="section-title">Our Expert Faculty</h2>
+                
+                <div class="teachers-grid" id="teachersGrid">
+                    <!-- Mathematics Teacher -->
+                    <div class="teacher-card" data-subject="mathematics" data-status="online">
+                        <div class="teacher-header">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Mr. David Anderson" class="teacher-avatar">
+                            <div class="teacher-basic-info">
+                                <h3>Mr. David Anderson</h3>
+                                <div class="teacher-subject">Mathematics & Statistics</div>
+                                <div class="teacher-status">
+                                    <div class="status-indicator online"></div>
+                                    <span>Online - Available</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-details">
+                            <p class="teacher-bio">Expert mathematician with 15 years of teaching experience. Specializes in calculus, algebra, and advanced statistics. PhD in Applied Mathematics from MIT.</p>
+                            <div class="teacher-qualifications">
+                                <span class="qualification-tag">PhD Mathematics</span>
+                                <span class="qualification-tag">MIT Graduate</span>
+                                <span class="qualification-tag">15+ Years Experience</span>
+                            </div>
+                            <div class="office-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Office Hours: Mon-Fri 9:00 AM - 5:00 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-methods">
+                                <a href="tel:+1234567890" class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+1 (234) 567-8901</span>
+                                </a>
+                                <a href="mailto:d.anderson@eliteacademy.edu" class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>d.anderson@eliteacademy.edu</span>
+                                </a>
+                            </div>
+                            
+                            <div class="social-media">
+                                <a href="https://facebook.com/david.anderson.math" target="_blank" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/MathTeacherDA" target="_blank" class="social-link twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/david-anderson-math" target="_blank" class="social-link linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="mailto:d.anderson@eliteacademy.edu" class="social-link email">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="teacher-actions">
+                                <button class="teacher-btn primary" onclick="openContactModal('david-anderson')">Send Message</button>
+                                <button class="teacher-btn secondary" onclick="scheduleAppointment('david-anderson')">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Physics Teacher -->
+                    <div class="teacher-card" data-subject="science" data-status="online">
+                        <div class="teacher-header">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616c0763687?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Dr. Emily Johnson" class="teacher-avatar">
+                            <div class="teacher-basic-info">
+                                <h3>Dr. Emily Johnson</h3>
+                                <div class="teacher-subject">Physics & Astronomy</div>
+                                <div class="teacher-status">
+                                    <div class="status-indicator online"></div>
+                                    <span>Online - In Class</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-details">
+                            <p class="teacher-bio">Renowned physicist and researcher with expertise in quantum mechanics and astrophysics. Former NASA scientist with numerous publications in peer-reviewed journals.</p>
+                            <div class="teacher-qualifications">
+                                <span class="qualification-tag">PhD Physics</span>
+                                <span class="qualification-tag">Ex-NASA</span>
+                                <span class="qualification-tag">Research Scientist</span>
+                            </div>
+                            <div class="office-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Office Hours: Tue-Thu 10:00 AM - 4:00 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-methods">
+                                <a href="tel:+1234567891" class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+1 (234) 567-8902</span>
+                                </a>
+                                <a href="mailto:e.johnson@eliteacademy.edu" class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>e.johnson@eliteacademy.edu</span>
+                                </a>
+                            </div>
+                            
+                            <div class="social-media">
+                                <a href="https://facebook.com/emily.johnson.physics" target="_blank" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/PhysicsProf_EJ" target="_blank" class="social-link twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/emily-johnson-physicist" target="_blank" class="social-link linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://instagram.com/physics_with_emily" target="_blank" class="social-link instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://wa.me/1234567891" target="_blank" class="social-link whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="teacher-actions">
+                                <button class="teacher-btn primary" onclick="openContactModal('emily-johnson')">Send Message</button>
+                                <button class="teacher-btn secondary" onclick="scheduleAppointment('emily-johnson')">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- English Teacher -->
+                    <div class="teacher-card" data-subject="english" data-status="offline">
+                        <div class="teacher-header">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Ms. Sarah Wilson" class="teacher-avatar">
+                            <div class="teacher-basic-info">
+                                <h3>Ms. Sarah Wilson</h3>
+                                <div class="teacher-subject">English Literature & Creative Writing</div>
+                                <div class="teacher-status">
+                                    <div class="status-indicator offline"></div>
+                                    <span>Offline - Back at 2 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-details">
+                            <p class="teacher-bio">Award-winning literature teacher and published author. Specializes in Shakespeare, modern poetry, and creative writing. Master's in English Literature from Oxford University.</p>
+                            <div class="teacher-qualifications">
+                                <span class="qualification-tag">MA Literature</span>
+                                <span class="qualification-tag">Oxford Graduate</span>
+                                <span class="qualification-tag">Published Author</span>
+                            </div>
+                            <div class="office-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Office Hours: Mon-Wed 2:00 PM - 6:00 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-methods">
+                                <a href="tel:+1234567892" class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+1 (234) 567-8903</span>
+                                </a>
+                                <a href="mailto:s.wilson@eliteacademy.edu" class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>s.wilson@eliteacademy.edu</span>
+                                </a>
+                            </div>
+                            
+                            <div class="social-media">
+                                <a href="https://facebook.com/sarah.wilson.writer" target="_blank" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/LitTeacherSW" target="_blank" class="social-link twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/sarah-wilson-english" target="_blank" class="social-link linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://instagram.com/english_with_sarah" target="_blank" class="social-link instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://wa.me/1234567892" target="_blank" class="social-link whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="teacher-actions">
+                                <button class="teacher-btn primary" onclick="openContactModal('sarah-wilson')">Send Message</button>
+                                <button class="teacher-btn secondary" onclick="scheduleAppointment('sarah-wilson')">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chemistry Teacher -->
+                    <div class="teacher-card" data-subject="science" data-status="online">
+                        <div class="teacher-header">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Prof. Michael Brown" class="teacher-avatar">
+                            <div class="teacher-basic-info">
+                                <h3>Prof. Michael Brown</h3>
+                                <div class="teacher-subject">Chemistry & Biochemistry</div>
+                                <div class="teacher-status">
+                                    <div class="status-indicator online"></div>
+                                    <span>Online - Available</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-details">
+                            <p class="teacher-bio">Distinguished chemistry professor with extensive research in organic chemistry and biochemistry. 20 years of teaching experience and multiple research publications.</p>
+                            <div class="teacher-qualifications">
+                                <span class="qualification-tag">PhD Chemistry</span>
+                                <span class="qualification-tag">Research Professor</span>
+                                <span class="qualification-tag">20+ Years Experience</span>
+                            </div>
+                            <div class="office-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Office Hours: Mon-Fri 8:00 AM - 12:00 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-methods">
+                                <a href="tel:+1234567893" class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+1 (234) 567-8904</span>
+                                </a>
+                                <a href="mailto:m.brown@eliteacademy.edu" class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>m.brown@eliteacademy.edu</span>
+                                </a>
+                            </div>
+                            
+                            <div class="social-media">
+                                <a href="https://facebook.com/michael.brown.chemistry" target="_blank" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/ChemProfMB" target="_blank" class="social-link twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/michael-brown-chemistry" target="_blank" class="social-link linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://wa.me/1234567893" target="_blank" class="social-link whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="mailto:m.brown@eliteacademy.edu" class="social-link email">
+                                    <i class="fas fa-envelope"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="teacher-actions">
+                                <button class="teacher-btn primary" onclick="openContactModal('michael-brown')">Send Message</button>
+                                <button class="teacher-btn secondary" onclick="scheduleAppointment('michael-brown')">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History Teacher -->
+                    <div class="teacher-card" data-subject="history" data-status="offline">
+                        <div class="teacher-header">
+                            <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Dr. Jennifer Adams" class="teacher-avatar">
+                            <div class="teacher-basic-info">
+                                <h3>Dr. Jennifer Adams</h3>
+                                <div class="teacher-subject">World History & Political Science</div>
+                                <div class="teacher-status">
+                                    <div class="status-indicator offline"></div>
+                                    <span>Offline - Available Tomorrow</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-details">
+                            <p class="teacher-bio">Historian and political scientist with expertise in modern world history and international relations. Frequent lecturer at international conferences.</p>
+                            <div class="teacher-qualifications">
+                                <span class="qualification-tag">PhD History</span>
+                                <span class="qualification-tag">Political Scientist</span>
+                                <span class="qualification-tag">International Speaker</span>
+                            </div>
+                            <div class="office-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Office Hours: Tue-Thu 1:00 PM - 5:00 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-methods">
+                                <a href="tel:+1234567894" class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+1 (234) 567-8905</span>
+                                </a>
+                                <a href="mailto:j.adams@eliteacademy.edu" class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>j.adams@eliteacademy.edu</span>
+                                </a>
+                            </div>
+                            
+                            <div class="social-media">
+                                <a href="https://facebook.com/jennifer.adams.history" target="_blank" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/HistoryProf_JA" target="_blank" class="social-link twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/jennifer-adams-historian" target="_blank" class="social-link linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://wa.me/1234567894" target="_blank" class="social-link whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="teacher-actions">
+                                <button class="teacher-btn primary" onclick="openContactModal('jennifer-adams')">Send Message</button>
+                                <button class="teacher-btn secondary" onclick="scheduleAppointment('jennifer-adams')">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Computer Science Teacher -->
+                    <div class="teacher-card" data-subject="computer-science" data-status="online">
+                        <div class="teacher-header">
+                            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Mr. Alex Turner" class="teacher-avatar">
+                            <div class="teacher-basic-info">
+                                <h3>Mr. Alex Turner</h3>
+                                <div class="teacher-subject">Computer Science & Programming</div>
+                                <div class="teacher-status">
+                                    <div class="status-indicator online"></div>
+                                    <span>Online - Coding Session</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="teacher-details">
+                            <p class="teacher-bio">Software engineer turned educator with expertise in Python, Java, and web development. Former tech industry professional with 10 years of teaching experience.</p>
+                            <div class="teacher-qualifications">
+                                <span class="qualification-tag">MS Computer Science</span>
+                                <span class="qualification-tag">Ex-Tech Industry</span>
+                                <span class="qualification-tag">Full-Stack Developer</span>
+                            </div>
+                            <div class="office-hours">
+                                <i class="fas fa-clock"></i>
+                                <span>Office Hours: Mon-Fri 3:00 PM - 7:00 PM</span>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-methods">
+                                <a href="tel:+1234567895" class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>+1 (234) 567-8906</span>
+                                </a>
+                                <a href="mailto:a.turner@eliteacademy.edu" class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>a.turner@eliteacademy.edu</span>
+                                </a>
+                            </div>
+                            
+                            <div class="social-media">
+                                <a href="https://facebook.com/alex.turner.coding" target="_blank" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://twitter.com/CodeTeacherAT" target="_blank" class="social-link twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/alex-turner-cs" target="_blank" class="social-link linkedin">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://instagram.com/coding_with_alex" target="_blank" class="social-link instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://wa.me/1234567895" target="_blank" class="social-link whatsapp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="teacher-actions">
+                                <button class="teacher-btn primary" onclick="openContactModal('alex-turner')">Send Message</button>
+                                <button class="teacher-btn secondary" onclick="scheduleAppointment('alex-turner')">Schedule Meeting</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Emergency Contact Section -->
+            <section class="emergency-contact scroll-reveal">
+                <h3 class="emergency-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Emergency Academic Support
+                </h3>
+                <p style="margin-bottom: 1rem;">Need immediate academic assistance outside regular hours? Our emergency support team is available 24/7 for urgent academic queries.</p>
+                <div class="emergency-contacts">
+                    <a href="tel:+1234567890" class="emergency-item">
+                        <i class="fas fa-phone"></i>
+                        <span>Emergency Hotline: +1 (234) 567-8900</span>
+                    </a>
+                    <a href="https://wa.me/1234567890" target="_blank" class="emergency-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp Support</span>
+                    </a>
+                    <a href="mailto:emergency@eliteacademy.edu" class="emergency-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Emergency Email</span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- Teacher Spotlight -->
+            <section class="teacher-spotlight scroll-reveal">
+                <h3 class="spotlight-title">Teacher of the Month</h3>
+                <div class="spotlight-teacher">
+                    <img src="https://images.unsplash.com/photo-1494790108755-2616c0763687?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80" alt="Dr. Emily Johnson" class="spotlight-avatar">
+                    <h4 class="spotlight-name">Dr. Emily Johnson</h4>
+                    <p class="spotlight-achievement">Recognized for innovative teaching methods and outstanding student engagement. Dr. Johnson's virtual physics labs have revolutionized online learning at Elite Academy.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contactModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeContactModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2 class="modal-title" id="modalTitle">Contact Teacher</h2>
+            <form class="contact-form" id="contactForm" onsubmit="sendMessage(event)">
+                <div class="form-group">
+                    <label class="form-label" for="studentName">Your Name:</label>
+                    <input type="text" class="form-input" id="studentName" name="studentName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="studentEmail">Your Email:</label>
+                    <input type="email" class="form-input" id="studentEmail" name="studentEmail" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="studentPhone">Phone Number (Optional):</label>
+                    <input type="tel" class="form-input" id="studentPhone" name="studentPhone">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="messageSubject">Subject:</label>
+                    <input type="text" class="form-input" id="messageSubject" name="messageSubject" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="messageContent">Message:</label>
+                    <textarea class="form-textarea" id="messageContent" name="messageContent" required placeholder="Type your message here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="priorityLevel">Priority Level:</label>
+                    <select class="form-input" id="priorityLevel" name="priorityLevel">
+                        <option value="normal">Normal</option>
+                        <option value="urgent">Urgent</option>
+                        <option value="emergency">Emergency</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Teacher Contact Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I can help you find the right teacher or connect you with our faculty. What subject or type of help are you looking for?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about teachers..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Teacher search and filter functions
+        function searchTeachers() {
+            const searchTerm = document.getElementById('searchTeacher').value.toLowerCase();
+            const teacherCards = document.querySelectorAll('.teacher-card');
+            
+            teacherCards.forEach(card => {
+                const teacherName = card.querySelector('h3').textContent.toLowerCase();
+                const teacherSubject = card.querySelector('.teacher-subject').textContent.toLowerCase();
+                const teacherBio = card.querySelector('.teacher-bio').textContent.toLowerCase();
+                
+                if (teacherName.includes(searchTerm) || 
+                    teacherSubject.includes(searchTerm) || 
+                    teacherBio.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterTeachers() {
+            const subjectFilter = document.getElementById('subjectFilter').value;
+            const availabilityFilter = document.getElementById('availabilityFilter').value;
+            const teacherCards = document.querySelectorAll('.teacher-card');
+            
+            teacherCards.forEach(card => {
+                const cardSubject = card.dataset.subject;
+                const cardStatus = card.dataset.status;
+                
+                let showCard = true;
+                
+                if (subjectFilter !== 'all' && cardSubject !== subjectFilter) {
+                    showCard = false;
+                }
+                
+                if (availabilityFilter !== 'all' && cardStatus !== availabilityFilter) {
+                    showCard = false;
+                }
+                
+                card.style.display = showCard ? 'block' : 'none';
+            });
+        }
+
+        // Contact modal functions
+        function openContactModal(teacherId) {
+            const modal = document.getElementById('contactModal');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            if (teacherId === 'general') {
+                modalTitle.textContent = 'Contact Teacher - General Inquiry';
+            } else {
+                const teacherCard = document.querySelector(`[onclick*="${teacherId}"]`).closest('.teacher-card');
+                const teacherName = teacherCard.querySelector('h3').textContent;
+                modalTitle.textContent = `Contact ${teacherName}`;
+            }
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+        }
+
+        function sendMessage(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const messageData = {
+                name: formData.get('studentName'),
+                email: formData.get('studentEmail'),
+                phone: formData.get('studentPhone'),
+                subject: formData.get('messageSubject'),
+                message: formData.get('messageContent'),
+                priority: formData.get('priorityLevel')
+            };
+            
+            // Simulate message sending
+            showNotification('Message sent successfully! The teacher will respond within 24 hours.');
+            closeContactModal();
+        }
+
+        // Quick action functions
+        function scheduleAppointment(teacherId) {
+            showNotification(`Opening appointment scheduler for ${teacherId}...`);
+        }
+
+        function viewOfficeHours() {
+            showNotification('Loading office hours calendar...');
+        }
+
+        function emergencyContact() {
+            showNotification('Connecting to emergency academic support...', 'info');
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Finding the right teacher...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Contact a Teacher page. Please respond helpfully to this query: "${message}". Our teachers include: Mr. David Anderson (Mathematics), Dr. Emily Johnson (Physics), Ms. Sarah Wilson (English Literature), Prof. Michael Brown (Chemistry), Dr. Jennifer Adams (History), and Mr. Alex Turner (Computer Science). Help students find the right teacher, provide contact guidance, and suggest communication methods. Include office hours and availability information when relevant.`,
+                        {
+                            openChat: false,
+                            handler: 'teacher-contact-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "I can help you find the right teacher! We have experts in Mathematics, Physics, English, Chemistry, History, and Computer Science. What subject do you need help with?",
+                            "For Mathematics questions, contact Mr. David Anderson. He's available Mon-Fri 9:00 AM - 5:00 PM and specializes in calculus and algebra.",
+                            "Dr. Emily Johnson is our Physics expert and former NASA scientist. She's currently online and available for questions about quantum mechanics and astrophysics.",
+                            "For English Literature and Creative Writing, Ms. Sarah Wilson is an award-winning teacher and published author. She'll be back at 2 PM today.",
+                            "Prof. Michael Brown handles Chemistry and Biochemistry. He's available Mon-Fri 8:00 AM - 12:00 PM and has 20+ years of experience.",
+                            "For emergency academic support, call our 24/7 hotline at +1 (234) 567-8900 or use WhatsApp for immediate assistance.",
+                            "All teachers are available through email, phone, and social media. Would you like me to help you contact a specific teacher?"
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('math') || msg.includes('algebra') || msg.includes('calculus')) {
+                return responses[1];
+            } else if (msg.includes('physics') || msg.includes('science') || msg.includes('quantum')) {
+                return responses[2];
+            } else if (msg.includes('english') || msg.includes('literature') || msg.includes('writing')) {
+                return responses[3];
+            } else if (msg.includes('chemistry') || msg.includes('chemical') || msg.includes('biochemistry')) {
+                return responses[4];
+            } else if (msg.includes('emergency') || msg.includes('urgent') || msg.includes('help now')) {
+                return responses[5];
+            } else if (msg.includes('contact') || msg.includes('reach') || msg.includes('talk')) {
+                return responses[6];
+            } else {
+                return responses[0];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('teacher-contact-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help you find the right teacher!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'info' ? 'var(--light-navy)' : 'var(--secondary-gold)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close contact modal when clicking outside
+            document.addEventListener('click', function(e) {
+                const modal = document.getElementById('contactModal');
+                const modalContent = document.querySelector('.modal-content');
+                
+                if (modal.classList.contains('active') && !modalContent.contains(e.target)) {
+                    closeContactModal();
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

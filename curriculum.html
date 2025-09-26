@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subjects & Curriculum - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Curriculum Overview */
+        .curriculum-overview {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .dark-mode .curriculum-overview {
+            background: var(--dark-card);
+        }
+
+        .overview-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary-gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--dark-grey);
+            font-weight: 500;
+        }
+
+        .dark-mode .stat-label {
+            color: var(--dark-text);
+        }
+
+        /* Grade Level Tabs */
+        .grade-tabs-container {
+            margin: 4rem 0;
+        }
+
+        .grade-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .grade-tab {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .grade-tab {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .grade-tab.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            box-shadow: 0 5px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .grade-tab:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+
+        .grade-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .grade-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Subject Categories */
+        .subject-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .subject-category {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .subject-category {
+            background: var(--dark-card);
+        }
+
+        .subject-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .subject-category:hover::before {
+            left: 100%;
+        }
+
+        .subject-category:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-navy), var(--light-navy));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--secondary-gold);
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .subject-category:hover .category-icon {
+            transform: scale(1.1);
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            color: var(--primary-navy);
+        }
+
+        .category-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .category-title {
+            color: var(--secondary-gold);
+        }
+
+        .category-subjects {
+            list-style: none;
+            text-align: center;
+        }
+
+        .category-subjects li {
+            color: var(--dark-grey);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .dark-mode .category-subjects li {
+            color: var(--dark-text);
+        }
+
+        /* Subject Details Modal */
+        .subject-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background-color: var(--accent-white);
+            margin: 2% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .dark-mode .modal-content {
+            background-color: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .close {
+            color: var(--dark-grey);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: var(--secondary-gold);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .modal-title {
+            color: var(--secondary-gold);
+        }
+
+        .modal-subtitle {
+            color: var(--secondary-gold);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+
+        .modal-section h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-gold);
+            padding-bottom: 0.5rem;
+        }
+
+        .dark-mode .modal-section h3 {
+            color: var(--secondary-gold);
+        }
+
+        /* Special Programs Section */
+        .special-programs {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            color: var(--accent-white);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-programs::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        .programs-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .programs-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .program-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .program-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .program-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .program-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .program-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Assessment Methods */
+        .assessment-section {
+            margin: 4rem 0;
+            background: var(--soft-grey);
+            padding: 3rem;
+            border-radius: 20px;
+        }
+
+        .dark-mode .assessment-section {
+            background: var(--dark-card);
+        }
+
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .assessment-item {
+            background: var(--accent-white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .assessment-item {
+            background: var(--dark-bg);
+        }
+
+        .assessment-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .assessment-icon {
+            font-size: 2rem;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .assessment-icon {
+            color: var(--secondary-gold);
+        }
+
+        .assessment-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .assessment-title {
+            color: var(--secondary-gold);
+        }
+
+        .assessment-description {
+            color: var(--dark-grey);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .dark-mode .assessment-description {
+            color: var(--dark-text);
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .subject-categories {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .grade-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .curriculum-overview {
+                padding: 2rem;
+            }
+
+            .overview-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .subject-categories,
+            .programs-grid,
+            .assessment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 5% auto;
+                padding: 1.5rem;
+                width: 95%;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .grade-tabs {
+                gap: 0.5rem;
+            }
+
+            .grade-tab {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .curriculum-overview,
+            .assessment-section {
+                padding: 1.5rem;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>📚 Comprehensive Curriculum for All Grade Levels | 🎓 AP Courses & International Programs Available | 🔬 State-of-the-Art Science Labs | 🎨 Creative Arts & Music Programs | 🌍 Global Citizenship Education</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link active">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="#subjects" class="dropdown-item active">Subjects & Curriculum</a>
+                        <a href="#schedules" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="#assignments" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="#online-classes" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="#teacher-profiles" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#academics">Academics</a>
+            <span>></span>
+            <span>Subjects & Curriculum</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Subjects & Curriculum</h1>
+            <p class="page-subtitle">Comprehensive Academic Programs Designed for Excellence</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Curriculum Overview -->
+            <section class="curriculum-overview scroll-reveal">
+                <h2 class="section-title">Curriculum Overview</h2>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; color: var(--dark-grey);">
+                    Elite Academy offers a comprehensive, internationally-recognized curriculum designed to challenge, inspire, and prepare students for success in higher education and beyond. Our academic programs combine rigorous academics with practical application, critical thinking, and global perspectives.
+                </p>
+                
+                <div class="overview-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Subject Areas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">45+</span>
+                        <span class="stat-label">Course Options</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">AP Courses</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Languages Offered</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grade Level Tabs -->
+            <section class="grade-tabs-container scroll-reveal">
+                <h2 class="section-title">Explore by Grade Level</h2>
+                
+                <div class="grade-tabs">
+                    <button class="grade-tab active" onclick="showGradeContent('elementary')">Elementary (K-5)</button>
+                    <button class="grade-tab" onclick="showGradeContent('middle')">Middle School (6-8)</button>
+                    <button class="grade-tab" onclick="showGradeContent('high')">High School (9-12)</button>
+                </div>
+
+                <!-- Elementary Grade Content -->
+                <div id="elementary" class="grade-content active">
+                    <div class="subject-categories">
+                        <div class="subject-category" onclick="openSubjectModal('elementary-math')">
+                            <div class="category-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h3 class="category-title">Mathematics</h3>
+                            <ul class="category-subjects">
+                                <li>Number Sense & Operations</li>
+                                <li>Geometry & Measurement</li>
+                                <li>Data Analysis & Probability</li>
+                                <li>Problem Solving</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('elementary-language')">
+                            <div class="category-icon">
+                                <i class="fas fa-book-open"></i>
+                            </div>
+                            <h3 class="category-title">Language Arts</h3>
+                            <ul class="category-subjects">
+                                <li>Reading Comprehension</li>
+                                <li>Writing & Grammar</li>
+                                <li>Speaking & Listening</li>
+                                <li>Literature Study</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('elementary-science')">
+                            <div class="category-icon">
+                                <i class="fas fa-microscope"></i>
+                            </div>
+                            <h3 class="category-title">Science</h3>
+                            <ul class="category-subjects">
+                                <li>Life Science</li>
+                                <li>Physical Science</li>
+                                <li>Earth & Space Science</li>
+                                <li>Scientific Inquiry</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('elementary-social')">
+                            <div class="category-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3 class="category-title">Social Studies</h3>
+                            <ul class="category-subjects">
+                                <li>Community & Citizenship</li>
+                                <li>Geography</li>
+                                <li>History & Culture</li>
+                                <li>Economics Basics</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('elementary-arts')">
+                            <div class="category-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3 class="category-title">Arts & Music</h3>
+                            <ul class="category-subjects">
+                                <li>Visual Arts</li>
+                                <li>Music Appreciation</li>
+                                <li>Drama & Theater</li>
+                                <li>Creative Expression</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('elementary-physical')">
+                            <div class="category-icon">
+                                <i class="fas fa-running"></i>
+                            </div>
+                            <h3 class="category-title">Physical Education</h3>
+                            <ul class="category-subjects">
+                                <li>Motor Skills Development</li>
+                                <li>Team Sports</li>
+                                <li>Health & Wellness</li>
+                                <li>Fitness & Nutrition</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Middle School Content -->
+                <div id="middle" class="grade-content">
+                    <div class="subject-categories">
+                        <div class="subject-category" onclick="openSubjectModal('middle-math')">
+                            <div class="category-icon">
+                                <i class="fas fa-square-root-alt"></i>
+                            </div>
+                            <h3 class="category-title">Advanced Mathematics</h3>
+                            <ul class="category-subjects">
+                                <li>Pre-Algebra</li>
+                                <li>Algebra I</li>
+                                <li>Geometry Foundations</li>
+                                <li>Statistics</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('middle-science')">
+                            <div class="category-icon">
+                                <i class="fas fa-atom"></i>
+                            </div>
+                            <h3 class="category-title">Integrated Sciences</h3>
+                            <ul class="category-subjects">
+                                <li>Biology</li>
+                                <li>Chemistry</li>
+                                <li>Physics</li>
+                                <li>Environmental Science</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('middle-language')">
+                            <div class="category-icon">
+                                <i class="fas fa-feather-alt"></i>
+                            </div>
+                            <h3 class="category-title">Language Arts</h3>
+                            <ul class="category-subjects">
+                                <li>Advanced Literature</li>
+                                <li>Creative Writing</li>
+                                <li>Research Skills</li>
+                                <li>Public Speaking</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('middle-social')">
+                            <div class="category-icon">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <h3 class="category-title">Social Studies</h3>
+                            <ul class="category-subjects">
+                                <li>World History</li>
+                                <li>Geography</li>
+                                <li>Civics & Government</li>
+                                <li>Economics</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('middle-tech')">
+                            <div class="category-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3 class="category-title">Technology</h3>
+                            <ul class="category-subjects">
+                                <li>Computer Science Basics</li>
+                                <li>Digital Literacy</li>
+                                <li>Robotics</li>
+                                <li>Multimedia Design</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('middle-languages')">
+                            <div class="category-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <h3 class="category-title">Foreign Languages</h3>
+                            <ul class="category-subjects">
+                                <li>Spanish</li>
+                                <li>French</li>
+                                <li>Mandarin</li>
+                                <li>Latin</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- High School Content -->
+                <div id="high" class="grade-content">
+                    <div class="subject-categories">
+                        <div class="subject-category" onclick="openSubjectModal('high-math')">
+                            <div class="category-icon">
+                                <i class="fas fa-infinity"></i>
+                            </div>
+                            <h3 class="category-title">Advanced Mathematics</h3>
+                            <ul class="category-subjects">
+                                <li>AP Calculus AB/BC</li>
+                                <li>AP Statistics</li>
+                                <li>Discrete Mathematics</li>
+                                <li>Linear Algebra</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('high-science')">
+                            <div class="category-icon">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                            <h3 class="category-title">Advanced Sciences</h3>
+                            <ul class="category-subjects">
+                                <li>AP Biology</li>
+                                <li>AP Chemistry</li>
+                                <li>AP Physics</li>
+                                <li>AP Environmental Science</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('high-humanities')">
+                            <div class="category-icon">
+                                <i class="fas fa-scroll"></i>
+                            </div>
+                            <h3 class="category-title">Humanities</h3>
+                            <ul class="category-subjects">
+                                <li>AP English Literature</li>
+                                <li>AP World History</li>
+                                <li>AP Psychology</li>
+                                <li>Philosophy</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('high-tech')">
+                            <div class="category-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3 class="category-title">Computer Science</h3>
+                            <ul class="category-subjects">
+                                <li>AP Computer Science A</li>
+                                <li>Data Structures</li>
+                                <li>Web Development</li>
+                                <li>Artificial Intelligence</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('high-business')">
+                            <div class="category-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="category-title">Business & Economics</h3>
+                            <ul class="category-subjects">
+                                <li>AP Economics</li>
+                                <li>Business Management</li>
+                                <li>Entrepreneurship</li>
+                                <li>Financial Literacy</li>
+                            </ul>
+                        </div>
+
+                        <div class="subject-category" onclick="openSubjectModal('high-arts')">
+                            <div class="category-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3 class="category-title">Fine Arts</h3>
+                            <ul class="category-subjects">
+                                <li>AP Studio Art</li>
+                                <li>AP Music Theory</li>
+                                <li>Theater Arts</li>
+                                <li>Digital Media</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Special Programs -->
+            <section class="special-programs scroll-reveal">
+                <div class="programs-content">
+                    <h2 class="programs-title">Special Academic Programs</h2>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.9;">
+                        Elite Academy offers specialized programs to enhance learning and prepare students for future success
+                    </p>
+                    
+                    <div class="programs-grid">
+                        <div class="program-item">
+                            <div class="program-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <h3 class="program-title">Advanced Placement (AP)</h3>
+                            <p class="program-description">12 AP courses offering college-level curriculum and the opportunity to earn college credit.</p>
+                        </div>
+                        
+                        <div class="program-item">
+                            <div class="program-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <h3 class="program-title">International Baccalaureate</h3>
+                            <p class="program-description">Globally recognized diploma program emphasizing international mindedness and critical thinking.</p>
+                        </div>
+                        
+                        <div class="program-item">
+                            <div class="program-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3 class="program-title">STEM Excellence</h3>
+                            <p class="program-description">Integrated Science, Technology, Engineering, and Mathematics program with hands-on projects.</p>
+                        </div>
+                        
+                        <div class="program-item">
+                            <div class="program-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h3 class="program-title">Gifted & Talented</h3>
+                            <p class="program-description">Accelerated learning opportunities for students demonstrating exceptional academic ability.</p>
+                        </div>
+                        
+                        <div class="program-item">
+                            <div class="program-icon">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <h3 class="program-title">Learning Support</h3>
+                            <p class="program-description">Individualized support services for students with diverse learning needs and styles.</p>
+                        </div>
+                        
+                        <div class="program-item">
+                            <div class="program-icon">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <h3 class="program-title">Student Exchange</h3>
+                            <p class="program-description">Global exchange programs with partner schools in 15+ countries for cultural immersion.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assessment Methods -->
+            <section class="assessment-section scroll-reveal">
+                <h2 class="section-title">Assessment & Evaluation</h2>
+                <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: var(--dark-grey);">
+                    Our comprehensive assessment approach ensures accurate measurement of student progress and learning outcomes
+                </p>
+                
+                <div class="assessment-grid">
+                    <div class="assessment-item">
+                        <div class="assessment-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3 class="assessment-title">Formative Assessment</h3>
+                        <p class="assessment-description">Ongoing evaluations including quizzes, projects, and class participation to monitor learning progress.</p>
+                    </div>
+                    
+                    <div class="assessment-item">
+                        <div class="assessment-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3 class="assessment-title">Summative Assessment</h3>
+                        <p class="assessment-description">End-of-unit tests, final exams, and comprehensive projects measuring overall learning achievement.</p>
+                    </div>
+                    
+                    <div class="assessment-item">
+                        <div class="assessment-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="assessment-title">Peer Assessment</h3>
+                        <p class="assessment-description">Collaborative evaluation activities that develop critical thinking and communication skills.</p>
+                    </div>
+                    
+                    <div class="assessment-item">
+                        <div class="assessment-icon">
+                            <i class="fas fa-mirror"></i>
+                        </div>
+                        <h3 class="assessment-title">Self-Assessment</h3>
+                        <p class="assessment-description">Reflective practices that help students understand their own learning process and set goals.</p>
+                    </div>
+                    
+                    <div class="assessment-item">
+                        <div class="assessment-icon">
+                            <i class="fas fa-folder-open"></i>
+                        </div>
+                        <h3 class="assessment-title">Portfolio Assessment</h3>
+                        <p class="assessment-description">Collection of student work demonstrating growth and achievement over time.</p>
+                    </div>
+                    
+                    <div class="assessment-item">
+                        <div class="assessment-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <h3 class="assessment-title">Performance Assessment</h3>
+                        <p class="assessment-description">Real-world tasks and presentations that demonstrate practical application of knowledge.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Subject Detail Modal -->
+    <div id="subjectModal" class="subject-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSubjectModal()">&times;</span>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Subject Details</h2>
+                <p class="modal-subtitle" id="modalSubtitle">Comprehensive curriculum information</p>
+            </div>
+            <div id="modalBody">
+                <!-- Content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Curriculum Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you explore our subjects and curriculum. What would you like to know?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about our curriculum..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Subject data for modals
+        const subjectData = {
+            'elementary-math': {
+                title: 'Elementary Mathematics',
+                subtitle: 'Building Strong Mathematical Foundations',
+                content: `
+                    <div class="modal-section">
+                        <h3>Course Overview</h3>
+                        <p>Our elementary mathematics program builds strong foundational skills through hands-on learning, problem-solving, and real-world applications. Students develop number sense, mathematical reasoning, and confidence in mathematical thinking.</p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Key Learning Objectives</h3>
+                        <ul>
+                            <li>Develop fluency in basic arithmetic operations</li>
+                            <li>Understand place value and number relationships</li>
+                            <li>Explore geometric shapes and spatial reasoning</li>
+                            <li>Collect, organize, and interpret data</li>
+                            <li>Solve word problems using multiple strategies</li>
+                        </ul>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Teaching Methods</h3>
+                        <p>Interactive lessons using manipulatives, technology integration, collaborative problem-solving, and differentiated instruction to meet all learning styles.</p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Assessment</h3>
+                        <p>Continuous assessment through observations, math journals, problem-solving tasks, and formal evaluations to track student progress.</p>
+                    </div>
+                `
+            },
+            'high-math': {
+                title: 'Advanced Mathematics',
+                subtitle: 'Preparing for Higher Education Excellence',
+                content: `
+                    <div class="modal-section">
+                        <h3>Course Overview</h3>
+                        <p>Our advanced mathematics program prepares students for college-level mathematics through rigorous coursework in calculus, statistics, and discrete mathematics. Students engage in mathematical modeling and real-world problem solving.</p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Available Courses</h3>
+                        <ul>
+                            <li>AP Calculus AB - Differential and integral calculus</li>
+                            <li>AP Calculus BC - Advanced calculus topics</li>
+                            <li>AP Statistics - Data analysis and statistical inference</li>
+                            <li>Discrete Mathematics - Logic, sets, and combinatorics</li>
+                            <li>Linear Algebra - Vector spaces and matrix operations</li>
+                        </ul>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Prerequisites</h3>
+                        <p>Successful completion of Algebra II and Pre-Calculus with a grade of B or higher. Placement test may be required for advanced courses.</p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>College Credit</h3>
+                        <p>AP courses offer opportunity to earn college credit through AP examinations. Our students consistently achieve scores of 4 and 5 on AP exams.</p>
+                    </div>
+                `
+            },
+            // Add more subject data as needed...
+        };
+
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Grade level tab functionality
+        function showGradeContent(grade) {
+            // Remove active class from all tabs and content
+            const tabs = document.querySelectorAll('.grade-tab');
+            const contents = document.querySelectorAll('.grade-content');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab and content
+            event.target.classList.add('active');
+            document.getElementById(grade).classList.add('active');
+        }
+
+        // Subject modal functions
+        function openSubjectModal(subjectKey) {
+            const modal = document.getElementById('subjectModal');
+            const data = subjectData[subjectKey];
+            
+            if (data) {
+                document.getElementById('modalTitle').textContent = data.title;
+                document.getElementById('modalSubtitle').textContent = data.subtitle;
+                document.getElementById('modalBody').innerHTML = data.content;
+                modal.style.display = 'block';
+            } else {
+                // Default content for subjects without detailed data
+                document.getElementById('modalTitle').textContent = 'Subject Information';
+                document.getElementById('modalSubtitle').textContent = 'Comprehensive curriculum details';
+                document.getElementById('modalBody').innerHTML = `
+                    <div class="modal-section">
+                        <h3>Course Overview</h3>
+                        <p>This subject offers comprehensive learning opportunities designed to challenge and inspire students. Our curriculum is carefully crafted to meet national standards while preparing students for future academic success.</p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Learning Outcomes</h3>
+                        <p>Students will develop critical thinking skills, subject-specific knowledge, and practical application abilities that prepare them for advanced study and real-world challenges.</p>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Assessment Methods</h3>
+                        <p>Multiple assessment strategies including formative evaluations, projects, presentations, and traditional testing to ensure comprehensive understanding.</p>
+                    </div>
+                `;
+                modal.style.display = 'block';
+            }
+        }
+
+        function closeSubjectModal() {
+            document.getElementById('subjectModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('subjectModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Thinking...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Subjects & Curriculum page. Please respond helpfully to this query: "${message}". We offer 15+ subject areas, 45+ course options, 12 AP courses, 8 languages, and programs from Elementary (K-5) through High School (9-12). We have special programs like IB, STEM Excellence, and Gifted & Talented. Keep responses concise and informative about our curriculum.`,
+                        {
+                            openChat: false,
+                            handler: 'curriculum-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "We offer 15+ subject areas across Elementary (K-5), Middle School (6-8), and High School (9-12) levels.",
+                            "Our curriculum includes 12 AP courses, International Baccalaureate program, and STEM Excellence initiatives.",
+                            "Students can choose from 8 different languages including Spanish, French, Mandarin, and Latin.",
+                            "Our assessment methods include formative, summative, peer, self-assessment, portfolios, and performance tasks.",
+                            "Special programs include Gifted & Talented, Learning Support, and Student Exchange with 15+ countries.",
+                            "High school students can earn college credit through our AP courses with consistently high exam scores.",
+                            "Would you like to know more about a specific subject area or grade level?"
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('grade') || msg.includes('level')) {
+                return responses[0];
+            } else if (msg.includes('ap') || msg.includes('advanced') || msg.includes('college')) {
+                return responses[1];
+            } else if (msg.includes('language') || msg.includes('foreign')) {
+                return responses[2];
+            } else if (msg.includes('assessment') || msg.includes('test') || msg.includes('evaluation')) {
+                return responses[3];
+            } else if (msg.includes('special') || msg.includes('program')) {
+                return responses[4];
+            } else if (msg.includes('credit') || msg.includes('university')) {
+                return responses[5];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('curriculum-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help you learn about our curriculum!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

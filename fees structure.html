@@ -1,0 +1,2668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees Structure - Elite Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Lato:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --secondary-gold: #fbbf24;
+            --light-navy: #3b82f6;
+            --accent-white: #ffffff;
+            --soft-grey: #f8fafc;
+            --dark-grey: #374151;
+            --text-dark: #1f2937;
+            --success-green: #10b981;
+            --warning-red: #ef4444;
+            --info-blue: #3b82f6;
+            
+            /* Dark mode colors */
+            --dark-bg: #0f172a;
+            --dark-card: #1e293b;
+            --dark-text: #e2e8f0;
+            --dark-border: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--dark-card) 100%);
+        }
+
+        .dark-mode .nav-dropdown {
+            background: var(--dark-card);
+            border-color: var(--dark-border);
+        }
+
+        /* Accessibility Settings */
+        .accessibility-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-white);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transform: translateX(300px);
+            transition: transform 0.3s ease;
+            width: 280px;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .accessibility-panel.active {
+            transform: translateX(0);
+        }
+
+        .dark-mode .accessibility-panel {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .accessibility-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Announcement Ticker */
+        .announcement-ticker {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 8px 0;
+            overflow: hidden;
+            position: relative;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .ticker-content {
+            display: flex;
+            animation: scroll-left 30s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll-left {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--light-navy) 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-navy);
+            font-size: 24px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .logo-text {
+            color: var(--accent-white);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Navigation */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--accent-white);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary-gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-gold);
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            color: var(--secondary-gold);
+        }
+
+        .nav-link.active::before {
+            width: 100%;
+        }
+
+        /* Dropdown Menus */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--accent-white);
+            min-width: 250px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            overflow: hidden;
+        }
+
+        .nav-item:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, var(--secondary-gold), #f59e0b);
+            color: var(--accent-white);
+            transform: translateX(5px);
+        }
+
+        .dropdown-item.active {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+        }
+
+        /* Search and Portal */
+        .search-container {
+            position: relative;
+            margin-left: 2rem;
+        }
+
+        .search-bar {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--secondary-gold);
+            border-radius: 25px;
+            background: transparent;
+            color: var(--accent-white);
+            padding: 0 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .search-bar.expanded {
+            width: 250px;
+            cursor: text;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary-gold);
+            cursor: pointer;
+        }
+
+        .portal-login {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        }
+
+        .portal-login:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-navy);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .hamburger::before {
+            content: '★★★★★';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--secondary-gold);
+            font-size: 12px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .hamburger:hover::before {
+            opacity: 1;
+            top: -35px;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--soft-grey);
+            padding: 1rem 0;
+            font-size: 14px;
+        }
+
+        .dark-mode .breadcrumb {
+            background: var(--dark-card);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .dark-mode .breadcrumb a {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary-gold);
+        }
+
+        .breadcrumb span {
+            color: var(--dark-grey);
+            margin: 0 0.5rem;
+        }
+
+        .dark-mode .breadcrumb span {
+            color: var(--dark-text);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.9)), url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--accent-white);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 100px 100px;
+            animation: float-pattern 20s linear infinite;
+        }
+
+        @keyframes float-pattern {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        .page-header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: slideInDown 1s ease-out;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 4rem 0;
+        }
+
+        .content-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .dark-mode .section-title {
+            color: var(--secondary-gold);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary-gold);
+            border-radius: 2px;
+        }
+
+        /* Fee Overview */
+        .fee-overview {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 4rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .dark-mode .fee-overview {
+            background: var(--dark-card);
+        }
+
+        .overview-content h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .overview-content h3 {
+            color: var(--secondary-gold);
+        }
+
+        .overview-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--dark-grey);
+            margin-bottom: 2rem;
+        }
+
+        .dark-mode .overview-content p {
+            color: var(--dark-text);
+        }
+
+        .overview-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .overview-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .overview-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .overview-btn.secondary {
+            background: transparent;
+            color: var(--primary-navy);
+            border: 2px solid var(--primary-navy);
+        }
+
+        .dark-mode .overview-btn.secondary {
+            color: var(--secondary-gold);
+            border-color: var(--secondary-gold);
+        }
+
+        .overview-btn.secondary:hover {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+        }
+
+        .overview-image {
+            position: relative;
+        }
+
+        .fee-image {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .fee-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .image-overlay {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(30, 58, 138, 0.9);
+            color: var(--accent-white);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Fee Tables */
+        .fee-tables {
+            margin: 4rem 0;
+        }
+
+        .grade-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .grade-tab {
+            background: var(--soft-grey);
+            color: var(--dark-grey);
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+
+        .dark-mode .grade-tab {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .grade-tab.active {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+        }
+
+        .grade-tab:hover {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            transform: translateY(-2px);
+        }
+
+        .fee-table-container {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        .dark-mode .fee-table-container {
+            background: var(--dark-card);
+        }
+
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .fee-table th,
+        .fee-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .dark-mode .fee-table th,
+        .dark-mode .fee-table td {
+            border-color: var(--dark-border);
+        }
+
+        .fee-table th {
+            background: var(--soft-grey);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .dark-mode .fee-table th {
+            background: var(--dark-bg);
+            color: var(--secondary-gold);
+        }
+
+        .fee-table td {
+            color: var(--dark-grey);
+        }
+
+        .dark-mode .fee-table td {
+            color: var(--dark-text);
+        }
+
+        .fee-amount {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-navy);
+            font-size: 1.1rem;
+        }
+
+        .dark-mode .fee-amount {
+            color: var(--secondary-gold);
+        }
+
+        .total-row {
+            background: var(--soft-grey);
+            font-weight: 700;
+        }
+
+        .dark-mode .total-row {
+            background: var(--dark-bg);
+        }
+
+        .total-amount {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: var(--warning-red);
+            font-weight: 800;
+        }
+
+        /* Fee Calculator */
+        .fee-calculator {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fee-calculator::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 50px 50px;
+            animation: float-pattern 15s linear infinite;
+        }
+
+        .calculator-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .calculator-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .calculator-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .calc-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .calc-input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--accent-white);
+            font-size: 16px;
+        }
+
+        .calc-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .calc-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .calc-checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .calc-result {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .result-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .result-breakdown {
+            margin-bottom: 2rem;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .total-result {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--secondary-gold);
+            margin: 1rem 0;
+        }
+
+        /* Payment Plans */
+        .payment-plans {
+            margin: 4rem 0;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .plan-card {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .dark-mode .plan-card {
+            background: var(--dark-card);
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .plan-card:hover::before {
+            left: 100%;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary-gold);
+            box-shadow: 0 20px 40px rgba(251, 191, 36, 0.2);
+        }
+
+        .plan-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary-navy), var(--light-navy));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--secondary-gold);
+            margin: 0 auto 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .plan-card:hover .plan-icon {
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            color: var(--primary-navy);
+            transform: scale(1.1);
+        }
+
+        .plan-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+        }
+
+        .dark-mode .plan-title {
+            color: var(--secondary-gold);
+        }
+
+        .plan-description {
+            color: var(--dark-grey);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .dark-mode .plan-description {
+            color: var(--dark-text);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .plan-features li {
+            padding: 0.5rem 0;
+            color: var(--dark-grey);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .dark-mode .plan-features li {
+            color: var(--dark-text);
+        }
+
+        .plan-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        .plan-button {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .plan-button:hover {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        /* Financial Aid */
+        .financial-aid {
+            background: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .dark-mode .financial-aid {
+            background: var(--dark-card);
+        }
+
+        .aid-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .aid-content h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dark-mode .aid-content h4 {
+            color: var(--secondary-gold);
+        }
+
+        .aid-list {
+            list-style: none;
+        }
+
+        .aid-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--soft-grey);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dark-mode .aid-item {
+            background: var(--dark-bg);
+        }
+
+        .aid-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        .aid-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--success-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-white);
+            flex-shrink: 0;
+            font-size: 1.2rem;
+        }
+
+        .aid-item-content h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .aid-item-content h5 {
+            color: var(--secondary-gold);
+        }
+
+        .aid-item-content p {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .dark-mode .aid-item-content p {
+            color: var(--dark-text);
+        }
+
+        .aid-images {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .aid-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .aid-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            margin: 4rem 0;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .method-card {
+            background: var(--accent-white);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .method-card {
+            background: var(--dark-card);
+        }
+
+        .method-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(251, 191, 36, 0.2);
+        }
+
+        .method-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            margin: 0 auto 1rem;
+        }
+
+        .method-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .dark-mode .method-title {
+            color: var(--secondary-gold);
+        }
+
+        .method-description {
+            color: var(--dark-grey);
+            font-size: 0.9rem;
+        }
+
+        .dark-mode .method-description {
+            color: var(--dark-text);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle fill="rgba(251,191,36,0.1)" cx="20" cy="20" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="80" cy="80" r="2"/><circle fill="rgba(251,191,36,0.1)" cx="40" cy="60" r="1"/><circle fill="rgba(251,191,36,0.1)" cx="70" cy="30" r="1.5"/></svg>');
+            background-size: 50px 50px;
+            animation: float-pattern 15s linear infinite;
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+
+        .contact-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .contact-btn.secondary {
+            background: transparent;
+            color: var(--accent-white);
+            border: 2px solid var(--accent-white);
+        }
+
+        .contact-btn.secondary:hover {
+            background: var(--accent-white);
+            color: var(--primary-navy);
+        }
+
+        /* AI Assistant */
+        .ai-assistant {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .ai-toggle {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--secondary-gold), #f59e0b);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.4);
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(251, 191, 36, 0.5);
+        }
+
+        .ai-chat {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--accent-white);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            border: 2px solid var(--secondary-gold);
+        }
+
+        .ai-chat.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dark-mode .ai-chat {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, var(--primary-navy), var(--light-navy));
+            color: var(--accent-white);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .ai-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .ai-message {
+            max-width: 80%;
+            padding: 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .ai-message.bot {
+            background: var(--soft-grey);
+            color: var(--text-dark);
+            align-self: flex-start;
+        }
+
+        .dark-mode .ai-message.bot {
+            background: var(--dark-bg);
+            color: var(--dark-text);
+        }
+
+        .ai-message.user {
+            background: var(--primary-navy);
+            color: var(--accent-white);
+            align-self: flex-end;
+        }
+
+        .ai-input-container {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .ai-send {
+            background: var(--secondary-gold);
+            color: var(--primary-navy);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-send:hover {
+            background: #f59e0b;
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--primary-navy);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .fee-overview {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .aid-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .methods-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .fee-table-container {
+                padding: 1rem;
+            }
+
+            .ai-chat {
+                width: 280px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .content-container {
+                padding: 0 1rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .fee-overview,
+            .financial-aid,
+            .fee-calculator,
+            .contact-section {
+                padding: 2rem;
+            }
+
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grade-tabs {
+                justify-content: stretch;
+            }
+
+            .grade-tab {
+                flex: 1;
+                text-align: center;
+            }
+
+            .ai-chat {
+                width: calc(100vw - 40px);
+                right: 20px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Text size adjustment */
+        .text-small { font-size: 0.875rem !important; }
+        .text-normal { font-size: 1rem !important; }
+        .text-large { font-size: 1.125rem !important; }
+        .text-xl { font-size: 1.25rem !important; }
+
+        .text-small h1 { font-size: 2rem !important; }
+        .text-normal h1 { font-size: 2.5rem !important; }
+        .text-large h1 { font-size: 3rem !important; }
+        .text-xl h1 { font-size: 3.5rem !important; }
+
+        .text-small h2 { font-size: 1.5rem !important; }
+        .text-normal h2 { font-size: 1.875rem !important; }
+        .text-large h2 { font-size: 2.25rem !important; }
+        .text-xl h2 { font-size: 2.625rem !important; }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--soft-grey);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-gold);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #f59e0b;
+        }
+
+        .dark-mode ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+    </style>
+</head>
+<body>
+    <!-- Accessibility Button -->
+    <button class="accessibility-btn" onclick="toggleAccessibility()">
+        <i class="fas fa-universal-access"></i>
+    </button>
+
+    <!-- Accessibility Panel -->
+    <div class="accessibility-panel" id="accessibilityPanel">
+        <h3 style="font-family: 'Montserrat', sans-serif; margin-bottom: 1rem; color: var(--primary-navy);">Accessibility Settings</h3>
+        
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Text Size:</label>
+            <select onchange="changeTextSize(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="text-normal">Normal</option>
+                <option value="text-small">Small</option>
+                <option value="text-large">Large</option>
+                <option value="text-xl">Extra Large</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 1rem;">
+            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Theme:</label>
+            <select onchange="changeTheme(this.value)" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                <option value="auto">Auto (System)</option>
+                <option value="light">Light Mode</option>
+                <option value="dark">Dark Mode</option>
+            </select>
+        </div>
+
+        <button onclick="resetAccessibility()" style="width: 100%; padding: 0.75rem; background: var(--primary-navy); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: 600;">
+            Reset to Default
+        </button>
+    </div>
+
+    <!-- Announcement Ticker -->
+    <div class="announcement-ticker">
+        <div class="ticker-content">
+            <span>💰 Transparent Fees Structure | 📅 Flexible Payment Plans Available | 🎓 Financial Aid & Scholarships | 💳 Multiple Payment Methods Accepted | 📞 Free Financial Consultation</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <div class="logo-img">EA</div>
+                <span class="logo-text">Elite Academy</span>
+            </div>
+
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                    <div class="nav-dropdown">
+                        <a href="history.html" class="dropdown-item">School History</a>
+                        <a href="mission.html" class="dropdown-item">Mission & Vision</a>
+                        <a href="leadership.html" class="dropdown-item">Leadership</a>
+                        <a href="#accreditation" class="dropdown-item">Accreditation</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#academics" class="nav-link">Academics</a>
+                    <div class="nav-dropdown">
+                        <a href="subjects.html" class="dropdown-item">Subjects & Curriculum</a>
+                        <a href="schedules.html" class="dropdown-item">Lesson Plans & Schedules</a>
+                        <a href="assignments.html" class="dropdown-item">Assignments & Homework</a>
+                        <a href="#exams" class="dropdown-item">Exams & Results</a>
+                        <a href="online-classes.html" class="dropdown-item">Online Classes</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#teachers" class="nav-link">Teachers</a>
+                    <div class="nav-dropdown">
+                        <a href="teacher-profiles.html" class="dropdown-item">Teacher Profiles</a>
+                        <a href="#contact-teacher" class="dropdown-item">Contact a Teacher</a>
+                        <a href="#teaching-resources" class="dropdown-item">Teaching Resources</a>
+                        <a href="#office-hours" class="dropdown-item">Office Hours</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#students" class="nav-link">Students</a>
+                    <div class="nav-dropdown">
+                        <a href="#student-profiles" class="dropdown-item">Student Profiles</a>
+                        <a href="#attendance" class="dropdown-item">Attendance Tracking</a>
+                        <a href="#progress" class="dropdown-item">Progress Reports</a>
+                        <a href="#achievements" class="dropdown-item">Achievements & Awards</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#admissions" class="nav-link active">Admissions</a>
+                    <div class="nav-dropdown">
+                        <a href="#apply" class="dropdown-item">How to Apply</a>
+                        <a href="#requirements" class="dropdown-item">Admission Requirements</a>
+                        <a href="#application" class="dropdown-item">Application Portal</a>
+                        <a href="#fees" class="dropdown-item active">Fees Structure</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#news" class="nav-link">News & Events</a>
+                    <div class="nav-dropdown">
+                        <a href="#announcements" class="dropdown-item">Latest Announcements</a>
+                        <a href="#events" class="dropdown-item">Upcoming Events</a>
+                        <a href="#gallery" class="dropdown-item">Media Gallery</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#resources" class="nav-link">Resources</a>
+                    <div class="nav-dropdown">
+                        <a href="#e-library" class="dropdown-item">E-Library</a>
+                        <a href="#study-materials" class="dropdown-item">Study Materials</a>
+                        <a href="#past-papers" class="dropdown-item">Past Papers</a>
+                        <a href="#learning-apps" class="dropdown-item">Learning Apps</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact Us</a>
+                </li>
+            </ul>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div class="search-container">
+                    <input type="text" class="search-bar" id="searchBar" placeholder="Search...">
+                    <i class="fas fa-search search-icon" onclick="toggleSearch()"></i>
+                </div>
+                
+                <a href="#portal" class="portal-login">Portal Login</a>
+                
+                <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="index.html">Home</a>
+            <span>></span>
+            <a href="#admissions">Admissions</a>
+            <span>></span>
+            <span>Fees Structure</span>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-content">
+            <h1 class="page-title">Fees Structure</h1>
+            <p class="page-subtitle">Transparent, Affordable, Value-Driven Education Investment</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="content-container">
+            <!-- Fee Overview -->
+            <section class="fee-overview scroll-reveal">
+                <div class="overview-content">
+                    <h3>Investing in Excellence</h3>
+                    <p>At Elite Academy, we believe quality education should be accessible. Our transparent fee structure reflects our commitment to providing world-class education while maintaining affordability. We offer flexible payment plans and comprehensive financial aid to ensure every deserving student can access our premium educational programs.</p>
+                    <div class="overview-buttons">
+                        <button class="overview-btn" onclick="scrollToCalculator()">
+                            <i class="fas fa-calculator"></i> Calculate Fees
+                        </button>
+                        <button class="overview-btn secondary" onclick="downloadFeeStructure()">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                        <button class="overview-btn secondary" onclick="scheduleConsultation()">
+                            <i class="fas fa-calendar"></i> Financial Consultation
+                        </button>
+                    </div>
+                </div>
+                <div class="overview-image">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Financial planning and education investment" class="fee-image">
+                    <div class="image-overlay">Quality Education Investment</div>
+                </div>
+            </section>
+
+            <!-- Fee Tables -->
+            <section class="fee-tables scroll-reveal">
+                <h2 class="section-title">Academic Year 2024-2025 Fees</h2>
+                
+                <div class="grade-tabs">
+                    <button class="grade-tab active" onclick="showGradeTable('grade-9')">Grade 9</button>
+                    <button class="grade-tab" onclick="showGradeTable('grade-10')">Grade 10</button>
+                    <button class="grade-tab" onclick="showGradeTable('grade-11')">Grade 11</button>
+                    <button class="grade-tab" onclick="showGradeTable('grade-12')">Grade 12</button>
+                </div>
+                
+                <div class="fee-table-container" id="feeTableContainer">
+                    <table class="fee-table" id="grade-9-table">
+                        <thead>
+                            <tr>
+                                <th>Fee Category</th>
+                                <th>Annual Amount</th>
+                                <th>Semester Amount</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tuition Fee</td>
+                                <td class="fee-amount">$8,500</td>
+                                <td class="fee-amount">$4,250</td>
+                                <td>Core academic instruction and curriculum</td>
+                            </tr>
+                            <tr>
+                                <td>Laboratory Fee</td>
+                                <td class="fee-amount">$650</td>
+                                <td class="fee-amount">$325</td>
+                                <td>Science labs, computer labs, equipment usage</td>
+                            </tr>
+                            <tr>
+                                <td>Library & Resources</td>
+                                <td class="fee-amount">$300</td>
+                                <td class="fee-amount">$150</td>
+                                <td>Library access, digital resources, textbooks</td>
+                            </tr>
+                            <tr>
+                                <td>Activities & Sports</td>
+                                <td class="fee-amount">$450</td>
+                                <td class="fee-amount">$225</td>
+                                <td>Sports programs, clubs, extracurricular activities</td>
+                            </tr>
+                            <tr>
+                                <td>Technology Fee</td>
+                                <td class="fee-amount">$250</td>
+                                <td class="fee-amount">$125</td>
+                                <td>Educational technology, online platforms</td>
+                            </tr>
+                            <tr>
+                                <td>Student Services</td>
+                                <td class="fee-amount">$200</td>
+                                <td class="fee-amount">$100</td>
+                                <td>Counseling, health services, student support</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td><strong>Total Annual Fees</strong></td>
+                                <td class="total-amount">$10,350</td>
+                                <td class="fee-amount">$5,175</td>
+                                <td><strong>Complete educational package</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Fee Calculator -->
+            <section class="fee-calculator scroll-reveal" id="fee-calculator">
+                <div class="calculator-content">
+                    <h2 class="calculator-title">Interactive Fee Calculator</h2>
+                    
+                    <div class="calculator-grid">
+                        <div class="calculator-form">
+                            <div class="calc-group">
+                                <label class="calc-label">Select Grade Level</label>
+                                <select class="calc-input" id="calcGrade" onchange="updateCalculation()">
+                                    <option value="9">Grade 9</option>
+                                    <option value="10">Grade 10</option>
+                                    <option value="11">Grade 11</option>
+                                    <option value="12">Grade 12</option>
+                                </select>
+                            </div>
+                            
+                            <div class="calc-group">
+                                <label class="calc-label">Payment Plan</label>
+                                <select class="calc-input" id="calcPlan" onchange="updateCalculation()">
+                                    <option value="annual">Annual Payment</option>
+                                    <option value="semester">Semester Payment</option>
+                                    <option value="quarterly">Quarterly Payment</option>
+                                    <option value="monthly">Monthly Payment</option>
+                                </select>
+                            </div>
+                            
+                            <div class="calc-group">
+                                <label class="calc-label">Optional Services</label>
+                                <div class="calc-checkbox">
+                                    <input type="checkbox" id="transport" onchange="updateCalculation()">
+                                    <label for="transport">Transportation ($800/year)</label>
+                                </div>
+                                <div class="calc-checkbox">
+                                    <input type="checkbox" id="meals" onchange="updateCalculation()">
+                                    <label for="meals">Meal Plan ($1,200/year)</label>
+                                </div>
+                                <div class="calc-checkbox">
+                                    <input type="checkbox" id="tutoring" onchange="updateCalculation()">
+                                    <label for="tutoring">After-School Tutoring ($600/year)</label>
+                                </div>
+                                <div class="calc-checkbox">
+                                    <input type="checkbox" id="uniform" onchange="updateCalculation()">
+                                    <label for="uniform">School Uniform ($150/year)</label>
+                                </div>
+                            </div>
+                            
+                            <div class="calc-group">
+                                <label class="calc-label">Sibling Discount</label>
+                                <select class="calc-input" id="siblings" onchange="updateCalculation()">
+                                    <option value="0">No siblings</option>
+                                    <option value="1">1 sibling (5% discount)</option>
+                                    <option value="2">2+ siblings (10% discount)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="calc-result">
+                            <h3 class="result-title">Fee Calculation</h3>
+                            <div class="result-breakdown" id="resultBreakdown">
+                                <div class="breakdown-item">
+                                    <span>Base Tuition:</span>
+                                    <span id="baseTuition">$10,350</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Optional Services:</span>
+                                    <span id="optionalServices">$0</span>
+                                </div>
+                                <div class="breakdown-item">
+                                    <span>Discount:</span>
+                                    <span id="discount">$0</span>
+                                </div>
+                            </div>
+                            <div class="total-result" id="totalResult">$10,350</div>
+                            <p><strong>Payment Schedule:</strong> <span id="paymentSchedule">Annual Payment</span></p>
+                            <p><strong>Per Payment:</strong> <span id="perPayment">$10,350</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Plans -->
+            <section class="payment-plans scroll-reveal">
+                <h2 class="section-title">Flexible Payment Plans</h2>
+                
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <div class="plan-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 class="plan-title">Annual Payment Plan</h3>
+                        <p class="plan-description">Pay the full year's fees upfront and receive the maximum discount benefits.</p>
+                        <ul class="plan-features">
+                            <li>5% early payment discount</li>
+                            <li>No processing fees</li>
+                            <li>Priority registration</li>
+                            <li>Free financial planning session</li>
+                        </ul>
+                        <button class="plan-button" onclick="selectPlan('annual')">Choose Plan</button>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <div class="plan-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3 class="plan-title">Semester Payment Plan</h3>
+                        <p class="plan-description">Split payments into two convenient installments per academic year.</p>
+                        <ul class="plan-features">
+                            <li>2% early payment discount</li>
+                            <li>Low processing fees</li>
+                            <li>Flexible due dates</li>
+                            <li>Mid-year adjustment options</li>
+                        </ul>
+                        <button class="plan-button" onclick="selectPlan('semester')">Choose Plan</button>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <div class="plan-icon">
+                            <i class="fas fa-calendar-week"></i>
+                        </div>
+                        <h3 class="plan-title">Quarterly Payment Plan</h3>
+                        <p class="plan-description">Spread payments across four quarterly installments for better cash flow management.</p>
+                        <ul class="plan-features">
+                            <li>Manageable quarterly payments</li>
+                            <li>Standard processing fees</li>
+                            <li>Automatic payment options</li>
+                            <li>Budget-friendly approach</li>
+                        </ul>
+                        <button class="plan-button" onclick="selectPlan('quarterly')">Choose Plan</button>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <div class="plan-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <h3 class="plan-title">Monthly Payment Plan</h3>
+                        <p class="plan-description">Pay monthly for maximum flexibility and easier budget management.</p>
+                        <ul class="plan-features">
+                            <li>10 monthly payments</li>
+                            <li>No summer payments</li>
+                            <li>Auto-debit convenience</li>
+                            <li>Most budget-friendly</li>
+                        </ul>
+                        <button class="plan-button" onclick="selectPlan('monthly')">Choose Plan</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Aid -->
+            <section class="financial-aid scroll-reveal">
+                <h2 class="section-title">Financial Aid & Scholarships</h2>
+                
+                <div class="aid-grid">
+                    <div class="aid-content">
+                        <h4><i class="fas fa-graduation-cap"></i> Available Financial Assistance</h4>
+                        
+                        <div class="aid-list">
+                            <div class="aid-item">
+                                <div class="aid-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <div class="aid-item-content">
+                                    <h5>Merit-Based Scholarships</h5>
+                                    <p>Academic excellence scholarships covering 25-75% of tuition for outstanding students with exceptional grades and achievements.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="aid-item">
+                                <div class="aid-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                <div class="aid-item-content">
+                                    <h5>Need-Based Financial Aid</h5>
+                                    <p>Comprehensive financial assistance program for families demonstrating financial need, covering up to 90% of total educational costs.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="aid-item">
+                                <div class="aid-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="aid-item-content">
+                                    <h5>Talent Scholarships</h5>
+                                    <p>Special scholarships for students with exceptional talents in arts, sports, music, or leadership, offering 15-50% fee reduction.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="aid-item">
+                                <div class="aid-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="aid-item-content">
+                                    <h5>Sibling Discounts</h5>
+                                    <p>Family-friendly pricing with 5% discount for families with one sibling and 10% discount for families with multiple children.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="aid-item">
+                                <div class="aid-icon">
+                                    <i class="fas fa-briefcase"></i>
+                                </div>
+                                <div class="aid-item-content">
+                                    <h5>Work-Study Programs</h5>
+                                    <p>Part-time work opportunities for students to earn while learning, reducing overall educational costs by up to $2,000 annually.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="aid-item">
+                                <div class="aid-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="aid-item-content">
+                                    <h5>Early Bird Discounts</h5>
+                                    <p>Special pricing for families who complete enrollment before deadline dates, offering 3-5% early registration discounts.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="aid-images">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Students receiving scholarships" class="aid-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Financial aid consultation" class="aid-image">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Methods -->
+            <section class="payment-methods scroll-reveal">
+                <h2 class="section-title">Accepted Payment Methods</h2>
+                
+                <div class="methods-grid">
+                    <div class="method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <h4 class="method-title">Credit & Debit Cards</h4>
+                        <p class="method-description">Visa, MasterCard, American Express, and Discover cards accepted with secure processing.</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <h4 class="method-title">Bank Transfer</h4>
+                        <p class="method-description">Direct bank transfers and wire transfers with detailed payment instructions provided.</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 class="method-title">Online Payment</h4>
+                        <p class="method-description">Secure online portal with automatic payment scheduling and receipt generation.</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-money-check"></i>
+                        </div>
+                        <h4 class="method-title">Check Payment</h4>
+                        <p class="method-description">Personal checks, cashier's checks, and money orders accepted at the business office.</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-calendar-times"></i>
+                        </div>
+                        <h4 class="method-title">Auto-Pay</h4>
+                        <p class="method-description">Automatic payment plans with email notifications and failed payment alerts.</p>
+                    </div>
+                    
+                    <div class="method-card">
+                        <div class="method-icon">
+                            <i class="fas fa-hand-holding-usd"></i>
+                        </div>
+                        <h4 class="method-title">Financial Services</h4>
+                        <p class="method-description">Third-party financing options and educational loan assistance programs available.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="contact-section scroll-reveal">
+                <div class="contact-content">
+                    <h2 class="contact-title">Questions About Fees?</h2>
+                    <p class="contact-description">Our financial aid office is here to help you understand our fee structure and explore all available options to make Elite Academy education affordable for your family.</p>
+                    <div class="contact-buttons">
+                        <button class="contact-btn" onclick="contactFinancial()">
+                            <i class="fas fa-phone"></i> Call Financial Office
+                        </button>
+                        <button class="contact-btn secondary" onclick="scheduleConsultation()">
+                            <i class="fas fa-calendar"></i> Schedule Consultation
+                        </button>
+                        <button class="contact-btn secondary" onclick="requestBrochure()">
+                            <i class="fas fa-file-pdf"></i> Request Brochure
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- AI Assistant -->
+    <div class="ai-assistant">
+        <div class="ai-chat" id="aiChat">
+            <div class="ai-header">
+                <i class="fas fa-robot"></i> Fee Assistant
+            </div>
+            <div class="ai-messages" id="aiMessages">
+                <div class="ai-message bot">
+                    Hello! I'm here to help you understand Elite Academy's fee structure, payment plans, financial aid options, and answer any questions about costs. How can I assist you?
+                </div>
+            </div>
+            <div class="ai-input-container">
+                <input type="text" class="ai-input" id="aiInput" placeholder="Ask about fees..." onkeypress="handleAIEnter(event)">
+                <button class="ai-send" onclick="sendAIMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="ai-toggle" id="aiToggle" onclick="toggleAI()">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <script>
+        // Fee data for different grades
+        const feeData = {
+            9: { base: 10350, tuition: 8500, lab: 650, library: 300, activities: 450, technology: 250, services: 200 },
+            10: { base: 10750, tuition: 8850, lab: 700, library: 300, activities: 450, technology: 250, services: 200 },
+            11: { base: 11250, tuition: 9300, lab: 750, library: 300, activities: 450, technology: 250, services: 200 },
+            12: { base: 11650, tuition: 9650, lab: 800, library: 300, activities: 450, technology: 250, services: 200 }
+        };
+
+        const optionalServices = {
+            transport: 800,
+            meals: 1200,
+            tutoring: 600,
+            uniform: 150
+        };
+
+        // Dark mode functionality
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode');
+            }
+        }
+
+        // Theme change listener
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (!localStorage.getItem('theme')) {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        });
+
+        // Accessibility functions
+        function toggleAccessibility() {
+            const panel = document.getElementById('accessibilityPanel');
+            panel.classList.toggle('active');
+        }
+
+        function changeTextSize(size) {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add(size);
+            localStorage.setItem('textSize', size);
+        }
+
+        function changeTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+            } else if (theme === 'light') {
+                document.documentElement.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-mode');
+                } else {
+                    document.documentElement.classList.remove('dark-mode');
+                }
+            }
+        }
+
+        function resetAccessibility() {
+            document.body.className = document.body.className.replace(/text-(small|normal|large|xl)/g, '');
+            document.body.classList.add('text-normal');
+            localStorage.removeItem('textSize');
+            localStorage.removeItem('theme');
+            initTheme();
+        }
+
+        // Load saved accessibility settings
+        function loadAccessibilitySettings() {
+            const savedTextSize = localStorage.getItem('textSize');
+            if (savedTextSize) {
+                document.body.classList.add(savedTextSize);
+            } else {
+                document.body.classList.add('text-normal');
+            }
+        }
+
+        // Navigation functions
+        function toggleMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const hamburger = document.getElementById('hamburger');
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        function toggleSearch() {
+            const searchBar = document.getElementById('searchBar');
+            searchBar.classList.toggle('expanded');
+            if (searchBar.classList.contains('expanded')) {
+                searchBar.focus();
+            }
+        }
+
+        // Fee functions
+        function scrollToCalculator() {
+            document.getElementById('fee-calculator').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function downloadFeeStructure() {
+            showNotification('Downloading fee structure PDF...');
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = 'data:text/plain;charset=utf-8,Elite Academy Fee Structure 2024-2025\n\nComplete fee breakdown and payment options.';
+                link.download = 'elite-academy-fees-2024-2025.txt';
+                link.click();
+                showNotification('Fee structure downloaded successfully!');
+            }, 2000);
+        }
+
+        function scheduleConsultation() {
+            showNotification('Opening financial consultation scheduler...');
+        }
+
+        function showGradeTable(grade) {
+            const tabs = document.querySelectorAll('.grade-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const gradeNum = grade.split('-')[1];
+            updateFeeTable(gradeNum);
+        }
+
+        function updateFeeTable(grade) {
+            const data = feeData[grade];
+            const container = document.getElementById('feeTableContainer');
+            
+            container.innerHTML = `
+                <table class="fee-table">
+                    <thead>
+                        <tr>
+                            <th>Fee Category</th>
+                            <th>Annual Amount</th>
+                            <th>Semester Amount</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tuition Fee</td>
+                            <td class="fee-amount">$${data.tuition.toLocaleString()}</td>
+                            <td class="fee-amount">$${(data.tuition / 2).toLocaleString()}</td>
+                            <td>Core academic instruction and curriculum</td>
+                        </tr>
+                        <tr>
+                            <td>Laboratory Fee</td>
+                            <td class="fee-amount">$${data.lab.toLocaleString()}</td>
+                            <td class="fee-amount">$${(data.lab / 2).toLocaleString()}</td>
+                            <td>Science labs, computer labs, equipment usage</td>
+                        </tr>
+                        <tr>
+                            <td>Library & Resources</td>
+                            <td class="fee-amount">$${data.library.toLocaleString()}</td>
+                            <td class="fee-amount">$${(data.library / 2).toLocaleString()}</td>
+                            <td>Library access, digital resources, textbooks</td>
+                        </tr>
+                        <tr>
+                            <td>Activities & Sports</td>
+                            <td class="fee-amount">$${data.activities.toLocaleString()}</td>
+                            <td class="fee-amount">$${(data.activities / 2).toLocaleString()}</td>
+                            <td>Sports programs, clubs, extracurricular activities</td>
+                        </tr>
+                        <tr>
+                            <td>Technology Fee</td>
+                            <td class="fee-amount">$${data.technology.toLocaleString()}</td>
+                            <td class="fee-amount">$${(data.technology / 2).toLocaleString()}</td>
+                            <td>Educational technology, online platforms</td>
+                        </tr>
+                        <tr>
+                            <td>Student Services</td>
+                            <td class="fee-amount">$${data.services.toLocaleString()}</td>
+                            <td class="fee-amount">$${(data.services / 2).toLocaleString()}</td>
+                            <td>Counseling, health services, student support</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td><strong>Total Annual Fees</strong></td>
+                            <td class="total-amount">$${data.base.toLocaleString()}</td>
+                            <td class="fee-amount">$${(data.base / 2).toLocaleString()}</td>
+                            <td><strong>Complete educational package</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Fee calculator functions
+        function updateCalculation() {
+            const grade = document.getElementById('calcGrade').value;
+            const plan = document.getElementById('calcPlan').value;
+            const transport = document.getElementById('transport').checked;
+            const meals = document.getElementById('meals').checked;
+            const tutoring = document.getElementById('tutoring').checked;
+            const uniform = document.getElementById('uniform').checked;
+            const siblings = document.getElementById('siblings').value;
+            
+            const baseData = feeData[grade];
+            let baseFee = baseData.base;
+            let optionalFees = 0;
+            
+            // Calculate optional services
+            if (transport) optionalFees += optionalServices.transport;
+            if (meals) optionalFees += optionalServices.meals;
+            if (tutoring) optionalFees += optionalServices.tutoring;
+            if (uniform) optionalFees += optionalServices.uniform;
+            
+            // Calculate sibling discount
+            let discount = 0;
+            if (siblings === '1') discount = (baseFee + optionalFees) * 0.05;
+            if (siblings === '2') discount = (baseFee + optionalFees) * 0.10;
+            
+            const totalAnnual = baseFee + optionalFees - discount;
+            
+            // Calculate payment amounts based on plan
+            let paymentAmount;
+            let paymentSchedule;
+            switch (plan) {
+                case 'annual':
+                    paymentAmount = totalAnnual;
+                    paymentSchedule = 'Annual Payment';
+                    break;
+                case 'semester':
+                    paymentAmount = totalAnnual / 2;
+                    paymentSchedule = 'Semester Payment (2 payments)';
+                    break;
+                case 'quarterly':
+                    paymentAmount = totalAnnual / 4;
+                    paymentSchedule = 'Quarterly Payment (4 payments)';
+                    break;
+                case 'monthly':
+                    paymentAmount = totalAnnual / 10;
+                    paymentSchedule = 'Monthly Payment (10 payments)';
+                    break;
+            }
+            
+            // Update display
+            document.getElementById('baseTuition').textContent = `$${baseFee.toLocaleString()}`;
+            document.getElementById('optionalServices').textContent = `$${optionalFees.toLocaleString()}`;
+            document.getElementById('discount').textContent = `-$${discount.toLocaleString()}`;
+            document.getElementById('totalResult').textContent = `$${totalAnnual.toLocaleString()}`;
+            document.getElementById('paymentSchedule').textContent = paymentSchedule;
+            document.getElementById('perPayment').textContent = `$${paymentAmount.toLocaleString()}`;
+        }
+
+        function selectPlan(planType) {
+            showNotification(`Selected ${planType} payment plan. Redirecting to enrollment...`);
+        }
+
+        function contactFinancial() {
+            showNotification('Connecting you to the financial aid office...');
+        }
+
+        function requestBrochure() {
+            showNotification('Requesting financial aid brochure...');
+        }
+
+        // AI Assistant functionality
+        function toggleAI() {
+            const aiChat = document.getElementById('aiChat');
+            const aiToggle = document.getElementById('aiToggle');
+            
+            aiChat.classList.toggle('active');
+            aiToggle.classList.toggle('active');
+        }
+
+        async function sendAIMessage() {
+            const input = document.getElementById('aiInput');
+            const messages = document.getElementById('aiMessages');
+            const message = input.value.trim();
+            
+            if (message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'ai-message user';
+                userMessage.textContent = message;
+                messages.appendChild(userMessage);
+                
+                // Clear input
+                input.value = '';
+                
+                // Add loading indicator
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'ai-message bot';
+                loadingMessage.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Calculating...';
+                messages.appendChild(loadingMessage);
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+                
+                try {
+                    // Use Poe Embed API to get AI response
+                    const result = await window.Poe.sendUserMessage(
+                        `@Claude-Sonnet-4 You are an AI assistant for Elite Academy's Fee Structure page. Please respond helpfully to this query: "${message}". Fee information: Grade 9: $10,350/year, Grade 10: $10,750/year, Grade 11: $11,250/year, Grade 12: $11,650/year. Payment plans: Annual (5% discount), Semester, Quarterly, Monthly. Financial aid includes merit scholarships (25-75%), need-based aid (up to 90%), talent scholarships (15-50%), sibling discounts (5-10%), work-study programs, and early bird discounts. Optional services: Transportation ($800), Meal Plan ($1,200), Tutoring ($600), Uniform ($150).`,
+                        {
+                            openChat: false,
+                            handler: 'fees-ai-handler',
+                            stream: true,
+                            handlerContext: { originalMessage: message }
+                        }
+                    );
+                } catch (error) {
+                    // Fallback to predefined responses if API fails
+                    setTimeout(() => {
+                        // Remove loading message
+                        messages.removeChild(loadingMessage);
+                        
+                        const botMessage = document.createElement('div');
+                        botMessage.className = 'ai-message bot';
+                        
+                        const responses = [
+                            "Our annual fees range from $10,350 for Grade 9 to $11,650 for Grade 12, including all core educational services and activities.",
+                            "We offer flexible payment plans: Annual (5% discount), Semester, Quarterly, and Monthly options to suit your family's budget.",
+                            "Financial aid covers up to 90% of costs through merit scholarships, need-based aid, talent scholarships, and sibling discounts.",
+                            "Optional services include transportation ($800), meal plans ($1,200), after-school tutoring ($600), and school uniforms ($150).",
+                            "Use our interactive fee calculator to get a personalized cost estimate based on your grade level and selected services.",
+                            "Merit scholarships range from 25-75% of tuition for outstanding academic performance and achievements.",
+                            "Contact our financial aid office for a free consultation to explore all available assistance options for your family."
+                        ];
+                        
+                        const contextualResponse = getContextualResponse(message, responses);
+                        botMessage.textContent = contextualResponse;
+                        messages.appendChild(botMessage);
+                        
+                        // Scroll to bottom
+                        messages.scrollTop = messages.scrollHeight;
+                    }, 1000);
+                }
+            }
+        }
+
+        function getContextualResponse(message, responses) {
+            const msg = message.toLowerCase();
+            if (msg.includes('cost') || msg.includes('fee') || msg.includes('price') || msg.includes('total')) {
+                return responses[0];
+            } else if (msg.includes('payment') || msg.includes('plan') || msg.includes('installment')) {
+                return responses[1];
+            } else if (msg.includes('aid') || msg.includes('scholarship') || msg.includes('financial') || msg.includes('assistance')) {
+                return responses[2];
+            } else if (msg.includes('optional') || msg.includes('transport') || msg.includes('meal') || msg.includes('service')) {
+                return responses[3];
+            } else if (msg.includes('calculator') || msg.includes('calculate') || msg.includes('estimate')) {
+                return responses[4];
+            } else if (msg.includes('merit') || msg.includes('academic') || msg.includes('grade')) {
+                return responses[5];
+            } else if (msg.includes('contact') || msg.includes('help') || msg.includes('consultation')) {
+                return responses[6];
+            } else {
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+        }
+
+        // Register AI assistant handler for Poe responses
+        if (window.Poe && window.Poe.registerHandler) {
+            window.Poe.registerHandler('fees-ai-handler', (result, context) => {
+                const messages = document.getElementById('aiMessages');
+                const loadingMessage = messages.querySelector('.ai-message.bot:last-child');
+                
+                if (result.responses && result.responses.length > 0) {
+                    const response = result.responses[0];
+                    
+                    if (response.status === 'error') {
+                        if (loadingMessage) {
+                            loadingMessage.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Sorry, I encountered an error. Please try again.';
+                        }
+                    } else {
+                        // Create or update bot message
+                        let botMessage = messages.querySelector('.ai-message.bot:last-child');
+                        if (loadingMessage && loadingMessage.innerHTML.includes('fa-spinner')) {
+                            botMessage = loadingMessage;
+                        } else if (!botMessage || !botMessage.dataset.messageId || botMessage.dataset.messageId !== response.messageId) {
+                            botMessage = document.createElement('div');
+                            botMessage.className = 'ai-message bot';
+                            botMessage.dataset.messageId = response.messageId;
+                            messages.appendChild(botMessage);
+                        }
+                        
+                        // Update content with streaming response
+                        botMessage.innerHTML = response.content || 'I\'m here to help with fee information!';
+                        
+                        // Add completion indicator for final response
+                        if (response.status === 'complete') {
+                            botMessage.innerHTML += ' <i class="fas fa-check" style="color: var(--success-green); margin-left: 5px;"></i>';
+                        }
+                    }
+                }
+                
+                // Scroll to bottom
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+
+        function handleAIEnter(event) {
+            if (event.key === 'Enter') {
+                sendAIMessage();
+            }
+        }
+
+        // Scroll reveal animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
+            
+            reveals.forEach(reveal => {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveal.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('revealed');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--success-green)' : type === 'info' ? 'var(--light-navy)' : 'var(--secondary-gold)'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                z-index: 1000;
+                transform: translateX(400px);
+                transition: transform 0.3s ease;
+                font-weight: 600;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize everything when DOM loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initTheme();
+            loadAccessibilitySettings();
+            setupSmoothScrolling();
+            
+            // Initialize calculator
+            updateCalculation();
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', revealOnScroll);
+            
+            // Initial scroll reveal check
+            revealOnScroll();
+            
+            // Close accessibility panel when clicking outside
+            document.addEventListener('click', function(e) {
+                const panel = document.getElementById('accessibilityPanel');
+                const btn = document.querySelector('.accessibility-btn');
+                
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('active');
+                }
+            });
+            
+            // Close mobile menu when clicking on a link
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    const navMenu = document.getElementById('navMenu');
+                    const hamburger = document.getElementById('hamburger');
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    dropdown.style.opacity = '0';
+                    dropdown.style.visibility = 'hidden';
+                });
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
